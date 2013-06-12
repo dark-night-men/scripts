@@ -1,0 +1,20 @@
+   477	17:58	cd ~/scripts
+   478	17:58	cd ~/tmp/hub/scripts/
+   479	17:58	git init
+   481	18:01	git remote add origin git@github.com:dark-night-men/scripts.git
+   485	18:05	exec ssh-agent csh
+   486	18:05	ssh-add
+   487	18:05	git pull origin master
+   489	18:06	cp ~/scripts/scope.csh .
+   491	18:06	ls -l
+   492	18:06	cat scope.csh
+   493	18:06	git add scope.csh
+   494	18:07	setenv GIT_EDITOR vim
+   501	18:09	cp ~/.vimrc .
+   503	18:09	git add .vimrc
+   504	18:09	git status
+   505	18:09	git commit
+   506	18:10	git push -u origin master
+   507	18:11	ls
+   508	18:11	h
+   509	18:11	h > ./git_tips
