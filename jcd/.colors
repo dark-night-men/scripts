@@ -1,0 +1,62 @@
+#unset echo
+set colors="yes"
+
+set esc=""
+set c="["     
+set cr="${c}0m"     ;#reset attributes
+set cl="${c}1m"     ;#set light(bold)
+set cd="${c}2m"     ;#set dark
+set cu="${c}4m"     ;#set underline
+set cb="${c}5m"     ;#set blink
+set ci="${c}7m"     ;#set inversed
+
+set cblack     = "0"
+set cred       = "1"
+set cgreen     = "2"
+set cbrown     = "3"
+set cblue      = "4"
+set cmagenta   = "5"
+set ccyan      = "6"
+set cwhite     = "7"
+
+set cfgblack   = "${c}3${cblack}m"
+set cfgred     = "${c}3${cred}m"
+set cfggreen   = "${c}3${cgreen}m"
+set cfgbrown   = "${c}3${cbrown}m"
+set cfgblue    = "${c}3${cblue}m"
+set cfgmagenta = "${c}3${cmagenta}m"
+set cfgcyan    = "${c}3${ccyan}m"
+set cfgwhite   = "${c}3${cwhite}m"
+
+set cbgblack   = "${c}4${cblack}m"
+set cbgred     = "${c}4${cred}m"
+set cbggreen   = "${c}4${cgreen}m"
+set cbgbrown   = "${c}4${cbrown}m"
+set cbgblue    = "${c}4${cblue}m"
+set cbgmagenta = "${c}4${cmagenta}m"
+set cbgcyan    = "${c}4${ccyan}m"
+set cbgwhite   = "${c}4${cwhite}m"
+
+
+setenv LS_COLORS 'no=0:fi=37:di=36:ln=4;36:pi=44;30:so=44;1;36:bd=44;1;32:cd=44;1;32:or=5;41;1;33:ex=01;32'
+
+set lsc_types = ( arc pic mov snd doc diff src obj rul ) 
+set lsc_arc   = ( '1;35' 'tar tgz taz gz z Z bz2 zip arj rar lzh ha deb rpm' ) 
+set lsc_pic   = ( '1;34' 'bmp jpg jpeg gif png tif tiff tga xpm xbm pgm ppm ico' ) 
+set lsc_mov   = ( '0' 'avi mov mpg mpeg fli flic' ) 
+set lsc_snd   = ( '0' 'wav mp3 ogg' ) 
+set lsc_doc   = ( '1;31' 'txt doc scv xls ppt pdf fm log' ) 
+set lsc_diff  = ( '33' 'patch diff df' ) 
+set lsc_src   = ( '1;36' 'c cpp cc C h hpp f F pas bas asm tcl' )
+set lsc_obj   = ( '1;33' 'o obj a lib so exe sh csh' )
+set lsc_rul   = ( '1;37' 'rul RUL rule rsf RSF' ) 
+
+foreach type ($lsc_types)
+    set lsc = `eval echo \$lsc_${type}\[1\]`
+    foreach ext (`eval echo \$lsc_${type}\[2-\]`)
+        setenv LS_COLORS "${LS_COLORS}:*.${ext}=${lsc}"
+    end
+    unset lsc
+    unset lsc_${type}
+end
+unset lsc_types

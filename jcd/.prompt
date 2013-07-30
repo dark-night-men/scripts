@@ -1,0 +1,81 @@
+##if ( ! $?projdisp ) set projdisp="??"
+##if ( ! $?treedisp ) set treedisp="\!\!NOT SET\!\!"
+
+if ( ! $?projdisp ) set projdisp="??"
+if ( ! $?treedisp ) set treedisp="|???|"
+
+
+set ellipsis="zzz"
+if ( $?colors && "${colors}" == "yes" ) then    
+
+    set crst="%{\e${cr}%}"
+    set cuser="%{\e${cl}%}%{\e${cfgred}%}"
+    set cwrks="%{\e${cl}%}%{\e${cfgcyan}%}"
+    
+    switch("${sys}")
+        case lnx86:
+            set cmachine="${crst}%{\e${cl}%}%{\e${cfgbrown}%}"
+            breaksw
+        case sun4v:
+            set cmachine="${crst}%{\e${cl}%}%{\e${cfgmagenta}%}"
+            breaksw
+        default:
+            set cmachine="${crst}%{\e${cl}%}%{\e${cfwhite}%}"
+            breaksw
+    endsw
+
+    set cgrey="%{\e${cd}%}%{\e${cfgwhite}%}"
+    if ( "${projdisp}" == "as" ) then
+        set cproj="%{\e${cl}%}%{\e${cfgred}%}"
+    else
+        set cproj="%{\e${cl}%}%{\e${cfgblue}%}"
+    endif        
+    
+    if ( $?tree_ok ) then
+            set ctree="%{\e${cl}%}%{\e${cfgcyan}%}"
+    endif
+    
+    ##if ( $?tree_ok && $tree_ok == 1 ) then
+        ##set ctree="%{\e${cl}%}%{\e${cfgcyan}%}"
+    ##else
+        ##set ctree="%{\e${cl}%}%{\e${cbgred}%}%{\e${cb}%}%{\e${cfgbrown}%}"
+    ##endif
+    
+        
+    set cdir="%{\e${cl}%}%{\e${cfgwhite}%}"
+
+    if ( "${USER}" == "gratchev") then
+        set curruser = ""
+    else
+        set curruser = "${cuser}%n%{\e${cfgwhite}%}@${crst}"
+    endif
+
+    ##set prompt="${crst}${curruser}${cmachine}%m${crst}${cgrey}(${crst}${cproj}${projdisp}${crst}${cgrey}-${crst}${ctree}${treedisp}${crst}${cgrey}):${crst}${cdir}%c03${crst}> "
+
+    set wrks=`echo $P4DIR | sed -r 's/^.*(pvs.*$)/_\1/'`
+
+    set prompt="${crst}${curruser}${cmachine}%m${crst}${cgrey}(%T):${crst}${cwrks}${wrks}:${crst}${cdir}%c03${crst}> "    
+
+    unset curruser
+    unset cdir
+    unset ctree
+    unset cproj
+    unset cgrey
+    unset cmachine
+    unset cuser
+    unset crst
+    unset cwrks
+    unset wrks
+#    source ~/work/.colors reset
+    
+else
+    
+    set curruser = "%n@"
+
+    set prompt="${curruser}%m(${projdisp}-${treedisp}):%c> "
+    unset curruser
+
+endif
+
+unset projdisp
+unset treedisp
