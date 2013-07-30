@@ -44,4 +44,3 @@ if has("gui_running")
 endif
 
 :hi Comment ctermfg=cyan cterm=bold guifg=#FF00FF
-""checking
