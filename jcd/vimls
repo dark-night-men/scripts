@@ -1,0 +1,11 @@
+.
+./taglist_46.zip
+./bufexplorer-7.3.6.zip
+./doc
+./doc/bufexplorer.txt
+./doc/taglist.txt
+./doc/tags
+./plugin
+./plugin/bufexplorer.vim
+./plugin/taglist.vim
+./.netrwhist
