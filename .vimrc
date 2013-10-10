@@ -14,7 +14,6 @@ set wrapmargin=200
 set autoindent
 set shiftwidth=4
 set softtabstop=4
-set expandtab
 set smarttab
 set vb
 set noswapfile
@@ -44,3 +43,11 @@ if has("gui_running")
 endif
 
 :hi Comment ctermfg=cyan cterm=bold guifg=#FF00FF
+:colo desert
+:syntax on
+:set hlsearch
+
+:set backspace+=start,eol,indent
+
+
+:cs add ./cscope.out
