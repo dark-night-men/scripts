@@ -18,3 +18,7 @@
    507	18:11	ls
    508	18:11	h
    509	18:11	h > ./git_tips
+  1042	19:32	git log --pretty=format:"%h - %an, %ar : %s"
+  1043	19:33	git log --pretty=format:"%h , %ar : %s"
+git diff --name-only
+git submodule add git@github.com:tpope/vim-sensible bundle/sensible
