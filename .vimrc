@@ -14,7 +14,6 @@ set wrapmargin=200
 set autoindent
 set shiftwidth=4
 set softtabstop=4
-set expandtab
 set smarttab
 set vb
 set noswapfile
@@ -44,15 +43,6 @@ if has("gui_running")
 endif
 
 :hi Comment ctermfg=cyan cterm=bold guifg=#FF00FF
-
-execute pathogen#infect()
-syntax on
-filetype plugin indent on
-":filetype plugin on
-
-call pathogen#incubate() 
-"call pathogen#runtime_append_all_bundles()
-
 :colo desert
 :syntax on
 :set hlsearch
@@ -60,4 +50,6 @@ call pathogen#incubate()
 :set backspace+=start,eol,indent
 
 
-:cs add ./cscope.out
+":cs add ./cscope.out
+:cs add ${CSDIR}/cscope.out
+:set makeprg=~/scripts/g_script.csh\ %\
