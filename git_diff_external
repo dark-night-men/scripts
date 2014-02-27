@@ -1,0 +1,5 @@
+#!/bin/bash
+
+/grid/common/pkgs/tkdiff/latest/bin/tkdiff $2 $5
+#/grid/common/pkgs/vim/latest/bin/vimdiff  $2 $5
+
