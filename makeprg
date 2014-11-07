@@ -1,0 +1,4 @@
+#!/bin/bash
+#echo "@@@@@@@@ $*"
+~/scripts/mk.sh make $* |& tee ./makeprg.log
+egrep -v '^g\+\+' < ./makeprg.log | grep -v '^make[ \[]'

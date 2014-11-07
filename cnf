@@ -1,0 +1,4 @@
+#!/bin/bash
+
+./configure -prefix /usr/local/Qt/5.1.1_1 -debug -developer-build -opensource -confirm-license
+
