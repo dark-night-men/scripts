@@ -114,10 +114,13 @@ if ! shopt -oq posix; then
 fi
 
 
-export LD_LIBRARY_PATH=/usr/NX/lib:${LD_LIBRARY_PATH}
+#export LD_LIBRARY_PATH=/usr/NX/lib:${LD_LIBRARY_PATH}
 #export PATH=/usr/NX/bin:${PATH}
-export PATH=~/scripts:${PATH}
+export PATH=~/scripts:/usr/local/Qt/Qt_5.5.0_1/bin:${PATH}
+export LD_LIBRARY_PATH=/usr/local/Qt/Qt_5.5.0_1/lib:${LD_LIBRARY_PATH}
 
 ##
 ulimit -c unlimited
 export CSDIR=./
+export DISPLAY=:0
+
