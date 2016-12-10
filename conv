@@ -1,0 +1,25 @@
+#!/bin/bash
+
+for x in `find -L $PWD \( -name "*.pro" -o -name "*.cpp" -o -name "*.hpp" -o -name "*.h" -o -name "*.c" -o -name "*.cc" \) \
+    -not -name "*moc_*" -not -path "*/\.uic/*" ` ; do
+
+echo $x
+DIRNAME=$(dirname "$x")
+BASENAME=$(basename "$x")
+
+EXT="${BASENAME##*.}"
+FILENAME="${BASENAME%.*}"
+
+#echo $DIRNAME
+#echo $BASENAME
+#echo $FILENAME
+#echo $EXT
+
+#OUTDIR=/tmp/conv_pdf
+#mkdir "$OUTDIR"
+
+
+enscript -p $DIRNAME/$BASENAME.ps $x
+ps2pdf $DIRNAME/$BASENAME.ps $DIRNAME/$BASENAME.pdf
+done
+
