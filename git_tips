@@ -22,3 +22,7 @@
   1043	19:33	git log --pretty=format:"%h , %ar : %s"
 git diff --name-only
 git submodule add git@github.com:tpope/vim-sensible bundle/sensible
+
+ 2059  git diff --name-status jcd..master
+ 2060  git diff jcd..master -- .vimrc
+ 2061  git difftool -t=vimdiff jcd..master -- .vimrc
