@@ -2,6 +2,7 @@
 #pwd
 #echo "cmakeprg started"
 #echo "@@@@@@@@ $*"
+
 #~/scripts/mk.sh make $* |& tee ./makeprg.log
 if [[ ! -e ./build ]] || [[ ! -d ./build ]] ; then
     echo "build does not exist or not a dir"
@@ -10,6 +11,15 @@ fi
 cd ./build
 #pwd
 #make $* |& tee ./makeprg.log
-make  |& tee ./makeprg.log
+
+if echo $1 | grep -q '\<clean\>$' ; then
+    make clean |& tee ./makeprg.log
+else
+    make |& tee ./makeprg.log
+fi
+
+
+#make
 #cat ./makeprg.log
 #egrep -v '^g\+\+' < ./makeprg.log | grep -v '^make[ \[]'
+exit 1

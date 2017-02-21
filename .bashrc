@@ -124,3 +124,4 @@ ulimit -c unlimited
 export CSDIR=./
 export DISPLAY=:0
 
+stty -ixon
