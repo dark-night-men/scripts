@@ -35,3 +35,10 @@ lns ()
 
     ln -sv "$1" ./main.cpp
 }
+
+findx ()
+{
+    echo $1
+
+find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* -type d \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \( -not -ipath "*$4*" -not -iname "*$3*" \( -iname "*$1*" -o -iname "*$2*" \) \) -print
+}

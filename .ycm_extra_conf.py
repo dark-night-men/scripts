@@ -174,7 +174,11 @@ flags = [
 '-isystem',
 '/home/zerg/download/qt-everywhere-opensource-src-5.5.0/qtsvg/include/QtSvg',
 '-isystem',
-'/home/zerg/download/qt-everywhere-opensource-src-5.5.0/qtxmlpatterns/include/QtXmlPatterns'
+'/home/zerg/download/qt-everywhere-opensource-src-5.5.0/qtxmlpatterns/include/QtXmlPatterns',
+'-isystem',
+'/usr/include/c++/5',
+'-isystem',
+'/usr/include/c++/5.4.0'
 ]
 
 
