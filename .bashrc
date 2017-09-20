@@ -121,7 +121,10 @@ export LD_LIBRARY_PATH=/usr/local/Qt/Qt_5.5.0_1/lib:/usr/lib/x86_64-linux-gnu:${
 
 ##
 ulimit -c unlimited
+#sudo bash -c 'echo core.%e.%p > /proc/sys/kernel/core_pattern'
+
 export CSDIR=./
 export DISPLAY=:0
 
 stty -ixon
+eval "$(direnv hook bash)"

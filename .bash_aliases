@@ -36,9 +36,40 @@ lns ()
     ln -sv "$1" ./main.cpp
 }
 
+findxd ()
+{
+    echo $1
+
+find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
+    -maxdepth ${5-99} \
+    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \
+    \( -type d -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -print
+}
+
 findx ()
 {
     echo $1
 
-find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* -type d \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \( -not -ipath "*$4*" -not -iname "*$3*" \( -iname "*$1*" -o -iname "*$2*" \) \) -print
+find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
+    -maxdepth ${5-99} \
+    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \
+    \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
 }
+
+findxm ()
+{
+    echo $1
+
+find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
+    -maxdepth ${5-99} \
+    \( -path "*/*series*/*" -o -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \
+    \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
+}
+
+gdb_alias()
+{
+    gdb "$1" -c "$2"  -tui
+}
+alias d="gdb_alias"
+alias mc1="make clean; make"
+alias mc="pushd build; make clean; make; pushd;"

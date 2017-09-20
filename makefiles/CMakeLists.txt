@@ -1,20 +1,21 @@
 
 #cmake_minimum_required (VERSION 2.6)
 cmake_minimum_required (VERSION 2.8)
-project (cpp14 C CXX)
-#add_executable(cpp14 main.cpp)
+project (jos C CXX)
+#add_executable(jos main.cpp)
 
 #PROJECT ( Test CXX )
 #CMAKE_MINIMUM_REQUIRED ( VERSION 2.8 )
 FIND_PACKAGE ( Threads REQUIRED )
 #ADD_EXECUTABLE ( test test.cpp )
-add_executable(cpp14 main.cpp)
-TARGET_LINK_LIBRARIES ( cpp14 ${CMAKE_THREAD_LIBS_INIT} )
+add_executable(jos main.cpp)
+TARGET_LINK_LIBRARIES ( jos ${CMAKE_THREAD_LIBS_INIT} )
 
 set (CMAKE_CXX_STANDARD 14)
+set (CMAKE_BUILD_TYPE Debug)
 
-#target_compile_features(cpp14 PRIVATE cxx_range_for)
-target_compile_features(cpp14 PRIVATE 
+#target_compile_features(jos PRIVATE cxx_range_for)
+target_compile_features(jos PRIVATE 
 
     #cxx_aggregate_default_initializers
     cxx_alias_templates
@@ -42,11 +43,11 @@ target_compile_features(cpp14 PRIVATE
     cxx_final
     cxx_func_identifier
     cxx_generalized_initializers
-    #cxx_generic_lambdas
+    cxx_generic_lambdas
     cxx_inheriting_constructors
     cxx_inline_namespaces
     cxx_lambdas
-    #cxx_lambda_init_captures
+    cxx_lambda_init_captures
     cxx_local_type_template_args
     cxx_long_long_type
     cxx_noexcept
