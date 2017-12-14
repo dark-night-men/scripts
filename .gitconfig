@@ -1,0 +1,30 @@
+[user]
+         name = dark-night-men
+         email = visible.ocean@gmail.com
+[giggle]
+         main-window-maximized = false
+         main-window-geometry = 1001x739+251+153
+         history-view-vpane-position = 577
+         file-view-vpane-position = 635
+         main-window-view = FileView
+[core]
+         editor = vim
+         excludesfile = /home/zerg/.gitignore_global
+[merge]
+         tool = vimdiff
+[color]
+         ui = auto
+
+[alias]
+    #co = checkout
+    #ci = commit
+    st = status
+    #br = branch
+    hist1 = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    hist = log --graph --full-history --all --color \
+                --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"
+
+    files = "!f() { git diff --name-status "$1^" "$1"; }; f"
+    cmshow = "!cmf() { git diff-tree --no-commit-id --name-only -r "$1"; }; cmf"
+
+    df = difftool -t=vimdiff
