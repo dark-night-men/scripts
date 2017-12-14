@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#echo ren1 $1
+pushd $1
+
+rename 's/\ /_/g' *.*
+
+popd

@@ -1,0 +1,8 @@
+find -name "*.o" -mtime -9  -printf "%T+\t%p\n" | sort
+
+find \( -path "*/.git/*" -o -path "*/build/*" \) -prune -o  \( -name "*.cpp" -mtime -10  -printf "%T+\t%p\n" \) | sort
+
+touch -d "2017-07-21" /tmp/dtstub
+
+
+ valgrind --tool=memcheck --leak-check=yes --leak-check=full --show-leak-kinds=all --track-origins=yes ./el |& tee vlog

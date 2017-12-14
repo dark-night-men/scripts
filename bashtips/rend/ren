@@ -1,0 +1,7 @@
+REN1PATH=/home/zerg/projects/books/Cpp_STL_QuickREF/cpp-standard-library-quick-reference/ren1
+
+##find -maxdepth 1 -type d -exec bash -c "cd $0; rename 's/\ \-\ /_/g';" {} \;
+
+#find -maxdepth 1 -type d -exec bash -c '"$REN1PATH {}"' \;
+#find -maxdepth 1 -type d -ipath "*/*/*" -exec bash -c "$REN1PATH {}" \; 
+find -maxdepth 1 -type d -iname "Chapter*" -exec bash -c "$REN1PATH {}" \; 
