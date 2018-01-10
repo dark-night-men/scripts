@@ -21,7 +21,7 @@ alias run="./build/$ZRUN"
 
 alias dcfl="declare -F | grep -v ' _'"
 alias dcf="declare -f"
-                 
+
 lns ()
 {
     if [[ -n "$1" ]] ; then

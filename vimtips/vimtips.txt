@@ -1,1 +1,2 @@
 :r ! ls -1
+set split  set split? set nosplit
