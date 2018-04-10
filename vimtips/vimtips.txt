@@ -1,1 +1,6 @@
 :r ! ls -1
+
+:arg *.cpp                             All *.cpp files in current directory.
+:argadd *.h                            And all *.h files.
+:arg                                   Optional: Display the current arglist.
+:argdo %s/pattern/replace/ge | update  Search and replace in all files in arglist.
