@@ -125,6 +125,7 @@ ulimit -c unlimited
 
 export CSDIR=./
 export DISPLAY=:0
+#export CSENABLED=true
 
 stty -ixon
 eval "$(direnv hook bash)"

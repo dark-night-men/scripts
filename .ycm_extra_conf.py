@@ -36,7 +36,8 @@ flags = [
 # For a C project, you would set this to something like 'c99' instead of
 # 'c++11'.
 #'-std=c++11',
-'-std=c++1y',
+#'-std=c++1y',
+'-std=c++17',
 # ...and the same thing goes for the magic -x option which specifies the
 # language that the files to be compiled are written in. This is mostly
 # relevant for c++ headers.

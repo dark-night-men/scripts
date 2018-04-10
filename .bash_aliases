@@ -21,7 +21,7 @@ alias run="./build/$ZRUN"
 
 alias dcfl="declare -F | grep -v ' _'"
 alias dcf="declare -f"
-                 
+
 lns ()
 {
     if [[ -n "$1" ]] ; then
@@ -99,3 +99,5 @@ alias d="gdb_alias"
 alias mc1="make clean; make"
 alias mc="pushd build; make clean; make; pushd;"
 alias ta="tmux attach"
+alias viml="env unset CSENABLED vim"
+alias ling="links google.com"

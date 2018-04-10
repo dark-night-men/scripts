@@ -26,3 +26,7 @@ git submodule add git@github.com:tpope/vim-sensible bundle/sensible
  2059  git diff --name-status jcd..master
  2060  git diff jcd..master -- .vimrc
  2061  git difftool -t=vimdiff jcd..master -- .vimrc
+git show HEAD^:main.cpp > old_main.cpp
+
+
+git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative master..branch-X

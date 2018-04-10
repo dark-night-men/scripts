@@ -4,3 +4,7 @@
 :argadd *.h                            And all *.h files.
 :arg                                   Optional: Display the current arglist.
 :argdo %s/pattern/replace/ge | update  Search and replace in all files in arglist.
+
+set split  set split? set nosplit
+
+set nopaste paste
