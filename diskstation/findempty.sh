@@ -53,7 +53,8 @@ export IFS=$OLDIFS
 
 fempty ()
 {
-    do_fempty /home/zerg/export/DiskStation/videow/movies_proxy /home/zerg/export/DiskStation/video2 
+    #do_fempty /home/zerg/export/DiskStation/videow/movies_proxy /home/zerg/export/DiskStation/video2 
+    do_fempty /home/zerg/export/DiskStation/video*/movies_proxy* 
 }
 
 #-mindepth 0 -maxdepth 2 \

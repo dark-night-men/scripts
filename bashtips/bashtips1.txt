@@ -8,3 +8,5 @@ touch -d "2017-07-21" /tmp/dtstub
  valgrind --tool=memcheck --leak-check=yes --leak-check=full --show-leak-kinds=all --track-origins=yes ./el |& tee vlog
 
  rsync -av /source/ /destination/
+
+ tree -P '*.cpp' --prune -I build -D
