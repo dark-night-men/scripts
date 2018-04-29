@@ -91,6 +91,16 @@ find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/m
     #[ "$(ls -ldA fist | grep -l ^d)" ] && echo "dir" || echo "file"
 }
 
+findxb ()
+{
+    echo $1
+
+find /home/zerg/export/DiskStation/books* \
+    -maxdepth ${5-99} \
+    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \
+    \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
+}
+
 gdb_alias()
 {
     gdb "$1" -c "$2"  -tui
@@ -99,5 +109,9 @@ alias d="gdb_alias"
 alias mc1="make clean; make"
 alias mc="pushd build; make clean; make; pushd;"
 alias ta="tmux attach"
-alias viml="env unset CSENABLED vim"
+alias vimp="env CSENABLED=true vim"
 alias ling="links google.com"
+
+alias cst="export CSENABLED=true; env | grep CSENABLED"
+alias ucs="unset CSENABLED"
+alias cschk="[[ -v CSENABLED ]] && { echo 'CSENABLED TRUE'; } || { echo 'CSENABLED FALSE'; } "
