@@ -10,3 +10,7 @@ touch -d "2017-07-21" /tmp/dtstub
  rsync -av /source/ /destination/
 
  tree -P '*.cpp' --prune -I build -D
+
+ tail +2 file ## print all except first
+
+ export IFS=$'\n' ## change separator inside current shell
