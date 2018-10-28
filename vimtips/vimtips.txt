@@ -8,3 +8,9 @@
 set split  set split? set nosplit
 
 set nopaste paste
+
+./install.py --clang-completer --system-libclang
+
+DirDiff ./autonomous_projects/my_diagramscene/diagramscene ./QtTestTmp/diagramscene
+
+bufdo vimgrepadd /pattern/ % 

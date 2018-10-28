@@ -17,3 +17,10 @@ touch -d "2017-07-21" /tmp/dtstub
 
 #rm zerosize files
  find ~/export -type d \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/#recycle" \) -prune -o \( -type f -regextype egrep -regex "^.*\.(avi|mkv|mp4|mpg|flv)$"  -size 0  \) -print0 | xargs -0  rm -fv  |&   tee ~/tmp/rmempt.log 
+
+find . -name "*.txt"|while read fname; do
+  echo "$fname"
+done
+
+find . -name '*.txt' -print0|xargs -0 -n 1 echo
+

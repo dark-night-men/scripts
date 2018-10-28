@@ -91,6 +91,49 @@ find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/m
     #[ "$(ls -ldA fist | grep -l ^d)" ] && echo "dir" || echo "file"
 }
 
+findn2 ()
+{
+    if [[ -z "$1" ]] ; then
+        echo "Path must be specified"
+        return 1
+    fi
+
+    TimeStampFile="/tmp/datestamp"
+
+    #if ! { [[ -n "$2" ]] && [[ -f "$2" ]] ; } ; then
+    #    echo "File $2 with arg 2 does not exist."
+        echo "Trying to create file $TimeStampFile with 2 weeks ago timestamp"
+
+        if ! date4File=`date -R --date="2 weeks ago"` ; then
+            echo "Date gen FAILED. Exit"
+            return 2
+        fi
+
+        if ! touch -d "$date4File" "$TimeStampFile"; then
+            echo "Can not create file $TimeStampFile with stamp $date4File. Exit."
+
+            return 3
+        else
+            echo "File $TimeStampFile with stamp $date4File created."
+            ls -l $TimeStampFile
+        fi
+
+    #else
+
+    #    TimeStampFile=$2
+    #fi
+
+
+    echo $1
+
+    find "$@" -type f -regextype egrep -regex "^.*\.(avi|mkv|mp4|mpg|flv)$"  -cnewer "$TimeStampFile" -printf "%T+\t%p\n"
+}
+
+fn2prox ()
+{
+    findn2 /home/zerg/export/DiskStation/video{{,1}/movies_proxy*,2}
+}
+
 findxb ()
 {
     echo $1

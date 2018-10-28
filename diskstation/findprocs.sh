@@ -110,7 +110,7 @@ fn2prox ()
 {
 
     #timeout 1 `findn2 /home/zerg/export/DiskStation/videow*/movies_proxy*`
-    #findn2 /home/zerg/export/DiskStation/videow*/movies_proxy*
-    findn2 /home/zerg/export/DiskStation/video2
-
+    #findn2 /home/zerg/export/DiskStation/video*/movies_proxy*
+    #findn2 /home/zerg/export/DiskStation/video2
+    findn2 /home/zerg/export/DiskStation/video{{,1}/movies_proxy*,2}
 }
