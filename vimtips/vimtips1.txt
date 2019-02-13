@@ -1,0 +1,15 @@
+
+cucu
+
+]DEFIKLNO PsUVY
+
+D Macros
+EY Scroll  
+F file name
+I in included file
+K dictionary
+T thesaurus
+L search backword
+NP search cursor
+O guess cursor
+ 

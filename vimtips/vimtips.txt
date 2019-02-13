@@ -14,3 +14,5 @@ set nopaste paste
 DirDiff ./autonomous_projects/my_diagramscene/diagramscene ./QtTestTmp/diagramscene
 
 bufdo vimgrepadd /pattern/ % 
+
+ls -la | vim -R -

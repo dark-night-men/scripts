@@ -102,9 +102,12 @@ findn2 ()
 
     #if ! { [[ -n "$2" ]] && [[ -f "$2" ]] ; } ; then
     #    echo "File $2 with arg 2 does not exist."
-        echo "Trying to create file $TimeStampFile with 2 weeks ago timestamp"
+        echo "Trying to create file $TimeStampFile "
 
-        if ! date4File=`date -R --date="2 weeks ago"` ; then
+        #if ! date4File=`date -R --date="2 weeks ago"` ; then
+        #if ! date4File=`date --debug -R --date="${2:-'3 days ago'}"` ; then
+        ####if ! date4File=`date -R --date="${2:-'3 days ago'}"` ; then
+        if ! date4File=`date -R --date="${2:-3 days ago}"` ; then
             echo "Date gen FAILED. Exit"
             return 2
         fi
@@ -125,13 +128,40 @@ findn2 ()
 
 
     echo $1
+    printf '\n'
 
-    find "$@" -type f -regextype egrep -regex "^.*\.(avi|mkv|mp4|mpg|flv)$"  -cnewer "$TimeStampFile" -printf "%T+\t%p\n"
+    #find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* -type d \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \( -type f -regextype egrep -regex "^.*\.(avi|mkv|mp4|mpg|flv)$"  -cnewer "$1" -exec stat  -c "%n %y" {} \;  \) -print
+
+    #find "$1" -type d \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \( -type f -regextype egrep -regex "^.*\.(avi|mkv|mp4|mpg|flv)$"  -cnewer "$TimeStampFile" -exec stat  -c "%n %y" {} \;  \) -print
+
+    #find "$@"  \( -type f -regextype egrep -regex "^.*\.(avi|mkv|mp4|mpg|flv)$"  -cnewer "$TimeStampFile" -exec stat  -c "%n %y" {} \;  \) -print
+
+    #OK#find $1 -type f -regextype egrep -regex "^.*\.(avi|mkv|mp4|mpg|flv)$"  -cnewer "$TimeStampFile" -printf "%T+\t%p\n"
+
+    find $1 \
+        -type d \( -path "*/.Trash-1000/*" -o -path "*/@eaDir/*" \) -prune -o \
+        \( \
+            -type f -regextype egrep -regex "^.*\.(avi|mkv|mp4|mpg|flv)$" \
+            -cnewer "$TimeStampFile" \
+        \) \
+        -printf "%T+\t%p\n" \
+    \
+    | sort -r
 }
 
 fn2prox ()
 {
-    findn2 /home/zerg/export/DiskStation/video{{,1}/movies_proxy*,2}
+    #findn2 "/home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy*" "$1" 
+    #findn2 "/home/zerg/export/DiskStation/video{{,1}/movies_proxy*,2}" "$1"
+    FPATHS=$( echo /home/zerg/export/DiskStation/video{{,1}/movies_proxy*,2} ) 
+    findn2 "$FPATHS" "$1"
+
+    #timeout 1 `findn2 /home/zerg/export/DiskStation/videow*/movies_proxy*`
+
+    #findn2 '/home/zerg/export/DiskStation/video*/movies_proxy*' "$1"
+
+    #findn2 /home/zerg/export/DiskStation/video2
+
 }
 
 findxb ()
@@ -153,8 +183,12 @@ alias mc1="make clean; make"
 alias mc="pushd build; make clean; make; pushd;"
 alias ta="tmux attach"
 alias vimp="env CSENABLED=true vim"
+alias vimn="env NOVELENABLED=true vim"
 alias ling="links google.com"
 
 alias cst="export CSENABLED=true; env | grep CSENABLED"
 alias ucs="unset CSENABLED"
 alias cschk="[[ -v CSENABLED ]] && { echo 'CSENABLED TRUE'; } || { echo 'CSENABLED FALSE'; } "
+
+alias uus="sudo apt update && sudo apt upgrade"
+

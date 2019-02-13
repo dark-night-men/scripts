@@ -24,3 +24,7 @@ done
 
 find . -name '*.txt' -print0|xargs -0 -n 1 echo
 
+od -a
+od -c #print invisible chars
+
+xargs -d '\r\n' ls -l #set delimiter string

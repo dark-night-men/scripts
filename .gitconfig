@@ -27,4 +27,5 @@
     files = "!f() { git diff --name-status "$1^" "$1"; }; f"
     cmshow = "!cmf() { git diff-tree --no-commit-id --name-only -r "$1"; }; cmf"
 
-    df = difftool -t=vimdiff
+    df = difftool -t vimdiff
+    lsf = ls-files

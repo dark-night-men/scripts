@@ -1,0 +1,11 @@
+:ab lv lvalue
+:ab rv rvalue
+:ab rvr rvalue-ссылка
+:ab ms семантика перемещения
+:ab pf идеальная передача
+:ab mo перемещающие операции
+:ab ur универсальная-ссылка
+
+:ab mv std::move
+:ab fv std::forward
+:ab lvr lvalue-ссылка

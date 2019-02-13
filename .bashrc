@@ -129,3 +129,7 @@ export DISPLAY=:0
 
 stty -ixon
 eval "$(direnv hook bash)"
+
+shopt -s histappend
+
+
