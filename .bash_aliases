@@ -184,6 +184,7 @@ alias mc="pushd build; make clean; make; pushd;"
 alias ta="tmux attach"
 alias vimp="env CSENABLED=true vim"
 alias vimn="env NOVELENABLED=true vim"
+alias vimq="env NOVELENABLED=true CSENABLED=true vim"
 alias ling="links google.com"
 
 alias cst="export CSENABLED=true; env | grep CSENABLED"

@@ -28,3 +28,5 @@ od -a
 od -c #print invisible chars
 
 xargs -d '\r\n' ls -l #set delimiter string
+
+/usr/bin/g++-8 -std=c++17 -O2 -Wall -pedantic -pthread main.cpp && ./a.out

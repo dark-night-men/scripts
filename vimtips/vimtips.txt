@@ -16,3 +16,15 @@ DirDiff ./autonomous_projects/my_diagramscene/diagramscene ./QtTestTmp/diagramsc
 bufdo vimgrepadd /pattern/ % 
 
 ls -la | vim -R -
+
+:redir @a
+:set all
+:redir END
+"ap             "redirecton 'set all' command to a reg and paste it
+
+:redir! > vim_maps.txt
+:map
+:map!
+:redir END
+
+:lv /\citerat/  `find  -maxdepth 3 -type f -iname '*.cpp' -o -iname '*.h' `
