@@ -28,3 +28,15 @@ od -a
 od -c #print invisible chars
 
 xargs -d '\r\n' ls -l #set delimiter string
+
+  sysctl
+  sysctl -a
+  sysctl -a | grep -i swap
+  sysctl -w vm.swappiness=5
+  sudo sysctl -w vm.swappiness=5
+  sudo sysctl -w vm.swappiness=10
+  history | grep sysctl > ~/shelltips/1.txt 
+  touch -d "15-05-2017 00:00:00" dtstub
+  touch -d "2017-05-15" dtstub
+
+ find -type f -printf '%f\n' | less
