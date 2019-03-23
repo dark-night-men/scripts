@@ -7,5 +7,19 @@
 :ab ur универсальная-ссылка
 
 :ab mv std::move
-:ab fv std::forward
+:ab fw std::forward
 :ab lvr lvalue-ссылка
+:ab to0 временный объект
+:ab co копирующие операции
+:ab le лямбда выражение
+
+:ab dc defalt-захват
+:ab moo move-only объект
+:ab bnd std::bind
+:ab bno bind-объект
+:ab fb объект-функция
+:ab cnc concurrency
+
+:ab fut future
+:ab mf функция-член
+

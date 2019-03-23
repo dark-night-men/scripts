@@ -19,6 +19,7 @@
     #co = checkout
     #ci = commit
     st = status
+    su = status -uno
     #br = branch
     hist1 = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
     hist = log --graph --full-history --all --color \
