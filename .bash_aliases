@@ -196,6 +196,7 @@ alias ucs="unset CSENABLED"
 alias cschk="[[ -v CSENABLED ]] && { echo 'CSENABLED TRUE'; } || { echo 'CSENABLED FALSE'; } "
 
 alias uus="sudo apt update && sudo apt upgrade"
+alias uusp="sudo apt update && sudo apt upgrade && sudo shutdown -h"
 #
 alias top20="du -BG -d1 | sort -hr | head"
 
