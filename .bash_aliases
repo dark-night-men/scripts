@@ -1,4 +1,5 @@
 alias src="source"
+alias srca="src ~/.bash_aliases"
 alias c="cd .."
 alias c2="c ; c"
 alias c3="c ; c ; c"
