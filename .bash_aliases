@@ -149,6 +149,9 @@ findn2 ()
     | sort -r
 }
 
+#Одинарные кавычки - не парсить - парсить через два этапа
+#Двойные кавычки - на следующем уровне парсить до упора
+#Нет кавычек - парсить до упора по пробелам как в командной строке
 fn2prox ()
 {
     #findn2 "/home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy*" "$1" 
@@ -193,4 +196,17 @@ alias ucs="unset CSENABLED"
 alias cschk="[[ -v CSENABLED ]] && { echo 'CSENABLED TRUE'; } || { echo 'CSENABLED FALSE'; } "
 
 alias uus="sudo apt update && sudo apt upgrade"
+#
+alias top20="du -BG -d1 | sort -hr | head"
+
+vlcp(){
+    local o=$IFS
+    #IFS=$(echo -en "\n\b")
+    IFS="$(printf '\n\t')"
+    #IFS=$'\n'
+    #vlc "$(cat $@)"
+    ls -l "$(cat $@)"
+    IFS=$o
+}
+
 
