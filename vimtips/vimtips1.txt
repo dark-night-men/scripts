@@ -13,3 +13,12 @@ L search backword
 NP search cursor
 O guess cursor
  
+/usr/local/share/vim/vim81/macros/less.sh
+"$VIMRUNTIME/macros/less.sh" "see .profile"
+
+:cd %:p:h
+:lcd %:p:h  "change current dir only for current window
+
+:h K            "open keyword with man"
+
+:bro old        "recent files" browse oldfile

@@ -26,5 +26,8 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+
+VIMRUNTIME=/usr/local/share/vim/vim81
+
 set -o vi
 set HISTSIZE 2000

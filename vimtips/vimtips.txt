@@ -28,3 +28,8 @@ ls -la | vim -R -
 :redir END
 
 :lv /\citerat/  `find  -maxdepth 3 -type f -iname '*.cpp' -o -iname '*.h' `
+
+Open a preview window showing the declaration with <C-w>}
+
+'^ '. ']
+]) ]} "like %"

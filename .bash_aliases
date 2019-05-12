@@ -200,6 +200,7 @@ alias uus="sudo apt update && sudo apt upgrade"
 alias uusp="sudo apt update && sudo apt upgrade && sudo shutdown -h"
 #
 alias top20="du -BG -d1 | sort -hr | head"
+alias vs="$VIMRUNTIME/macros/less.sh"
 
 vlcp(){
     local o=$IFS

@@ -1,17 +1,28 @@
-:ab lv lvalue
-:ab rv rvalue
-:ab rvr rvalue-ссылка
-:ab ms семантика перемещения
-:ab pf идеальная передача
-:ab mo перемещающие операции
-:ab ur универсальная-ссылка
+:ab лв lvalue
+:ab рв rvalue
+:ab рвр rvalue-ссылка
+:ab сп семантика перемещения
+:ab ип идеальная передача
+:ab пеи перемещающие операции
+:ab унс универсальная-ссылка
+:ab пе перемещающий оператор присваивания
 
-:ab mv std::move
-:ab fw std::forward
-:ab lvr lvalue-ссылка
+:ab мв std::move
+:ab фв std::forward
+:ab стр std::string
+:ab вкт std::vector
+
+:ab лвр lvalue-ссылка
 :ab to0 временный объект
-:ab co копирующие операции
-:ab le лямбда выражение
+:ab кои копирующие операции
+:ab коо копирующий оператор
+:ab кк копирующий конструктор
+:ab ко копирующий
+:ab оп оператор
+:ab пр присваивани
+:ab кон конструктор
+:ab дес деструктор
+:ab ле лямбда выражение
 
 :ab dc defalt-захват
 :ab moo move-only объект
@@ -20,15 +31,66 @@
 :ab fb объект-функция
 :ab cnc concurrency
 
-:ab fut future
-:ab mf функция-член
+:ab фу std::future
+:ab шфу std::shared_future
+:ab фч функция-член
+:ab чд член-данных
 
-:ab hba потоковый подход
-:ab tba подход на основе задач
+:ab мб м.б.
+:ab тте т.е.
+:ab сли строковый литерал
+:ab обс общая структура (shared state)
+
+:ab птп потоковый подход
+:ab зап подход на основе задач
 
 :ab пп программный поток
 :ab ап аппаратный поток
 :ab пу по-умолчанию
+:ab пз по значению
 :ab тр std::thread
 :ab вмф вызываемая функция
 :ab вщф вызывающая функция
+:ab аси std::async
+:ab ато std::atomic
+:ab вла volatile
+
+:ab дет detecting task
+:ab реа reacting task
+:ab уп условная переменная
+:ab пс процесс (task)
+
+:ab шп std::shared_ptr
+:ab юп std::unique_ptr
+:ab сс счетчика ссылок
+
+:ab коп копирующий оператор присваивания
+:ab су сырой указатель
+:ab уу умный указатель
+:ab вп std::weak_ptr
+
+:ab мф make-функция
+:ab мю std::make_unique
+:ab мш std::make_shared
+:ab аш std::allocate_shared
+
+:ab кд custom deleter
+:ab нп неопределенное поведение
+:ab рзм прямое размещение (rmplacement)
+
+:ab прс представляет собой
+:ab кт который
+:ab клк клиентский код
+
+"exception safety
+:ab ес безопасная обработка исключений 
+
+:ab тт type trait
+:ab рр std::remove_reference
+:ab шф шаблон-функция
+:ab вт выведение типа
+:ab сл строковый литерал
+:ab вро временный объект
+:ab прф перегруженная функция
+
+:ab тгд "tag dispatch"
