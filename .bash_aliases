@@ -186,10 +186,14 @@ alias d="gdb_alias"
 alias mc1="make clean; make"
 alias mc="pushd build; make clean; make; pushd;"
 alias ta="tmux attach"
+
+alias vim="env LC_ALL=en_US.utf8 vim"
 alias vimp="env LC_ALL=en_US.utf8 CSENABLED=true vim"
+
 alias vip="env LC_ALL=en_US.utf8 CSENABLED=true DEV8ELENABLED=true vim"
 alias vimn="env LC_ALL=en_US.utf8 NOVELENABLED=true vim"
 alias vimq="env LC_ALL=en_US.utf8 NOVELENABLED=true CSENABLED=true vim"
+
 alias ling="links google.com"
 
 alias cst="export CSENABLED=true; env | grep CSENABLED"
@@ -201,6 +205,8 @@ alias uusp="sudo apt update && sudo apt upgrade && sudo shutdown -h"
 #
 alias top20="du -BG -d1 | sort -hr | head"
 alias vs="$VIMRUNTIME/macros/less.sh"
+
+alias grep=egrep
 
 vlcp(){
     local o=$IFS

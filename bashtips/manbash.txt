@@ -1,3 +1,6 @@
+#MYBOOKMARK - marks in text
+#MYNOTE - marks in text
+
 BASH(1) 		    General Commands Manual		       BASH(1)
 
 NAME
@@ -2867,6 +2870,7 @@ PROMPTING
        the  promptvars	shell option (see the description of the shopt command
        under SHELL BUILTIN COMMANDS below).
 
+#MYNOTE set -o vi    line editing
 READLINE
        This is the library that handles reading input when using  an  interac‐
        tive shell, unless the --noediting option is given at shell invocation.
@@ -3437,6 +3441,7 @@ READLINE
 	      Accept the current line for execution and fetch  the  next  line
 	      relative	to the current line from the history for editing.  Any
 	      argument is ignored.
+#MYBOOKMARK
        edit-and-execute-command (C-xC-e)
 	      Invoke an editor on the current command line,  and  execute  the
 	      result  as  shell  commands.   Bash  attempts to invoke $VISUAL,
@@ -4020,6 +4025,7 @@ HISTORY EXPANSION
        If  a  word  designator is supplied without an event specification, the
        previous command is used as the event.
 
+#MYBOOKMARK bash history modifiers
    Modifiers
        After the optional word designator, there may appear a sequence of  one
        or more of the following modifiers, each preceded by a `:'.

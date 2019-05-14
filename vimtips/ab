@@ -6,9 +6,10 @@
 :ab пеи перемещающие операции
 :ab унс универсальная-ссылка
 :ab пе перемещающий оператор присваивания
+:ab пер перемещение
 
-:ab мв std::move
-:ab фв std::forward
+:ab мв функция std::move
+:ab фв функция std::forward
 :ab стр std::string
 :ab вкт std::vector
 
@@ -94,3 +95,10 @@
 :ab прф перегруженная функция
 
 :ab тгд "tag dispatch"
+
+:ab MB #MYBOOKMARK
+:ab MN #MYNOTE
+
+:ab ар std::array
+:ab стл STL
+:ab нл null

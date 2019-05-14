@@ -28,6 +28,7 @@ fi
 
 
 VIMRUNTIME=/usr/local/share/vim/vim81
+VISUAL=vim  #Ctrl-x Ctrl-e edit cmd line in vim
 
 set -o vi
 set HISTSIZE 2000

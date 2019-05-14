@@ -43,3 +43,4 @@ history | grep sysctl > ~/shelltips/1.txt
 touch -d "15-05-2017 00:00:00" dtstub
 touch -d "2017-05-15" dtstub
 
+Ctrl-xCtrl-e #open command line in editor $VISUAL

@@ -33,3 +33,6 @@ Open a preview window showing the declaration with <C-w>}
 
 '^ '. ']
 ]) ]} "like %"
+
+/\ccopyright - case INsensitive
+/\Ccopyright - case sensitive
