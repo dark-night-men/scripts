@@ -345,6 +345,9 @@
 :ab рз разруш
 :ab тд typedef
 :ab ал alias
+
+:ab псв псевдоним
+
 :ab доу double
 :ab инт int
 :ab бул bool
