@@ -12,10 +12,24 @@ cd ./build
 #pwd
 #make $* |& tee ./makeprg.log
 
+TAIL_SIZE=6
+
 if echo $1 | grep -q '\<clean\>$' ; then
     make clean |& tee ./makeprg.log
+
+elif echo $1 | grep -q 'vim_last_3' ; then
+    echo 'vim_last_3' |& tee ./makeprg.log
+    make |& tail -n$TAIL_SIZE |& tee -a ./makeprg.log
+
 else
-    make |& tee ./makeprg.log
+    if make >& ./makeprg.tmp.log ; then
+        cat ./makeprg.tmp.log |& tee ./makeprg.log
+
+    else
+        head -n-$TAIL_SIZE ./makeprg.tmp.log |& tee ./makeprg.log
+    fi
+
+
 fi
 
 
