@@ -45,7 +45,7 @@ findxd ()
 
 find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
     -maxdepth ${5-99} \
-    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \
+    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" \) -prune -o \
     \( -type d -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -print
 }
 
@@ -55,7 +55,7 @@ findx ()
 
 find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
     -maxdepth ${5-99} \
-    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \
+    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" \) -prune -o \
     \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
 }
 
@@ -65,7 +65,7 @@ findxm ()
 
 find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
     -maxdepth ${5-99} \
-    \( -path "*/*series*/*" -o -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \
+    \( -path "*/*series*/*" -o -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" \) -prune -o \
     \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
 }
 
@@ -178,6 +178,15 @@ find /home/zerg/export/DiskStation/books* \
     \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
 }
 
+findxb1 ()
+{
+    echo $1
+
+find /home/zerg/export/DiskStation/video2/queue_books \
+    -maxdepth ${5-99} \
+    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \
+    \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
+}
 gdb_alias()
 {
     gdb "$1" -c "$2"  -tui
@@ -200,13 +209,25 @@ alias cst="export CSENABLED=true; env | grep CSENABLED"
 alias ucs="unset CSENABLED"
 alias cschk="[[ -v CSENABLED ]] && { echo 'CSENABLED TRUE'; } || { echo 'CSENABLED FALSE'; } "
 
-alias uus="sudo apt update && sudo apt upgrade"
+alias uus="sudo apt update && sudo apt upgrade && sudo apt autoremove"
 alias uusp="sudo apt update && sudo apt upgrade && sudo shutdown -h"
 #
 alias top20="du -BG -d1 | sort -hr | head"
 alias vs="$VIMRUNTIME/macros/less.sh"
 
 alias grep=egrep
+alias shortps="export PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '"
+
+alias j=jobs
+alias h=history
+alias l=less
+
+alias gh1='git hist1 | less'
+alias gh2='git hist1 | head -n3'
+
+alias uncnv="env LD_LIBRARY_PATH=/usr/lib/libreoffice/program:${LD_LIBRARY_PATH} unoconv" 
+
+alias srcba='src ~/.bash_aliases'
 
 vlcp(){
     local o=$IFS
@@ -219,3 +240,4 @@ vlcp(){
 }
 
 
+alias hmount="sudo mount.cifs //33.0.0.16/HyperVShared ~/export/HyperVShared -o user=agibalov,uid=zerg,gid=zerg"
