@@ -1,7 +1,8 @@
 #!/bin/bash
 
-LSALL=/home/zerg/export/log/lsall.log
-DUPS=/home/zerg/export/log/dups.log
+LOGDIR=/home/zerg/export/log
+LSALL=$LOGDIR/lsall.log
+DUPS=$LOGDIR/dups.log
 
 find /home/zerg/export/DiskStation/video*/{movies_proxy*/{[Mm]ovies,queue,new},movies} \
    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \
@@ -12,4 +13,3 @@ find /home/zerg/export/DiskStation/video*/{movies_proxy*/{[Mm]ovies,queue,new},m
     > $LSALL
 
 sed 's/^.*\///' $LSALL | sort | uniq -c | egrep -v '[[:space:]]+1' > $DUPS
-
