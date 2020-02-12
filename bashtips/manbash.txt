@@ -1439,6 +1439,7 @@ PARAMETERS
        standard input to an array.  The set and declare builtins display array
        values in a way that allows them to be reused as assignments.
 
+#MYBOOKMARK 
 EXPANSION
        Expansion is performed on the command line after it has been split into
        words.	There are seven kinds of expansion performed: brace expansion,
@@ -1551,6 +1552,7 @@ EXPANSION
        assignments to PATH, MAILPATH, and CDPATH, and the  shell  assigns  the
        expanded value.
 
+#MYBOOKMARK 
    Parameter Expansion
        The `$' character introduces parameter expansion, command substitution,
        or arithmetic expansion.  The parameter name or symbol to  be  expanded
@@ -2398,6 +2400,7 @@ CONDITIONAL EXPRESSIONS
 
        When  used  with [[, the < and > operators sort lexicographically using
        the current locale.  The test command sorts using ASCII ordering.
+#MYBOOKMARK
 
        -a file
 	      True if file exists.

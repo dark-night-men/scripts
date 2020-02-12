@@ -22,3 +22,5 @@ O guess cursor
 :h K            "open keyword with man"
 
 :bro old        "recent files" browse oldfile
+
+:map \          "list taken keys with \"
