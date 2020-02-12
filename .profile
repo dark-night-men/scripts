@@ -26,9 +26,31 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+export HISTCONTROL=ignoreboth
 
-VIMRUNTIME=/usr/local/share/vim/vim81
-VISUAL=vim  #Ctrl-x Ctrl-e edit cmd line in vim
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+export HISTSIZE=5000
+export HISTFILESIZE=20000
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+export HISTTIMEFORMAT='%F %T '
+
+
+#export LD_LIBRARY_PATH=/usr/NX/lib:${LD_LIBRARY_PATH}
+#export PATH=/usr/NX/bin:${PATH}
+export PATH=~/scripts:/usr/lib/x86_64-linux-gnu/qt5/bin:/usr/local/Qt/Qt_5.5.0_1/bin:${PATH}
+export LD_LIBRARY_PATH=/usr/local/Qt/Qt_5.5.0_1/lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
+
+export DISPLAY=:0
+
+stty -ixon  #Disable freeze term with Ctrl-s unfreeze Ctrl-q
+
+export VIMRUNTIME=/usr/local/share/vim/vim82
+export VISUAL=vim  #Ctrl-x Ctrl-e edit cmd line in vim
 
 set -o vi
-set HISTSIZE 2000
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
