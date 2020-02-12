@@ -8,17 +8,6 @@ case $- in
       *) return;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
-
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -87,7 +76,7 @@ fi
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
-alias l='ls -CF'
+#alias l='ls -CF'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -113,23 +102,13 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-#export LD_LIBRARY_PATH=/usr/NX/lib:${LD_LIBRARY_PATH}
-#export PATH=/usr/NX/bin:${PATH}
-export PATH=~/scripts:/usr/lib/x86_64-linux-gnu/qt5/bin:/usr/local/Qt/Qt_5.5.0_1/bin:${PATH}
-export LD_LIBRARY_PATH=/usr/local/Qt/Qt_5.5.0_1/lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
-
 ##
 ulimit -c unlimited
 #sudo bash -c 'echo core.%e.%p > /proc/sys/kernel/core_pattern'
 
 export CSDIR=./
-export DISPLAY=:0
 #export CSENABLED=true
 
-stty -ixon
 eval "$(direnv hook bash)"
 
-shopt -s histappend
-
-
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
