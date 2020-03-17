@@ -36,6 +36,7 @@
 :ab мап std::map
 :ab амап std::unordered_map
 :ab прпр std::pair
+:ab бс std::bitset
 
 :ab инл встраивание (inlining)
 :ab фвл std::forward_list
@@ -428,3 +429,8 @@
 
 :ab спис спецификация исключений
 :ab спис1 спецификацию исключений
+
+:ab эл элемент
+:ab эл1 элемента
+:ab эл9 элементы
+:ab эл10 элементов
