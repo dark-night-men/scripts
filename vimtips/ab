@@ -38,6 +38,9 @@
 :ab прпр std::pair
 :ab бс std::bitset
 
+:ab стк std::set
+:ab аст std::unordered_set
+
 :ab инл встраивание (inlining)
 :ab фвл std::forward_list
 :ab ар std::array
