@@ -224,6 +224,7 @@ alias l=less
 
 alias gh1='git hist1 | less'
 alias gh2='git hist1 | head -n3'
+alias gn1='git nstat | less'
 
 alias uncnv="env LD_LIBRARY_PATH=/usr/lib/libreoffice/program:${LD_LIBRARY_PATH} unoconv" 
 
@@ -241,3 +242,5 @@ vlcp(){
 
 
 alias hmount="sudo mount.cifs //33.0.0.16/HyperVShared ~/export/HyperVShared -o user=agibalov,uid=zerg,gid=zerg"
+
+alias mkb="mkdir -v build && pushd build && cmake .. && make && pushd"
