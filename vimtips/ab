@@ -39,6 +39,7 @@
 :ab бс std::bitset
 
 :ab стк std::set
+:ab мст std::multiset
 :ab аст std::unordered_set
 
 :ab инл встраивание (inlining)
@@ -252,6 +253,7 @@
 
 :ab аск ассоциативный контейнер
 :ab аск9 ассоциативные контейнеры
+:ab аск91 ассоциативных контейнеров
 
 :ab ню new
 :ab р return
