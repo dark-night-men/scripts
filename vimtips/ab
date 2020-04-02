@@ -41,6 +41,7 @@
 :ab стк std::set
 :ab мст std::multiset
 :ab аст std::unordered_set
+:ab амс std::unordered_multiset
 
 :ab инл встраивание (inlining)
 :ab фвл std::forward_list
