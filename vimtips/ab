@@ -33,8 +33,11 @@
 :ab дек std::deque
 :ab лс std::list
 :ab инз std::initializer_list
+
 :ab мап std::map
 :ab амап std::unordered_map
+:ab аммап std::unordered_multimap
+
 :ab прпр std::pair
 :ab бс std::bitset
 
