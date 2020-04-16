@@ -67,3 +67,6 @@ env LD_LIBRARY_PATH=/usr/lib/libreoffice/program:${LD_LIBRARY_PATH}  unoconv -f 
 
 #download and rename
 wget https://cdn.echo.msk.ru/snd/2019-07-28-netak-1210.mp3 -O НеТак_Хабаров_грвбёж_ясак.mp3
+
+#find exec while read REPLY numfnt
+find -iname main.cpp -exec wc -c {} \;  | while read -r; do echo "$REPLY"| awk '{print $1}'  | numfmt --to=iec ;   done
