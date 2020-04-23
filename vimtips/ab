@@ -41,7 +41,7 @@
 :ab прпр std::pair
 :ab бс std::bitset
 
-:ab стк std::set
+:ab сет std::set
 :ab мст std::multiset
 :ab аст std::unordered_set
 :ab амс std::unordered_multiset
