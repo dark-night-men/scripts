@@ -243,6 +243,8 @@ vlcp(){
 
 alias hmount="sudo mount.cifs //33.0.0.16/HyperVShared ~/export/HyperVShared -o user=agibalov,uid=zerg,gid=zerg"
 
-alias mkb="mkdir -v build && pushd build && cmake .. && make && pushd"
+alias mkb="mkdir -v build && pushd build && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON.. && make && pushd"
+
+alias mkd='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..'
 
 alias f="find"
