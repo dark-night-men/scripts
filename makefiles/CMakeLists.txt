@@ -4,6 +4,7 @@ cmake_minimum_required (VERSION 2.8)
 project (jos C CXX)
 #add_executable(jos main.cpp)
 
+set( CMAKE_EXPORT_COMPILE_COMMANDS ON  )
 #PROJECT ( Test CXX )
 #CMAKE_MINIMUM_REQUIRED ( VERSION 2.8 )
 FIND_PACKAGE ( Threads REQUIRED )

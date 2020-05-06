@@ -200,7 +200,7 @@ alias vim="env LC_ALL=en_US.utf8 vim"
 alias vimp="env LC_ALL=en_US.utf8 CSENABLED=true vim"
 
 alias vip="env LC_ALL=en_US.utf8 CSENABLED=true DEV8ELENABLED=true vim"
-alias vimn="env LC_ALL=en_US.utf8 NOVELENABLED=true vim"
+alias vimn="env LC_ALL=en_US.utf8 NOVELENABLED=true ALEDISABLED=true vim"
 alias vimq="env LC_ALL=en_US.utf8 NOVELENABLED=true CSENABLED=true vim"
 
 alias ling="links google.com"
@@ -243,8 +243,11 @@ vlcp(){
 
 alias hmount="sudo mount.cifs //33.0.0.16/HyperVShared ~/export/HyperVShared -o user=agibalov,uid=zerg,gid=zerg"
 
-alias mkb="mkdir -v build && pushd build && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON.. && make && pushd"
+alias mkb="mkdir -v build && pushd build && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON .. && make && pushd"
 
 alias mkd='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..'
+alias mkd1='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DCMAKE_RULE_MESSAGES:BOOL=OFF  ..'
+
+alias mkv='make VERBOSE=1 --no-print-directory'
 
 alias f="find"

@@ -58,3 +58,13 @@ gJ		join lines without inserting space
 
 :let @{reg-name} = {expr1}
 :let @a = @1
+
+#redirect scriptnames output to new buffer
+:redir @">|silent scriptnames|redir END|enew|put"
+
+"get colorscheme name"
+echo g:colors_name
+
+"clean quickfix list"
+call setqflist([])
+
