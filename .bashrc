@@ -109,6 +109,6 @@ ulimit -c unlimited
 export CSDIR=./
 #export CSENABLED=true
 
-eval "$(direnv hook bash)"
+#eval "$(direnv hook bash)"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

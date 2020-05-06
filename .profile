@@ -49,7 +49,12 @@ export DISPLAY=:0
 
 stty -ixon  #Disable freeze term with Ctrl-s unfreeze Ctrl-q
 
-export VIMRUNTIME=/usr/local/share/vim/vim82
+if [[ -d /usr/local/share/vim/vim82 ]] ; then
+    export VIMRUNTIME=/usr/local/share/vim/vim82
+# else
+#     echo /usr/local/share/vim/vim82 does not exist
+fi
+
 export VISUAL=vim  #Ctrl-x Ctrl-e edit cmd line in vim
 
 set -o vi
