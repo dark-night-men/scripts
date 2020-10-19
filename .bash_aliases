@@ -69,6 +69,17 @@ find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/m
     \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
 }
 
+findxp ()
+{
+    echo $1
+
+find /home/zerg/export/DiskStation/video2/download /home/zerg/export/DiskStation/video/new /home/zerg/export/DiskStation/video1/remifa \
+    -maxdepth ${5-99} \
+    \( -path "*/*series*/*" -o -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" \) -prune -o \
+    \( -regextype egrep  \
+    -iregex "^.*$1.*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$" -type f -print \)
+}
+
 findxmd ()
 {
     echo $1
