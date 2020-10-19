@@ -47,7 +47,8 @@ export LD_LIBRARY_PATH=/usr/local/Qt/Qt_5.5.0_1/lib:/usr/lib/x86_64-linux-gnu:${
 
 export DISPLAY=:0
 
-stty -ixon  #Disable freeze term with Ctrl-s unfreeze Ctrl-q
+#Xs are complaining
+#stty -ixon  #Disable freeze term with Ctrl-s unfreeze Ctrl-q
 
 export VIMRUNTIME=/usr/local/share/vim/vim82
 export VISUAL=vim  #Ctrl-x Ctrl-e edit cmd line in vim
