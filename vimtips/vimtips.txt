@@ -1,3 +1,10 @@
+#delete range of buffers - 3,4,5
+:3,5bd[elete]
+
+:bdelete buf1.txt buf2.c buf3.h
+
+:bd *.xml <C-a> # <C-a> - do autocomplete xml files
+
 :r ! ls -1
 
 :arg *.cpp                             All *.cpp files in current directory.
@@ -68,3 +75,4 @@ echo g:colors_name
 "clean quickfix list"
 call setqflist([])
 
+helpgrep
