@@ -19,8 +19,11 @@ find . -iname '*.avi' -exec sh -c \
             filename=$(basename -- "$0")
             filename="${filename%.*}"
 
-            #rename -n -v '"'"'s/'"'"'${srt_file}'"'"'/'"'"'${filename}.srt'"'"'/'"'"' ${srt_file}
-            mv -v ${srt_file} ${filename}.srt
+            if [ "$srt_file" != "$filename".srt ] ; then
+
+                #rename -n -v '"'"'s/'"'"'${srt_file}'"'"'/'"'"'${filename}.srt'"'"'/'"'"' ${srt_file}
+                mv -v ${srt_file} ${filename}.srt
+            fi
         fi
     fi
 
