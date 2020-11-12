@@ -70,3 +70,14 @@ wget https://cdn.echo.msk.ru/snd/2019-07-28-netak-1210.mp3 -O НеТак_Хаб�
 
 #find exec while read REPLY numfnt
 find -iname main.cpp -exec wc -c {} \;  | while read -r; do echo "$REPLY"| awk '{print $1}'  | numfmt --to=iec ;   done
+
+#get full path to file
+realpath ./vim-snippets/snippets/c.snippets 
+
+#time in another timezone
+env TZ=America/New_York date
+env TZ=America/Los_Angeles date
+
+#command usage
+command grep
+\grep           #same
