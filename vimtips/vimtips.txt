@@ -76,3 +76,10 @@ echo g:colors_name
 call setqflist([])
 
 helpgrep
+
+#source selected/highlighted lines
+#On the command line hit <C-u> then type @* and enter.
+#
+#<C-u> will delete the visual range '<,'> that has been automatically inserted if some text is visually selected.
+#
+#:@* will execute the content of the * register which contains whatever is visually selected at the moment.
