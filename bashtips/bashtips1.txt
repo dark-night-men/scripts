@@ -81,3 +81,41 @@ env TZ=America/Los_Angeles date
 #command usage
 command grep
 \grep           #same
+
+
+#redirect
+(command1; command2) >file
+
+
+##################################
+typeset -A homedir    # Declare associative array
+homedir=(             # Compound assignment
+    [jim]=/home/jim
+    [silvia]=/home/silvia
+    [alex]=/home/alex
+)
+
+homedir[ormaaj]=/home/ormaaj # Ordinary assignment adds another single element
+
+for user in "${!homedir[@]}"; do   # Enumerate all indices (user names)
+    printf 'Home directory of user %s is: %q\n' "$user" "${homedir[$user]}"
+done
+
+##################################
+
+tmpfile=$(mktemp /tmp/abc-script.XXXXXX)
+: ...
+rm "$tmpfile"
+You can make sure that a file is deleted when the scripts exits (including kills and crashes) by opening a file descriptor to the file and deleting it. The file keeps available (for the script; not really for other processes but /proc/$PID/fd/$FD is a work-around) as long as the file descriptor is open. When it gets closed (which the kernel does automatically when the process exits) the filesystem deletes the file.
+
+tmpfile=$(mktemp /tmp/abc-script.XXXXXX)
+exec 3>"$tmpfile"
+rm "$tmpfile"
+: ...
+echo foo >&3
+
+
+#get file size
+stat --printf="%s" file.any
+stat --printf="%n %s\n" file.any
+
