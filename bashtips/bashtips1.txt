@@ -119,3 +119,27 @@ echo foo >&3
 stat --printf="%s" file.any
 stat --printf="%n %s\n" file.any
 
+
+#apply ls -lh to every filename listed in /tmp/log
+cat /tmp/log | xargs -d '\n'  ls -lh
+
+
+#fill array from find
+array=()
+while IFS=  read -r -d $'\0'; do
+    array+=("$REPLY")
+done < <(find . -name "${input}" -print0)
+
+#print array
+printf '%s\n' "${my_array[@]}"
+
+
+#iterate array
+array=( one two three )
+for i in "${array[@]}"
+do
+	echo $i
+done
+
+#copy with progress
+rsync -ah --progress
