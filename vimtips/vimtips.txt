@@ -83,3 +83,17 @@ helpgrep
 #<C-u> will delete the visual range '<,'> that has been automatically inserted if some text is visually selected.
 #
 #:@* will execute the content of the * register which contains whatever is visually selected at the moment.
+
+"vimlists
+:col[der] [count]	Go to older error list.  
+:lol[der] [count]	Same as `:colder`, except use the location list for
+			the current window instead of the quickfix list.
+
+
+:cnew[er] [count]	Go to newer error list.  When [count] is given, do
+:lnew[er] [count]	Same as `:cnewer`, except use the location list for
+			the current window instead of the quickfix list.
+
+:[count]chi[story]	Show the list of error lists.  
+:[count]lhi[story]	Show the list of location lists, otherwise like
+			`:chistory`.
