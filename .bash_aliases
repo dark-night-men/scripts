@@ -29,7 +29,7 @@ lns ()
         echo "Argument provided >$1<"
     else
         echo "Argument is demanded"
-        exit 1
+        return 1
     fi
 
     if ls -l ./main.cpp | grep -q ^l ; then
@@ -39,13 +39,30 @@ lns ()
     ln -sv "$1" ./main.cpp
 }
 
+lnm ()
+{
+    if [[ -n "$1" ]] ; then
+        echo "Argument provided >$1<"
+    else
+        echo "Argument is demanded"
+        return 1
+    fi
+
+    if ls -l ./main_main.cpp | grep -q ^l ; then
+        rm -v ./main_main.cpp;
+    fi
+
+    ln -sv "$1" ./main_main.cpp
+}
+
+
 findxd ()
 {
     echo $1
 
 find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
     -maxdepth ${5-99} \
-    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" \) -prune -o \
+    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" -o -path "/home/zerg/export/DiskStation/video2/#recycle" \) -prune -o \
     \( -type d -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -print
 }
 
@@ -55,17 +72,28 @@ findx ()
 
 find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
     -maxdepth ${5-99} \
-    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" \) -prune -o \
+    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" -o -path "/home/zerg/export/DiskStation/video2/#recycle" \) -prune -o \
     \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
+}
+
+
+#find in current dir
+findxc ()
+{
+    echo $1
+
+    find "$PWD" -maxdepth ${5-99} \
+        \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" -o -path "/home/zerg/export/DiskStation/video2/#recycle" \) -prune -o \
+        \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
 }
 
 findxm ()
 {
     echo $1
 
-find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
+    find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
     -maxdepth ${5-99} \
-    \( -path "*/*series*/*" -o -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" \) -prune -o \
+    \( -path "*/*series*/*" -o -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" -o -path "*/#recycle" \) -prune -o \
     \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
 }
 
@@ -75,7 +103,7 @@ findxp ()
 
 find /home/zerg/export/DiskStation/video2/download /home/zerg/export/DiskStation/video/new /home/zerg/export/DiskStation/video1/remifa \
     -maxdepth ${5-99} \
-    \( -path "*/*series*/*" -o -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" \) -prune -o \
+    \( -path "*/*series*/*" -o -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" -o -path "/home/zerg/export/DiskStation/video2/#recycle" \) -prune -o \
     \( -regextype egrep  \
     -iregex "^.*$1.*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$" -type f -print \)
 }
@@ -86,7 +114,7 @@ findxmd ()
 
 find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
     -maxdepth ${5-99} \
-    \( -path "*/*series*/*" -o -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \
+    \( -path "*/*series*/*" -o -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "/home/zerg/export/DiskStation/video2/#recycle" \) -prune -o \
     \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \
         \( -iname "*$1*" -o -iname "*${2-$1}*" \) \
     \) `#-print` \
@@ -151,7 +179,7 @@ findn2 ()
     #OK#find $1 -type f -regextype egrep -regex "^.*\.(avi|mkv|mp4|mpg|flv)$"  -cnewer "$TimeStampFile" -printf "%T+\t%p\n"
 
     find $1 \
-        -type d \( -path "*/.Trash-1000/*" -o -path "*/@eaDir/*" \) -prune -o \
+        -type d \( -path "*/.Trash-1000/*" -o -path "*/@eaDir/*" -o -path "/home/zerg/export/DiskStation/video2/#recycle" \) -prune -o \
         \( \
             -type f -regextype egrep -regex "^.*\.(avi|mkv|mp4|mpg|flv)$" \
             -cnewer "$TimeStampFile" \
@@ -185,7 +213,7 @@ findxb ()
 
 find /home/zerg/export/DiskStation/books* \
     -maxdepth ${5-99} \
-    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \
+    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/#recycle"  \) -prune -o \
     \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
 }
 
@@ -195,7 +223,7 @@ findxb1 ()
 
 find /home/zerg/export/DiskStation/video2/queue_books \
     -maxdepth ${5-99} \
-    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \
+    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*"  -o -path "*/#recycle" \) -prune -o \
     \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
 }
 gdb_alias()
@@ -262,3 +290,5 @@ alias mkd1='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_VERBOSE_MAKEFILE:BO
 alias mkv='make VERBOSE=1 --no-print-directory'
 
 alias f="find"
+
+alias rs="rsync -ah --progress"

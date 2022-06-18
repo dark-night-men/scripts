@@ -143,3 +143,35 @@ done
 
 #copy with progress
 rsync -ah --progress
+
+
+#extract movie chunk
+ffmpeg -ss 0:55 -i Sealab\ 2021\ -\ S03E10\ -\ I\,\ Robot\,\ Really.mp4 -t 5:00 -vcodec copy -acodec copy IRobotReally.mp4
+
+
+#line numbering
+nl -w2 -s'> ' file
+
+Output:
+
+1> PSS-A  (Primary A)
+2> PSS-B  (Primary B)
+3> PSS-C  (Primary C)'
+
+nl -b a -w2 -s'   ' stack.cc
+set numbers for all lines including empty, two (-w2) columns for line number (-s'   ') - add 3 spaces after number
+
+#get last 4 chars from string
+echo 'string' | grep -o '.{4}$'
+
+#print A by hex code
+printf '\x41\n'
+A
+
+#get elapsed (wall clock) time
+env LC_ALL=en_US.utf8 time --format='%E' find /
+
+
+#get lines from middle of file
+sed -n '600000,700000p' file > output.txt
+

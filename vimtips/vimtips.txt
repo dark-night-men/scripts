@@ -97,3 +97,10 @@ helpgrep
 :[count]chi[story]	Show the list of error lists.  
 :[count]lhi[story]	Show the list of location lists, otherwise like
 			`:chistory`.
+
+
+"vim packages"
+:help packages
+
+"rm all lines except current"
+:v/\%#/d
