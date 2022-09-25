@@ -50,7 +50,7 @@ export DISPLAY=:0
 #Xs are complaining
 #stty -ixon  #Disable freeze term with Ctrl-s unfreeze Ctrl-q
 
-export VIMRUNTIME=/usr/local/share/vim/vim82
+export VIMRUNTIME=/usr/local/share/vim/vim90
 export VISUAL=vim  #Ctrl-x Ctrl-e edit cmd line in vim
 
 set -o vi

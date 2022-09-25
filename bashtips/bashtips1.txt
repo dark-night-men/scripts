@@ -175,3 +175,25 @@ env LC_ALL=en_US.utf8 time --format='%E' find /
 #get lines from middle of file
 sed -n '600000,700000p' file > output.txt
 
+
+#cyr -> lat ; lat->cyr
+echo привет | translit -t 'GOST 7.79 RUS'
+ls -1 | translit -t 'GOST 7.79 RUS' -r | less
+
+#cat manpage
+man -P cat man | less
+
+#top specific process
+top -p $(pgrep "ffmpeg")
+
+#info files location
+/usr/share/info/sed.info.gz
+
+#make tar file and show progress
+tar cf - ArtOfJaguar.com -P | pv -s $(du -sb ArtOfJaguar.com | awk '{print $1}')  > ArtOfJaguar.com.tar
+
+#sed insert text before first line, edit in place
+sed  -i '1i text' filename
+
+#single quote escaping
+sh -c 'file $( printf \'\''q w\'\''  )'

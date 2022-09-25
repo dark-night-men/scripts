@@ -104,3 +104,10 @@ helpgrep
 
 "rm all lines except current"
 :v/\%#/d
+
+:h backtick-expansion
+
+set syntax=html
+set filetype=html
+
+vim --clean
