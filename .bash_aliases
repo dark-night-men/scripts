@@ -300,3 +300,5 @@ alias rs="rsync -ah --progress"
 alias pho='nice -n +40 ~/tmp/tmpscripts/photo_tools/pack_img.sh '
 alias ds='du -ksh * | sort -hr'
 alias ph='find -mindepth 1  -maxdepth 1 -type d -exec nice -n +40 ~/tmp/tmpscripts/photo_tools/pack_img.sh {} \; '
+
+alias t="env LC_ALL=en_US.utf8 time --format='%E'" 
