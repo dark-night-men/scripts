@@ -70,3 +70,130 @@ wget https://cdn.echo.msk.ru/snd/2019-07-28-netak-1210.mp3 -O НеТак_Хаб�
 
 #find exec while read REPLY numfnt
 find -iname main.cpp -exec wc -c {} \;  | while read -r; do echo "$REPLY"| awk '{print $1}'  | numfmt --to=iec ;   done
+
+#get full path to file
+realpath ./vim-snippets/snippets/c.snippets 
+
+#time in another timezone
+env TZ=America/New_York date
+env TZ=America/Los_Angeles date
+
+#command usage
+command grep
+\grep           #same
+
+
+#redirect
+(command1; command2) >file
+
+
+##################################
+typeset -A homedir    # Declare associative array
+homedir=(             # Compound assignment
+    [jim]=/home/jim
+    [silvia]=/home/silvia
+    [alex]=/home/alex
+)
+
+homedir[ormaaj]=/home/ormaaj # Ordinary assignment adds another single element
+
+for user in "${!homedir[@]}"; do   # Enumerate all indices (user names)
+    printf 'Home directory of user %s is: %q\n' "$user" "${homedir[$user]}"
+done
+
+##################################
+
+tmpfile=$(mktemp /tmp/abc-script.XXXXXX)
+: ...
+rm "$tmpfile"
+You can make sure that a file is deleted when the scripts exits (including kills and crashes) by opening a file descriptor to the file and deleting it. The file keeps available (for the script; not really for other processes but /proc/$PID/fd/$FD is a work-around) as long as the file descriptor is open. When it gets closed (which the kernel does automatically when the process exits) the filesystem deletes the file.
+
+tmpfile=$(mktemp /tmp/abc-script.XXXXXX)
+exec 3>"$tmpfile"
+rm "$tmpfile"
+: ...
+echo foo >&3
+
+
+#get file size
+stat --printf="%s" file.any
+stat --printf="%n %s\n" file.any
+
+
+#apply ls -lh to every filename listed in /tmp/log
+cat /tmp/log | xargs -d '\n'  ls -lh
+
+
+#fill array from find
+array=()
+while IFS=  read -r -d $'\0'; do
+    array+=("$REPLY")
+done < <(find . -name "${input}" -print0)
+
+#print array
+printf '%s\n' "${my_array[@]}"
+
+
+#iterate array
+array=( one two three )
+for i in "${array[@]}"
+do
+	echo $i
+done
+
+#copy with progress
+rsync -ah --progress
+
+
+#extract movie chunk
+ffmpeg -ss 0:55 -i Sealab\ 2021\ -\ S03E10\ -\ I\,\ Robot\,\ Really.mp4 -t 5:00 -vcodec copy -acodec copy IRobotReally.mp4
+
+
+#line numbering
+nl -w2 -s'> ' file
+
+Output:
+
+1> PSS-A  (Primary A)
+2> PSS-B  (Primary B)
+3> PSS-C  (Primary C)'
+
+nl -b a -w2 -s'   ' stack.cc
+set numbers for all lines including empty, two (-w2) columns for line number (-s'   ') - add 3 spaces after number
+
+#get last 4 chars from string
+echo 'string' | grep -o '.{4}$'
+
+#print A by hex code
+printf '\x41\n'
+A
+
+#get elapsed (wall clock) time
+env LC_ALL=en_US.utf8 time --format='%E' find /
+
+
+#get lines from middle of file
+sed -n '600000,700000p' file > output.txt
+
+
+#cyr -> lat ; lat->cyr
+echo привет | translit -t 'GOST 7.79 RUS'
+ls -1 | translit -t 'GOST 7.79 RUS' -r | less
+
+#cat manpage
+man -P cat man | less
+
+#top specific process
+top -p $(pgrep "ffmpeg")
+
+#info files location
+/usr/share/info/sed.info.gz
+
+#make tar file and show progress
+tar cf - ArtOfJaguar.com -P | pv -s $(du -sb ArtOfJaguar.com | awk '{print $1}')  > ArtOfJaguar.com.tar
+
+#sed insert text before first line, edit in place
+sed  -i '1i text' filename
+
+#single quote escaping
+sh -c 'file $( printf \'\''q w\'\''  )'

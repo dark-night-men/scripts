@@ -1,0 +1,27 @@
+у¬ 5
+
+od -A x -t x1z -v hyp.txt 
+000000 d1 83 c2 ac 20 35 0a 0a 0a                       >.... 5...<
+000009
+
+x0a - \n
+x35 - 5
+x20 - пробел
+
+xd1x83 - у
+xc2xac - 
+
+printf '\xd1\x83'
+у
+
+printf '\xc2\xac'
+¬
+
+#note dollar
+grep -il $'\xc2\xac\0a' *.txt
+
+
+
+
+
+
