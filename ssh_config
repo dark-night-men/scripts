@@ -1,0 +1,10 @@
+Host github.com
+    ControlMaster auto
+    ControlPath ~/.ssh/sockets/%r@%h-%p
+    ControlPersist 600
+    AddKeysToAgent yes
+    #UseKeychain yes
+    IdentityFile ~/.ssh/id_ed25519_dark_night
+
+    #file ~/.ssh/conifg
+    #dont forget create ~/.ssh/sockets dir

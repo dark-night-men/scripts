@@ -43,14 +43,14 @@ export HISTTIMEFORMAT='%F %T '
 
 #export LD_LIBRARY_PATH=/usr/NX/lib:${LD_LIBRARY_PATH}
 #export PATH=/usr/NX/bin:${PATH}
-export PATH=~/scripts:/usr/lib/x86_64-linux-gnu/qt5/bin:/usr/local/Qt/Qt_5.5.0_1/bin:${PATH}
+export PATH=/root/.local/bin:~/scripts:/usr/lib/x86_64-linux-gnu/qt5/bin:/usr/local/Qt/Qt_5.5.0_1/bin:${PATH}
 export LD_LIBRARY_PATH=/usr/local/Qt/Qt_5.5.0_1/lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
 
 export DISPLAY=:0
 
 #stty -ixon  #Disable freeze term with Ctrl-s unfreeze Ctrl-q
 
-export VIMRUNTIME=/usr/local/share/vim/vim82
+export VIMRUNTIME=/usr/local/share/vim/vim90
 export VISUAL=vim  #Ctrl-x Ctrl-e edit cmd line in vim
 
 set -o vi

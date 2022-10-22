@@ -22,7 +22,7 @@ elif echo $1 | grep -q 'vim_last_3' ; then
     make |& tail -n$TAIL_SIZE |& tee -a ./makeprg.log
 
 else
-    if make >& ./makeprg.tmp.log ; then
+    if ! make >& ./makeprg.tmp.log ; then
         cat ./makeprg.tmp.log |& tee ./makeprg.log
 
     else
