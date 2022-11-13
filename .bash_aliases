@@ -302,3 +302,5 @@ alias ds='du -ksh * | sort -hr'
 alias ph='find -mindepth 1  -maxdepth 1 -type d -exec nice -n +40 ~/tmp/tmpscripts/photo_tools/pack_img.sh {} \; '
 
 alias t="env LC_ALL=en_US.utf8 time --format='%E'" 
+
+alias sss="sudo service ssh start"
