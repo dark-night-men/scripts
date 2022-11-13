@@ -39,6 +39,8 @@
     #list commits with file
     lscm = "!lcm() { git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short --follow -- "$1"; }; lcm"
 
+    sl = stash list --date=relative
+
 #workaround for fzf vim error
 [url "git@github.com:"]
 	insteadOf = https://github.com/
@@ -61,4 +63,3 @@
 
 [diff]
     colorMoved = default
-
