@@ -71,6 +71,9 @@ wget https://cdn.echo.msk.ru/snd/2019-07-28-netak-1210.mp3 -O НеТак_Хаб�
 #find exec while read REPLY numfnt
 find -iname main.cpp -exec wc -c {} \;  | while read -r; do echo "$REPLY"| awk '{print $1}'  | numfmt --to=iec ;   done
 
+
+for x in $(seq -f "%02g"  15 -1 1); do  grep "S$x" AlwaysSunny.m3u >> AlwaysSunnyR.m3u ; done
+
 #get full path to file
 realpath ./vim-snippets/snippets/c.snippets 
 

@@ -253,7 +253,10 @@ alias ucs="unset CSENABLED"
 alias cschk="[[ -v CSENABLED ]] && { echo 'CSENABLED TRUE'; } || { echo 'CSENABLED FALSE'; } "
 
 alias uus="sudo apt update && sudo apt upgrade && sudo apt autoremove"
-alias uusp="sudo apt update && sudo apt upgrade && sudo shutdown -h"
+alias uusp="sudo apt update && sudo apt upgrade && sudo apt autoremove && sudo shutdown -h +5"
+alias uuspi="sudo apt update && sudo apt upgrade && sudo apt autoremove && sudo shutdown -h"
+alias ma="sudo mount -a"
+alias mu="(sudo mount -a) && ( sudo apt update && sudo apt upgrade && sudo apt autoremove )"
 #
 alias top20="du -BG -d1 | sort -hr | head"
 alias vs="$VIMRUNTIME/macros/less.sh"
@@ -272,6 +275,11 @@ alias gn1='git nstat | less'
 alias uncnv="env LD_LIBRARY_PATH=/usr/lib/libreoffice/program:${LD_LIBRARY_PATH} unoconv" 
 
 alias srcba='src ~/.bash_aliases'
+alias alsen="env LANG='en_EN.UTF-8'"
+alias alslsc="env LS_COLORS=''"
+
+alias l1="env LS_COLORS='' ls"
+alias l="env LS_COLORS='' ls | head"
 
 vlcp(){
     local o=$IFS
@@ -294,6 +302,10 @@ alias mkd1='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_VERBOSE_MAKEFILE:BO
 alias mkv='make VERBOSE=1 --no-print-directory'
 
 alias f="find"
+
+alias fest="festival --tts --language russian"
+
+alias shd='sudo shutdown -h 0'
 
 alias rs="rsync -ah --progress"
 
