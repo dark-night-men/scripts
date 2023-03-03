@@ -200,3 +200,6 @@ sed  -i '1i text' filename
 
 #single quote escaping
 sh -c 'file $( printf \'\''q w\'\''  )'
+
+#grep gz info file
+zgrep '$file' -n /usr/share/info/coreutils.info.gz -B 11 -A 11
