@@ -39,7 +39,7 @@ find "$SOURCE_DIR" -type f -iname '*.fb2' -exec sh -c \
     # echo TDIR= "$TDIR"
     # echo "\n"
 
-    env LC_ALL=en_US.utf8 time --format="\n elapsed time %E \n"  ~/tmp/tmpscripts/oeb.sh "$0" "$TDIR" 
+    env LC_ALL=en_US.utf8 time --format="\n elapsed time %E \n"  ~/scripts/books/oeb.sh "$0" "$TDIR" 
 
     ' {} \; -print
 

@@ -191,6 +191,7 @@ top -p $(pgrep "ffmpeg")
 
 #info files location
 /usr/share/info/sed.info.gz
+/usr/share/man
 
 #make tar file and show progress
 tar cf - ArtOfJaguar.com -P | pv -s $(du -sb ArtOfJaguar.com | awk '{print $1}')  > ArtOfJaguar.com.tar
@@ -203,3 +204,33 @@ sh -c 'file $( printf \'\''q w\'\''  )'
 
 #grep gz info file
 zgrep '$file' -n /usr/share/info/coreutils.info.gz -B 11 -A 11
+
+#type type
+
+#check locale
+locale
+locale chermap
+
+#convert between charset
+iconv
+for i in `iconv -l`; do iconv -f $i -t utf-8 filename.php > filename.php.$i; done
+
+#download all files from dir
+#-P path to save
+#-np - no-parent
+#-r recursive   -l1 recurs level
+#-i input file with urls list
+
+wget -r -l1 -np --convert-links -nH -nd -Pdownload -i list 
+
+find -type f -iname '*.html' -print  -exec env LC_ALL=en_US.utf8  iconv --verbose -c  -f CP1251 -t utf-8 {} -o /tmp/lemke_mk/tmp/{} \; |& tee /tmp/log | less
+
+#fix krakazabras
+sed -i '2i <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">' *.html
+
+
+#grep word list A in file B; w-whole word; F-fixed string; f-list file name
+grep -wFf A B
+
+#filter out color codes for piping
+sed -e 's/\x1b\[[0-9;]*m//g'

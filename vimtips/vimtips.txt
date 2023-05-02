@@ -111,3 +111,26 @@ set syntax=html
 set filetype=html
 
 vim --clean
+
+
+"diff this"
+"step 1 - vsplit; step 2 - diffthis"
+windo diffthis
+windo diffoff
+
+"spell checking"
+setlocal spelllang=ru_yo,en_us "ёж вместо еж"
+
+z= suggest
+
+]s
+]S
+
+zG add good word
+zW add wrong word
+
+zug
+zuw undo
+
+
+
