@@ -342,3 +342,4 @@ alias ph='find -mindepth 1  -maxdepth 1 -type d -exec nice -n +40 ~/tmp/tmpscrip
 alias t="env LC_ALL=en_US.utf8 time --format='%E'" 
 
 alias z="|& tee /tmp/log"
+alias sss="sudo service ssh start"
