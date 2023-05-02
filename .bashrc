@@ -106,9 +106,10 @@ fi
 ulimit -c unlimited
 #sudo bash -c 'echo core.%e.%p > /proc/sys/kernel/core_pattern'
 
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 export CSDIR=./
 #export CSENABLED=true
 
 eval "$(direnv hook bash)"
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -14,6 +14,7 @@ cd ./build
 
 TAIL_SIZE=6
 
+
 if echo $1 | grep -q '\<clean\>$' ; then
     make clean |& tee ./makeprg.log
 
@@ -26,9 +27,9 @@ else
         cat ./makeprg.tmp.log |& tee ./makeprg.log
 
     else
-        head -n-$TAIL_SIZE ./makeprg.tmp.log |& tee ./makeprg.log
+        #head -n-$TAIL_SIZE ./makeprg.tmp.log |& tee ./makeprg.log
+        head -n5 ./makeprg.tmp.log |& tee ./makeprg.log
     fi
-
 
 fi
 

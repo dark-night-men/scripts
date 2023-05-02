@@ -68,6 +68,19 @@ findxd ()
     \( -type d -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -print
 }
 
+findxd0 ()
+{
+    printf '%s\0' $1
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
+    -maxdepth ${5-99} \
+    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" -o -path "/home/zerg/export/DiskStation/video2/#recycle" \) -prune -o \
+    \( -type d -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -print0
+}
+
+
 findx ()
 {
     echo $1
@@ -100,6 +113,19 @@ findxm ()
     \( -path "*/*series*/*" -o -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" -o -path "*/#recycle" \) -prune -o \
     \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
 }
+
+findxm0 ()
+{
+    printf '%s\0' $1
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
+    -maxdepth ${5-99} \
+    \( -path "*/*series*/*" -o -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" -o -path "*/#recycle" \) -prune -o \
+    \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print0
+}
+
 
 findxp ()
 {
@@ -314,3 +340,5 @@ alias ds='du -ksh * | sort -hr'
 alias ph='find -mindepth 1  -maxdepth 1 -type d -exec nice -n +40 ~/tmp/tmpscripts/photo_tools/pack_img.sh {} \; '
 
 alias t="env LC_ALL=en_US.utf8 time --format='%E'" 
+
+alias z="|& tee /tmp/log"
