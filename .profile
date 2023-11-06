@@ -65,7 +65,7 @@ fi
 export VISUAL=vim  #Ctrl-x Ctrl-e edit cmd line in vim
 
 set -o vi
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+# eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 #export TERM=xterm
 set +x
