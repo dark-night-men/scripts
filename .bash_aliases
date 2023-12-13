@@ -352,7 +352,9 @@ alias png2jpg="env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find
 
 psd2jpg ()
 {
+    # set -x;
 
-    find -type f -iname '*.psd' -exec mogrify -format jpg {} \; -exec rm -v {} \;  -exec bash -c 'qqq=$(echo $0 |sed "s/\.psd/-[1-9][0-9]?\.jpg/") ; export IFS=$(echo -en "\n\b");    find -type f -regextype egrep -regex $qqq -delete  ; ' {} \; |& tee /tmp/psd2jpglog 
+    find -type f -iname '*.psd' -exec mogrify -verbose -format jpg {} \; -exec rm -v {} \; -exec bash -c ' qqq=$(echo $0 |sed "s/\.psd/-[1-9][0-9]*\.jpg/") ; printf "qqq >%s<\n" "$qqq"; export IFS=$(echo -en "\n\b"); find -type f -regextype egrep -regex "$qqq" -delete -print  ; ' {} \; |& tee /tmp/psd2jpglog 
 
+    # set +x;
 }
