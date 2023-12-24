@@ -343,3 +343,18 @@ alias t="env LC_ALL=en_US.utf8 time --format='%E'"
 
 alias z="|& tee /tmp/log"
 alias sss="sudo service ssh start"
+
+alias cdm="cd /mnt/c/Users/serge/Videos"
+
+alias redjpg="env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.jp*g' -size +1M -not -name '*ReDuCeD*'  -exec mogrify -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB {} \; -exec rename -v -f 's/(\.jpe?g)$/.ReDuCeD\1/' {} \; -printf '%p %k KB\n' |& tee /tmp/moglog"
+
+alias png2jpg="env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.png' -size +1M -exec mogrify -format jpg {} \; -exec rm -v {} \; |& tee /tmp/png2jpglog"
+
+psd2jpg ()
+{
+    # set -x;
+
+    find -type f -iname '*.psd' -exec mogrify -verbose -format jpg {} \; -exec rm -v {} \; -exec bash -c ' qqq=$(echo $0 |sed "s/\.psd/-[1-9][0-9]*\.jpg/") ; printf "qqq >%s<\n" "$qqq"; export IFS=$(echo -en "\n\b"); find -type f -regextype egrep -regex "$qqq" -delete -print  ; ' {} \; |& tee /tmp/psd2jpglog 
+
+    # set +x;
+}

@@ -234,3 +234,13 @@ grep -wFf A B
 
 #filter out color codes for piping
 sed -e 's/\x1b\[[0-9;]*m//g'
+
+#print file size when find
+find . -name *.ear -printf "%p %k KB\n"
+
+
+#reduce jpeg file size IN PLACE, with size > 1Mb
+find -type f -iname '*.jp*' -size +1M  -exec mogrify -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB "{}" \; -printf "%p %k KB\n" |& tee /tmp/moglog
+
+#convert PNG to JPG
+env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.png' -size +1M -exec mogrify -format jpg "{}" \; -exec rm -v "{}" \; |& tee /tmp/png2jpglog
