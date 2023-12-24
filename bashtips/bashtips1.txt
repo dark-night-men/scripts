@@ -246,7 +246,7 @@ find -type f -iname '*.jp*' -size +1M  -exec mogrify -sampling-factor 4:2:0 -str
 env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.png' -size +1M -exec mogrify -format jpg "{}" \; -exec rm -v "{}" \; |& tee /tmp/png2jpglog
 
 #using rsync as cp
-#a - archive ?
+#a - keep permission etc ?
 #u - update - only new/changed files
 #n - dry run - test run without apply any changings
 #v - verbose
