@@ -249,3 +249,11 @@ env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname
 kill -STOP $(pgrep vlc)
 kill -CONT $(pgrep vlc)
 
+#using rsync as cp
+#a - keep permission etc ?
+#u - update - only new/changed files
+#n - dry run - test run without apply any changings
+#v - verbose
+#h - human readable
+#r - recursive
+rsync -aunvhr --info=progress2 /home/zerg/export/DiskStation/books/\!queue_books/2022_11\ Рабинович/Мельгунов\ С.П.\ -\ Мартовские\ дни\ 1917\ года\ \(Окаянные\ дни\)-2016/1/* . |& tee /tmp/log
