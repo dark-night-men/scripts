@@ -358,3 +358,26 @@ psd2jpg ()
 
     # set +x;
 }
+
+# alias resimg="LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.jp*g' -exec mogrify -verbose -resize 2500x1500\> {} \; |& tee /tmp/resize_image.log"
+
+rsimg ()
+{
+    start=$(date +%s)
+
+    for size_threshold in $(seq 10 -1 0) ; do  
+
+        printf '\nSize threshold %s' $size_threshold
+        env LC_ALL=en_US.utf8  time --format=' elapsed time %E \n' find -type f -iname '*.jp*g' -size +${size_threshold}M -not -name '*ReSiZeD*' -exec mogrify -verbose -resize 2500x1500\> {} \; -exec rename -v -f 's/(\.jpe?g)$/.ReSiZeD\1/' {} \; -printf '%p %k KB\n'|& tee -a /tmp/resize_image.log
+    done
+    
+
+    end=$(date +%s)
+
+    # $ date -d@36 -u +%H:%M:%S
+
+    DURATION=$(date -d@$(($end-$start)) -u +%H:%M:%S)
+    printf '\n TOTAL elapsed time %s \n' $DURATION
+}
+
+alias info="info --vi"
