@@ -257,3 +257,12 @@ kill -CONT $(pgrep vlc)
 #h - human readable
 #r - recursive
 rsync -aunvhr --info=progress2 /home/zerg/export/DiskStation/books/\!queue_books/2022_11\ Рабинович/Мельгунов\ С.П.\ -\ Мартовские\ дни\ 1917\ года\ \(Окаянные\ дни\)-2016/1/* . |& tee /tmp/log
+
+#while IFS nice example
+find ./video -type f -print0 | while IFS= read -r -d '' myfile; do
+    tmp=$(basename "$myfile")   #example.mp4  -- consider also tmp=${myfile##*/}
+    tmp="${tmp%.mp4}.html"      #example.html
+    sed "s#sceneFilePath:.*#sceneFilePath: \"$myfile\",#g" \
+      <index.html >"$tmp"
+done
+
