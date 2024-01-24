@@ -363,12 +363,14 @@ psd2jpg ()
 
 rsimg ()
 {
+    date |& tee -a /tmp/resize_image.log
     start=$(date +%s)
 
     for size_threshold in $(seq 10 -1 0) ; do  
 
-        printf '\nSize threshold %s' $size_threshold
-        env LC_ALL=en_US.utf8  time --format=' elapsed time %E \n' find -type f -iname '*.jp*g' -size +${size_threshold}M -not -name '*ReSiZeD*' -exec mogrify -verbose -resize 2500x1500\> {} \; -exec rename -v -f 's/(\.jpe?g)$/.ReSiZeD\1/' {} \; -printf '%p %k KB\n'|& tee -a /tmp/resize_image.log
+        printf '\nSize threshold %s' $size_threshold |& tee -a /tmp/resize_image.log
+
+        env LC_ALL=en_US.utf8  time --format=' elapsed time %E \n' find -type f -iname '*.jp*g' -size +${size_threshold}M -not -name '*ReSiZeD*' \( -exec mogrify -verbose -resize 2500x1500\> {} \; -o -exec true \; \) -exec rename -v -f 's/(\.jpe?g)$/.ReSiZeD\1/' {} \; -printf '%p %k KB\n'|& tee -a /tmp/resize_image.log
     done
     
 
@@ -377,7 +379,7 @@ rsimg ()
     # $ date -d@36 -u +%H:%M:%S
 
     DURATION=$(date -d@$(($end-$start)) -u +%H:%M:%S)
-    printf '\n TOTAL elapsed time %s \n' $DURATION
+    printf '\n TOTAL elapsed time %s \n' $DURATION |& tee -a /tmp/resize_image.log
 }
 
 alias info="info --vi"
