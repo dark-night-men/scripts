@@ -135,3 +135,6 @@ zuw undo
 "Vista plugin tips"
 Vista show, toc, focus, finder fzf/toc, Clap tags, info+
 
+"signcolumn toggle 
+set scl=yes, no, auto
+set signcolumn=yes, no, auto
