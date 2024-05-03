@@ -266,3 +266,5 @@ find ./video -type f -print0 | while IFS= read -r -d '' myfile; do
       <index.html >"$tmp"
 done
 
+#avoid (many not all) permisson denied messages
+find /mnt -maxdepth 5 -type d  -not -readable -prune -o  -type d -name '!heap' -print
