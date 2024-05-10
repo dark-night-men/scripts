@@ -268,3 +268,6 @@ done
 
 #avoid (many not all) permisson denied messages
 find /mnt -maxdepth 5 -type d  -not -readable -prune -o  -type d -name '!heap' -print
+
+#successful backtrace building
+g++ -std=c++23 main.cpp -lstdc++_libbacktrace
