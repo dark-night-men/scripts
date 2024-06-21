@@ -140,3 +140,7 @@ set scl=yes, no, auto
 set signcolumn=yes, no, auto
 
 "Ctrl-g/t - hotkeys for navigation in Search results in insert mode
+
+"Paste
+[p Put before
+]p Put after
