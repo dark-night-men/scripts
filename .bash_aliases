@@ -273,6 +273,19 @@ find_wzd_ec ()
         -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) -print
 }
 
+
+#find DIR in WSL among !heap 
+find_wh ()
+{
+    echo $1
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
+        -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)
+}
+
+
 gdb_alias()
 {
     gdb "$1" -c "$2"  -tui
