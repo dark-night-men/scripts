@@ -271,3 +271,6 @@ find /mnt -maxdepth 5 -type d  -not -readable -prune -o  -type d -name '!heap' -
 
 #successful backtrace building
 g++ -std=c++23 main.cpp -lstdc++_libbacktrace
+
+#get fullpath for file
+realpath
