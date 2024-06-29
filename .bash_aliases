@@ -256,6 +256,23 @@ find /home/zerg/export/DiskStation/video2/queue_books \
     \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*"  -o -path "*/#recycle" \) -prune -o \
     \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
 }
+
+#find DIR in WSL among ZTORRENT exclude CART
+find_wzd_ec ()
+{
+    echo $1
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!ZTORRENT/ \
+        /mnt/d/\!D_VIDEO/\!ZTORRENT/ \
+        /mnt/e/\!E_VIDEO/\!ZTORRENT/ \
+        /mnt/f/\!F_VIDEO/\!Z_TORRENT/ \
+        -ipath '*/\!CART_DIR/*' \
+        -prune -o \
+        -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) -print
+}
+
 gdb_alias()
 {
     gdb "$1" -c "$2"  -tui
@@ -269,6 +286,7 @@ alias vim="env LC_ALL=en_US.utf8 vim"
 alias vimp="env LC_ALL=en_US.utf8 CSENABLED=true vim"
 
 alias vip="env LC_ALL=en_US.utf8 CSENABLED=true DEV8ELENABLED=true vim"
+alias gvip="env LC_ALL=en_US.utf8 CSENABLED=true DEV8ELENABLED=true gvim"
 alias vimn="env LC_ALL=en_US.utf8 NOVELENABLED=true ALEDISABLED=true vim"
 alias vimq="env LC_ALL=en_US.utf8 NOVELENABLED=true CSENABLED=true vim"
 
@@ -346,15 +364,39 @@ alias sss="sudo service ssh start"
 
 alias cdm="cd /mnt/c/Users/serge/Videos"
 
-alias redjpg="env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.jp*g' -size +1M -not -name '*ReDuCeD*'  -exec mogrify -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB {} \; -exec rename -v -f 's/(\.jpe?g)$/.ReDuCeD\1/' {} \; -printf '%p %k KB\n' |& tee /tmp/moglog"
+alias redjpgold="env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.jp*g' -size +1M -not -name '*ReDuCeD*'  -exec mogrify -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB {} \; -exec rename -v -f 's/(\.jpe?g)$/.ReDuCeD\1/' {} \; -printf '%p %k KB\n' |& tee /tmp/moglog"
 
-alias png2jpg="env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.png' -size +1M -exec mogrify -format jpg {} \; -exec rm -v {} \; |& tee /tmp/png2jpglog"
+redjpg ()
+{
+    printf '\nredjpg STARTED at %s\n' "$(date)"
+
+    env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.jp*g' -size +1M -not -name '*ReDuCeD*'  -exec mogrify -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB {} \; -exec rename -v -f 's/(\.jpe?g)$/.ReDuCeD\1/' {} \; -printf '%p %k KB\n' |& tee /tmp/moglog
+
+    printf '\nredjpg FINISHED at %s\n' "$(date)"
+
+}
+
+alias png2jpgold="env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.png' -size +1M -exec mogrify -format jpg {} \; -exec rm -v {} \; |& tee /tmp/png2jpglog"
+
+png2jpg ()
+{
+    printf '\npng2jpg STARTED at %s\n' "$(date)"
+
+    env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.png' -size +1M -exec mogrify -format jpg {} \; -exec rm -v {} \; |& tee /tmp/png2jpglog
+
+    printf 'png2jpg FINISHED at %s\n' "$(date)"
+
+}
 
 psd2jpg ()
 {
     # set -x;
 
+    printf '\npsd2jpg STARTED at %s\n' "$(date)"
+
     find -type f -iname '*.psd' -exec mogrify -verbose -format jpg {} \; -exec rm -v {} \; -exec bash -c ' qqq=$(echo $0 |sed "s/\.psd/-[1-9][0-9]*\.jpg/") ; printf "qqq >%s<\n" "$qqq"; export IFS=$(echo -en "\n\b"); find -type f -regextype egrep -regex "$qqq" -delete -print  ; ' {} \; |& tee /tmp/psd2jpglog 
+
+    printf 'psd2jpg FINISHED at %s\n' "$(date)"
 
     # set +x;
 }
@@ -363,6 +405,9 @@ psd2jpg ()
 
 rsimg ()
 {
+    printf '\nrsimg STARTED at %s\n' "$(date)"
+
+
     date |& tee -a /tmp/resize_image.log
     start=$(date +%s)
 
@@ -379,7 +424,14 @@ rsimg ()
     # $ date -d@36 -u +%H:%M:%S
 
     DURATION=$(date -d@$(($end-$start)) -u +%H:%M:%S)
-    printf '\n TOTAL elapsed time %s \n' $DURATION |& tee -a /tmp/resize_image.log
+    printf '\n rsimg TOTAL elapsed time %s \n' $DURATION |& tee -a /tmp/resize_image.log
+
+    printf 'rsimg FINISHED at %s\n' "$(date)"
 }
 
 alias info="info --vi"
+
+alias im="( touch /tmp/im_alias_start.log;  psd2jpg; png2jpg;  redjpg; rsimg; touch /tmp/im_alias_stop.log; ) |& tee /tmp/im.log"
+
+alias rmlnk="find -regextype egrep  -iregex '.*\([2-9]\)\.lnk' -print -delete"
+alias rmlnkqb="find -type f -name '*!qB*ярлык.lnk' -print -delete"
