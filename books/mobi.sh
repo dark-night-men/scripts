@@ -19,5 +19,5 @@ echo "arg 1 $1"
 
 #/usr/bin/ebook-convert "$1" "$1_clm.mobi" --pretty-print --enable-heuristics --filter-css font-family,color,margin-left,margin-right
 #/usr/bin/ebook-convert "$1" "$1_clm.mobi" --pretty-print --enable-heuristics
-/usr/bin/ebook-convert "$1" "$1_clm.mobi" --mobi-file-type new --pretty-print --enable-heuristics --verbose --title="$2" --authors="$3"
+/usr/bin/ebook-convert "$1" "$1_clm.mobi" --mobi-file-type new --pretty-print --enable-heuristics --verbose --change-justification left --title="$2" --authors="$3"
 
