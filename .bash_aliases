@@ -258,7 +258,7 @@ find /home/zerg/export/DiskStation/video2/queue_books \
 }
 
 #find DIR in WSL among ZTORRENT exclude CART
-find_wzd_ec ()
+findw_zd_ec ()
 {
     echo $1
 
@@ -275,7 +275,7 @@ find_wzd_ec ()
 
 
 #find DIR in WSL among !heap 
-find_wh ()
+findw_hd ()
 {
     echo $1
 
@@ -285,6 +285,28 @@ find_wh ()
         -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)
 }
 
+#find FILE or DIR in WSL among !heap 
+findw_h ()
+{
+    echo $1
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
+        \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)
+}
+
+
+#find in Videos in WSL
+findwv ()
+{
+    echo $1
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos \
+        \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)
+}
 
 gdb_alias()
 {
