@@ -281,3 +281,6 @@ g++ -std=c++23 main.cpp -lstdc++_libbacktrace
 
 #get fullpath for file
 realpath
+
+# List all available fonts on Linux using the CLI
+fc-list
