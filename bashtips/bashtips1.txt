@@ -231,3 +231,8 @@ grep -wFf A B
 
 #filter out color codes for piping
 sed -e 's/\x1b\[[0-9;]*m//g'
+
+#fix cannot find available desctops in nx
+sudo /etc/NX/nxserver --eglcapture yes
+sudo systemctl restart display-manager
+sudo /etc/NX/nxserver --restart
