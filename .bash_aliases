@@ -343,3 +343,9 @@ alias t="env LC_ALL=en_US.utf8 time --format='%E'"
 
 alias z="|& tee /tmp/log"
 alias sss="sudo service ssh start"
+
+alias nxfix="
+sudo /etc/NX/nxserver --eglcapture yes
+sudo systemctl restart display-manager
+sudo /etc/NX/nxserver --restart
+"
