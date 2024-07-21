@@ -4,8 +4,7 @@
 SOURCES=main.cpp
 
 # Set CFLAGS
-#CFLAGS=-Wall -std=c++11
-CFLAGS=-std=c++17 -O2 -Wall -pedantic -pthread
+CFLAGS=-std=c++2b -O2 -Wall -pedantic -pthread -Werror -Wextra
 
 # SET THE SETTINGS
 # Windows
@@ -16,7 +15,7 @@ ifeq ($(OS),Windows_NT)
 else
 # nix
     #CC=g++
-    CC=/usr/bin/g++-8
+    CC=/usr/bin/g++-11
     OUTPUT=a.out
     DEL=rm -v
 endif

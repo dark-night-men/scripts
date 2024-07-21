@@ -11,7 +11,7 @@ echo "note arg 2 (if exist) means verbosity level 0 - by default '-v -v' - usabl
 #/usr/local/bin/wkhtmltopdf "$1" "$1.pdf"
 
 #regular flow
-/usr/bin/ebook-convert "$1" "$1.epub" ${2:-} --pretty-print --enable-heuristics --embed-font-family  'Monofur NF'
+/usr/bin/ebook-convert "$1" "$1.epub" ${2:-} --pretty-print --enable-heuristics --embed-font-family  'Comfortaa'
 
 #/usr/bin/ebook-convert "$1" .epub --pretty-print --enable-heuristics --embed-font-family  'Monofur NF' --no-default-epub-cover --epub-flatten --verbose -d debug
 

@@ -1,3 +1,10 @@
+# man for find -mtime option:
+# 
+# You can write -mtime 6 or -mtime -6 or -mtime +6:
+# 
+# Using 6 without sign means "equal to 6 days old — so modified between 'now - 6 * 86400' and 'now - 7 * 86400'" (because fractional days are discarded).
+# Using -6 means "less than 6 days old — so modified on or after 'now - 6 * 86400'".
+# Using +6 means "more than 6 days old — so modified on or before 'now - 7 * 86400'" (where the 7 is a little unexpected, perhaps).
 find -name "*.o" -mtime -9  -printf "%T+\t%p\n" | sort
 
 find \( -path "*/.git/*" -o -path "*/build/*" \) -prune -o  \( -name "*.cpp" -mtime -10  -printf "%T+\t%p\n" \) | sort
@@ -202,6 +209,9 @@ sed  -i '1i text' filename
 #single quote escaping
 sh -c 'file $( printf \'\''q w\'\''  )'
 
+#grep gz info file
+zgrep '$file' -n /usr/share/info/coreutils.info.gz -B 11 -A 11
+
 #type type
 
 #check locale
@@ -236,3 +246,43 @@ sed -e 's/\x1b\[[0-9;]*m//g'
 sudo /etc/NX/nxserver --eglcapture yes
 sudo systemctl restart display-manager
 sudo /etc/NX/nxserver --restart
+
+#print file size when find
+find . -name *.ear -printf "%p %k KB\n"
+
+
+#reduce jpeg file size IN PLACE, with size > 1Mb
+find -type f -iname '*.jp*' -size +1M  -exec mogrify -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB "{}" \; -printf "%p %k KB\n" |& tee /tmp/moglog
+
+#convert PNG to JPG
+env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.png' -size +1M -exec mogrify -format jpg "{}" \; -exec rm -v "{}" \; |& tee /tmp/png2jpglog
+
+#pause/resume process
+kill -STOP $(pgrep vlc)
+kill -CONT $(pgrep vlc)
+
+#using rsync as cp
+#a - keep permission etc ?
+#u - update - only new/changed files
+#n - dry run - test run without apply any changings
+#v - verbose
+#h - human readable
+#r - recursive
+rsync -aunvhr --info=progress2 /home/zerg/export/DiskStation/books/\!queue_books/2022_11\ Рабинович/Мельгунов\ С.П.\ -\ Мартовские\ дни\ 1917\ года\ \(Окаянные\ дни\)-2016/1/* . |& tee /tmp/log
+
+#while IFS nice example
+find ./video -type f -print0 | while IFS= read -r -d '' myfile; do
+    tmp=$(basename "$myfile")   #example.mp4  -- consider also tmp=${myfile##*/}
+    tmp="${tmp%.mp4}.html"      #example.html
+    sed "s#sceneFilePath:.*#sceneFilePath: \"$myfile\",#g" \
+      <index.html >"$tmp"
+done
+
+#avoid (many not all) permisson denied messages
+find /mnt -maxdepth 5 -type d  -not -readable -prune -o  -type d -name '!heap' -print
+
+#successful backtrace building
+g++ -std=c++23 main.cpp -lstdc++_libbacktrace
+
+#get fullpath for file
+realpath

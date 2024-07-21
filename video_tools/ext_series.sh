@@ -74,7 +74,7 @@ printf '%s\n' "${MKV_FILES[@]}"
 #Checking do we have at least single mkv file
 if [ ${#MKV_FILES[@]} -lt 1 ]; then
 
-    printf 'No mkv files in %s directory. Exit. If you whant recursive search use -r. \n' "$DIRPATH"
+    printf 'No mkv files in %s directory. Exit. If you want recursive search use -r. \n' "$DIRPATH"
     exit 11
 fi
 

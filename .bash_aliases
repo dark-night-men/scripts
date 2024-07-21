@@ -91,6 +91,24 @@ find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/m
     \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
 }
 
+# man for find -mtime option:
+# 
+# You can write -mtime 6 or -mtime -6 or -mtime +6:
+# 
+# Using 6 without sign means "equal to 6 days old — so modified between 'now - 6 * 86400' and 'now - 7 * 86400'" (because fractional days are discarded).
+# Using -6 means "less than 6 days old — so modified on or after 'now - 6 * 86400'".
+# Using +6 means "more than 6 days old — so modified on or before 'now - 7 * 86400'" (where the 7 is a little unexpected, perhaps).
+
+#find files that, BY DEFAULT, "less than 3 days old"
+findxt ()
+{
+    echo $1
+
+find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
+    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" -o -path "/home/zerg/export/DiskStation/video2/#recycle" \) -prune -o \
+    -mtime ${1--3}  -printf "%T+\t%p\n" 
+}
+
 
 #find in current dir
 findxc ()
@@ -256,6 +274,58 @@ find /home/zerg/export/DiskStation/video2/queue_books \
     \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*"  -o -path "*/#recycle" \) -prune -o \
     \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
 }
+
+#find DIR in WSL among ZTORRENT exclude CART
+findw_zd_ec ()
+{
+    echo $1
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!ZTORRENT/ \
+        /mnt/d/\!D_VIDEO/\!ZTORRENT/ \
+        /mnt/e/\!E_VIDEO/\!ZTORRENT/ \
+        /mnt/f/\!F_VIDEO/\!Z_TORRENT/ \
+        -ipath '*/\!CART_DIR/*' \
+        -prune -o \
+        -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) -print
+}
+
+
+#find DIR in WSL among !heap 
+findw_hd ()
+{
+    echo $1
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
+        -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)
+}
+
+#find FILE or DIR in WSL among !heap 
+findw_h ()
+{
+    echo $1
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
+        \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)
+}
+
+
+#find in Videos in WSL
+findwv ()
+{
+    echo $1
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos \
+        \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)
+}
+
 gdb_alias()
 {
     gdb "$1" -c "$2"  -tui
@@ -269,6 +339,7 @@ alias vim="env LC_ALL=en_US.utf8 vim"
 alias vimp="env LC_ALL=en_US.utf8 CSENABLED=true vim"
 
 alias vip="env LC_ALL=en_US.utf8 CSENABLED=true DEV8ELENABLED=true vim"
+alias gvip="env LC_ALL=en_US.utf8 CSENABLED=true DEV8ELENABLED=true gvim"
 alias vimn="env LC_ALL=en_US.utf8 NOVELENABLED=true ALEDISABLED=true vim"
 alias vimq="env LC_ALL=en_US.utf8 NOVELENABLED=true CSENABLED=true vim"
 
@@ -349,3 +420,77 @@ sudo /etc/NX/nxserver --eglcapture yes
 sudo systemctl restart display-manager
 sudo /etc/NX/nxserver --restart
 "
+
+alias cdm="cd /mnt/c/Users/serge/Videos"
+
+alias redjpgold="env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.jp*g' -size +1M -not -name '*ReDuCeD*'  -exec mogrify -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB {} \; -exec rename -v -f 's/(\.jpe?g)$/.ReDuCeD\1/' {} \; -printf '%p %k KB\n' |& tee /tmp/moglog"
+
+redjpg ()
+{
+    printf '\nredjpg STARTED at %s\n' "$(date)"
+
+    env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.jp*g' -size +1M -not -name '*ReDuCeD*'  -exec mogrify -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB {} \; -exec rename -v -f 's/(\.jpe?g)$/.ReDuCeD\1/' {} \; -printf '%p %k KB\n' |& tee /tmp/moglog
+
+    printf '\nredjpg FINISHED at %s\n' "$(date)"
+
+}
+
+alias png2jpgold="env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.png' -size +1M -exec mogrify -format jpg {} \; -exec rm -v {} \; |& tee /tmp/png2jpglog"
+
+png2jpg ()
+{
+    printf '\npng2jpg STARTED at %s\n' "$(date)"
+
+    env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.png' -size +1M -exec mogrify -format jpg {} \; -exec rm -v {} \; |& tee /tmp/png2jpglog
+
+    printf 'png2jpg FINISHED at %s\n' "$(date)"
+
+}
+
+psd2jpg ()
+{
+    # set -x;
+
+    printf '\npsd2jpg STARTED at %s\n' "$(date)"
+
+    find -type f -iname '*.psd' -exec mogrify -verbose -format jpg {} \; -exec rm -v {} \; -exec bash -c ' qqq=$(echo $0 |sed "s/\.psd/-[1-9][0-9]*\.jpg/") ; printf "qqq >%s<\n" "$qqq"; export IFS=$(echo -en "\n\b"); find -type f -regextype egrep -regex "$qqq" -delete -print  ; ' {} \; |& tee /tmp/psd2jpglog 
+
+    printf 'psd2jpg FINISHED at %s\n' "$(date)"
+
+    # set +x;
+}
+
+# alias resimg="LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.jp*g' -exec mogrify -verbose -resize 2500x1500\> {} \; |& tee /tmp/resize_image.log"
+
+rsimg ()
+{
+    printf '\nrsimg STARTED at %s\n' "$(date)"
+
+
+    date |& tee -a /tmp/resize_image.log
+    start=$(date +%s)
+
+    for size_threshold in $(seq 10 -1 0) ; do  
+
+        printf '\nSize threshold %s' $size_threshold |& tee -a /tmp/resize_image.log
+
+        env LC_ALL=en_US.utf8  time --format=' elapsed time %E \n' find -type f -iname '*.jp*g' -size +${size_threshold}M -not -name '*ReSiZeD*' \( -exec mogrify -verbose -resize 2500x1500\> {} \; -o -exec true \; \) -exec rename -v -f 's/(\.jpe?g)$/.ReSiZeD\1/' {} \; -printf '%p %k KB\n'|& tee -a /tmp/resize_image.log
+    done
+    
+
+    end=$(date +%s)
+
+    # $ date -d@36 -u +%H:%M:%S
+
+    DURATION=$(date -d@$(($end-$start)) -u +%H:%M:%S)
+    printf '\n rsimg TOTAL elapsed time %s \n' $DURATION |& tee -a /tmp/resize_image.log
+
+    printf 'rsimg FINISHED at %s\n' "$(date)"
+}
+
+alias info="info --vi"
+
+alias im="( touch /tmp/im_alias_start.log;  psd2jpg; png2jpg;  redjpg; rsimg; touch /tmp/im_alias_stop.log; ) |& tee /tmp/im.log"
+
+alias rmlnk="find -regextype egrep  -iregex '.*\([2-9]\)\.lnk' -print -delete"
+alias rmlnkqb="find -type f -name '*!qB*ярлык.lnk' -print -delete"
