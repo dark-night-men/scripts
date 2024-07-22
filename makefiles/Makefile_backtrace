@@ -1,0 +1,53 @@
+#successful backtrace building
+#g++ -std=c++23 main.cpp -lstdc++_libbacktrace
+
+#/usr/bin/g++-8 -std=c++17 -O2 -Wall -pedantic -pthread
+# Put the names of your source files here
+#SOURCES=source.cpp
+SOURCES=main.cpp
+
+# Set CFLAGS
+# CFLAGS=-std=c++2b -O2 -Wall -pedantic -pthread -Werror -Wextra
+# CFLAGS=-std=gnu++2b -O2 -Wall -pedantic -pthread -Werror -Wextra -lstdc++_libbacktrace --verbose
+
+# CFLAGS=-std=c++23 -lstdc++_libbacktrace -O2 -Wall -pedantic -pthread -Werror -Wextra --verbose
+# CFLAGS=-std=c++23 -lstdc++_libbacktrace --verbose
+CFLAGS=-std=c++23 --verbose
+# BACKTRACE_FLAGS=-lstdc++_libbacktrace
+
+# CFLAGS=-std=c++23 -O2 -Wall -pedantic -pthread -Werror -Wextra -lstdc++_libbacktrace -I/usr/include/c++/13 --verbose
+# CFLAGS=-std=c++2b -O2 -Wall -pedantic -pthread -Werror -Wextra -lstdc++_libbacktrace
+# CFLAGS=-std=c++2b -O2 -Wall -pedantic -pthread -Werror -Wextra -lstdc++_libbacktrace -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fstack-protector
+# CFLAGS=-std=gnu++2b -O2 -Wall -pedantic -pthread -Werror -Wextra
+
+LDFLAGS=-lm -fsanitize=undefined -lstdc++_libbacktrace
+
+
+# SET THE SETTINGS
+# Windows
+ifeq ($(OS),Windows_NT)
+    CC=g++
+    OUTPUT=a.exe
+    DEL=del
+else
+# nix
+    CC=g++
+    # CC=/usr/bin/g++-13
+    # CC=/usr/local/gcc-13.2.0/bin/g++-13.2
+    OUTPUT=a.out
+    DEL=rm -v
+endif
+
+OBJECTS=$(SOURCES:.cpp=.o)
+
+# DO THE WORK
+all: $(SOURCES) $(OUTPUT)
+
+$(OUTPUT): $(OBJECTS)
+	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+
+.cpp.o:
+	$(CC) -c $(CFLAGS) $< -o $@
+
+clean:
+	$(DEL) *.o $(OUTPUT)
