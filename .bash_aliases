@@ -91,6 +91,24 @@ find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/m
     \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
 }
 
+# man for find -mtime option:
+# 
+# You can write -mtime 6 or -mtime -6 or -mtime +6:
+# 
+# Using 6 without sign means "equal to 6 days old — so modified between 'now - 6 * 86400' and 'now - 7 * 86400'" (because fractional days are discarded).
+# Using -6 means "less than 6 days old — so modified on or after 'now - 6 * 86400'".
+# Using +6 means "more than 6 days old — so modified on or before 'now - 7 * 86400'" (where the 7 is a little unexpected, perhaps).
+
+#find files that, BY DEFAULT, "less than 3 days old"
+findxt ()
+{
+    echo $1
+
+find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
+    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" -o -path "/home/zerg/export/DiskStation/video2/#recycle" \) -prune -o \
+    -mtime ${1--3}  -printf "%T+\t%p\n" 
+}
+
 
 #find in current dir
 findxc ()
@@ -396,6 +414,12 @@ alias t="env LC_ALL=en_US.utf8 time --format='%E'"
 
 alias z="|& tee /tmp/log"
 alias sss="sudo service ssh start"
+
+alias nxfix="
+sudo /etc/NX/nxserver --eglcapture yes
+sudo systemctl restart display-manager
+sudo /etc/NX/nxserver --restart
+"
 
 alias cdm="cd /mnt/c/Users/serge/Videos"
 
