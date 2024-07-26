@@ -494,3 +494,10 @@ alias im="( touch /tmp/im_alias_start.log;  psd2jpg; png2jpg;  redjpg; rsimg; to
 
 alias rmlnk="find -regextype egrep  -iregex '.*\([2-9]\)\.lnk' -print -delete"
 alias rmlnkqb="find -type f -name '*!qB*ярлык.lnk' -print -delete"
+
+mv_insta_pics ()
+{
+
+    env LC_ALL=en_US.utf8  time --format=' elapsed time %E \n' find /mnt/c/Users/serge/Downloads -type f -regextype egrep -iregex  './[[:alnum:]_.]+_[_0-9]{38,}\.(mp4|jpeg|jpg|webp|heic)' -exec   mv -v -t /mnt/e/IDownload/tmp {} \; |& tee ~/tmp/mv_insta_pics.lo
+
+}
