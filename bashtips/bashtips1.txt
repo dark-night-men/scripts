@@ -286,3 +286,6 @@ g++ -std=c++23 main.cpp -lstdc++_libbacktrace
 
 #get fullpath for file
 realpath
+
+#avoid leading dots in find
+find *
