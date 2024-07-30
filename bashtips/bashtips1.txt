@@ -289,3 +289,23 @@ realpath
 
 #avoid leading dots in find
 find *
+
+#grep multi patterns
+grep -e pattern1 -e pattern2 fileName_or_filePath
+
+#multiple commands with xargs
+#https://stackoverflow.com/questions/6958689/running-multiple-commands-with-xargs
+<a.txt xargs -d $'\n' sh -c 'for arg do command1 "$arg"; command2 "$arg"; ...; done' _
+
+#auto escape filenames
+x='a real \good %* load of c$rap'
+x=$(printf '%q' "$x")
+echo $x
+
+#unset variable
+/home/user1> unset var
+/home/user1> echo $var
+-bash: var: unbound variable
+
+#show calendar 3 months with monday first day of week
+ncal -M -3

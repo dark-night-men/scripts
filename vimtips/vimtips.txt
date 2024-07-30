@@ -144,3 +144,6 @@ set signcolumn=yes, no, auto
 "Paste
 [p Put before
 ]p Put after
+
+"Set name for tab title (by Taboo plugin)
+:TabooRename My Tab Title
