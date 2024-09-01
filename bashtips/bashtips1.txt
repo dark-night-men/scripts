@@ -309,3 +309,6 @@ echo $x
 
 #show calendar 3 months with monday first day of week
 ncal -M -3
+
+#convert audio
+ffmpeg -i test.wav -acodec mp3 -ab 64k test.mp3
