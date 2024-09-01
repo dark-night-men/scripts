@@ -5,7 +5,7 @@
 
 rm -v /tmp/ffprobe_audio_streams.log
 
-find -type f \( -iname '*.avi' -o -iname '*.mkv' \) -print0 | xargs -0  bash -c \
+find -type f \( -iname '*.avi' -o -iname '*.mkv' -o -iname '*.mpg' \) -print0 | xargs -0  bash -c \
      ' 
       for arg do
 
