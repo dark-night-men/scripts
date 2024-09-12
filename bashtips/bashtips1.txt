@@ -312,3 +312,10 @@ ncal -M -3
 
 #convert audio
 ffmpeg -i test.wav -acodec mp3 -ab 64k test.mp3
+
+#fzf hotkeys
+0ptional fzf keybindings and completion are available for various shells:
+• Ctrl+t Iist files+folders in current directory (е.д., type git add , press Ctrl+t , select а few
+fles using ТаЬ , fnally Enter )
+• Ctrl+r search history of shell commands.
+• Alt+c fuzzy change directory.
