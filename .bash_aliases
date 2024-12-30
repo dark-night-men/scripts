@@ -415,6 +415,12 @@ alias t="env LC_ALL=en_US.utf8 time --format='%E'"
 alias z="|& tee /tmp/log"
 alias sss="sudo service ssh start"
 
+alias nxfix="
+sudo /etc/NX/nxserver --eglcapture yes
+sudo systemctl restart display-manager
+sudo /etc/NX/nxserver --restart
+"
+
 alias cdm="cd /mnt/c/Users/serge/Videos"
 
 alias redjpgold="env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.jp*g' -size +1M -not -name '*ReDuCeD*'  -exec mogrify -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB {} \; -exec rename -v -f 's/(\.jpe?g)$/.ReDuCeD\1/' {} \; -printf '%p %k KB\n' |& tee /tmp/moglog"
@@ -490,3 +496,10 @@ alias rmlnk="find -regextype egrep  -iregex '.*\([2-9]\)\.lnk' -print -delete"
 alias rmlnkqb="find -type f -name '*!qB*ярлык.lnk' -print -delete"
 
 alias fd="fd --color auto"
+
+mv_insta_pics ()
+{
+
+    env LC_ALL=en_US.utf8  time --format=' elapsed time %E \n' find /mnt/c/Users/serge/Downloads -type f -regextype egrep -iregex  '.*[[:alnum:]_.]+_[_0-9]{38,}\.(mp4|jpeg|jpg|webp|heic)' -exec   mv -v -t /mnt/e/IDownload/tmp {} \; |& tee ~/tmp/mv_insta_pics.lo
+
+}

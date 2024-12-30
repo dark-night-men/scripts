@@ -68,7 +68,6 @@ if [[ -d /usr/local/share/vim/vim91 ]] ; then
 #     echo /usr/local/share/vim/vim90 does not exist
 fi
 
-
 export VISUAL=vim  #Ctrl-x Ctrl-e edit cmd line in vim
 
 set -o vi

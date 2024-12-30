@@ -242,6 +242,11 @@ grep -wFf A B
 #filter out color codes for piping
 sed -e 's/\x1b\[[0-9;]*m//g'
 
+#fix cannot find available desctops in nx
+sudo /etc/NX/nxserver --eglcapture yes
+sudo systemctl restart display-manager
+sudo /etc/NX/nxserver --restart
+
 #print file size when find
 find . -name *.ear -printf "%p %k KB\n"
 
@@ -287,3 +292,29 @@ fc-list
 
 #parallel vs xargs
 findxd0 ссср | parallel -0 find {}  -type f -regextype egrep -iregex '^.*\.\(avi\|mkv\|mpg\)' 
+
+#avoid leading dots in find
+find *
+
+#grep multi patterns
+grep -e pattern1 -e pattern2 fileName_or_filePath
+
+#multiple commands with xargs
+#https://stackoverflow.com/questions/6958689/running-multiple-commands-with-xargs
+<a.txt xargs -d $'\n' sh -c 'for arg do command1 "$arg"; command2 "$arg"; ...; done' _
+
+#auto escape filenames
+x='a real \good %* load of c$rap'
+x=$(printf '%q' "$x")
+echo $x
+
+#unset variable
+/home/user1> unset var
+/home/user1> echo $var
+-bash: var: unbound variable
+
+#show calendar 3 months with monday first day of week
+ncal -M -3
+
+#convert audio
+ffmpeg -i test.wav -acodec mp3 -ab 64k test.mp3

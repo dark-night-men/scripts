@@ -22,5 +22,5 @@ echo "arg 1 $1"
 
 
 env LC_ALL=en_US.utf8 time --format='%E' \
-    /usr/bin/ebook-convert "$1" "$1_clm.mobi" --mobi-file-type new --verbose --title="$2" --authors="$3" --embed-font-family  'Roboto Mono'
+    /usr/bin/ebook-convert "$1" "$1_clmr.mobi" --mobi-file-type new --verbose --title="$2" --authors="$3" --embed-font-family  'Roboto Mono'
 
