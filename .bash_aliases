@@ -488,3 +488,5 @@ alias im="( touch /tmp/im_alias_start.log;  psd2jpg; png2jpg;  redjpg; rsimg; to
 
 alias rmlnk="find -regextype egrep  -iregex '.*\([2-9]\)\.lnk' -print -delete"
 alias rmlnkqb="find -type f -name '*!qB*ярлык.lnk' -print -delete"
+
+alias fd="fd --color auto"
