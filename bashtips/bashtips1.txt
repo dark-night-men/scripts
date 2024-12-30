@@ -287,6 +287,12 @@ g++ -std=c++23 main.cpp -lstdc++_libbacktrace
 #get fullpath for file
 realpath
 
+# List all available fonts on Linux using the CLI
+fc-list
+
+#parallel vs xargs
+findxd0 ссср | parallel -0 find {}  -type f -regextype egrep -iregex '^.*\.\(avi\|mkv\|mpg\)' 
+
 #avoid leading dots in find
 find *
 
