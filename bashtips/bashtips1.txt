@@ -287,6 +287,16 @@ g++ -std=c++23 main.cpp -lstdc++_libbacktrace
 #get fullpath for file
 realpath
 
- cat /tmp/text2.txt   | parallel  -j 1 --pipe  --max-args 3  ~/tmp/tts.sh
- edge-playback  --voice ru-RU-SvetlanaNeural --text $(cat index.xhtml | trafilatura)
- cat index.xhtml | trafilatura > /tmp/text1.txt
+#MS Edge tts stuffs
+#~/tmp/tts.sh BEGIN
+#!/bin/bash
+
+cat > /tmp/buffer.txt
+
+edge-playback  --voice ru-RU-SvetlanaNeural -f /tmp/buffer.txt
+# edge-playback  --voice ru-RU-SvetlanaNeural --text "$1"
+#~/tmp/tts.sh END
+
+cat /tmp/text2.txt   | parallel  -j 1 --pipe  --max-args 3  ~/tmp/tts.sh
+edge-playback  --voice ru-RU-SvetlanaNeural --text $(cat index.xhtml | trafilatura)
+cat index.xhtml | trafilatura > /tmp/text1.txt
