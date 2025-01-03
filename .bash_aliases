@@ -1,3 +1,4 @@
+alias sudo="env LC_ALL=en_US.utf8 sudo"
 alias src="source"
 alias srca="src ~/.bash_aliases"
 alias c="cd .."
@@ -349,7 +350,7 @@ alias cst="export CSENABLED=true; env | grep CSENABLED"
 alias ucs="unset CSENABLED"
 alias cschk="[[ -v CSENABLED ]] && { echo 'CSENABLED TRUE'; } || { echo 'CSENABLED FALSE'; } "
 
-alias uus="sudo apt update && sudo apt upgrade && sudo apt autoremove"
+alias uus="env LC_ALL=en_US.utf8 sudo apt update && env LC_ALL=en_US.utf8 sudo apt upgrade && env LC_ALL=en_US.utf8 sudo apt autoremove"
 alias uusp="sudo apt update && sudo apt upgrade && sudo apt autoremove && sudo shutdown -h +5"
 alias uuspi="sudo apt update && sudo apt upgrade && sudo apt autoremove && sudo shutdown -h"
 alias ma="sudo mount -a"
@@ -494,3 +495,14 @@ alias im="( touch /tmp/im_alias_start.log;  psd2jpg; png2jpg;  redjpg; rsimg; to
 
 alias rmlnk="find -regextype egrep  -iregex '.*\([2-9]\)\.lnk' -print -delete"
 alias rmlnkqb="find -type f -name '*!qB*ярлык.lnk' -print -delete"
+
+tts_edge ()
+{
+    if [[ -z "$1" ]] ; then
+        echo "File with book must be specified"
+        return 1
+    fi
+
+    # cat "$1"   | parallel  -j 1 --pipe  --max-args 3  ~/tmp/tts.sh
+    yes "$(<$1)" | cat -s   | parallel  -j 1 --pipe  --max-args 3  ~/tmp/tts.sh
+}
