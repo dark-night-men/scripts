@@ -13,4 +13,5 @@ echo "arg 1 $1"
 
 #regular flow
 #/usr/bin/ebook-convert "$1" "$1.fb2" --pretty-print --enable-heuristics --embed-font-family  'Monofur NF'
-/usr/bin/ebook-convert "$1" "$1.fb2" --verbose 
+/usr/bin/ebook-convert "$1" "$1.fb2" --pretty-print --enable-heuristics --embed-font-family  'Comfortaa'
+# /usr/bin/ebook-convert "$1" "$1.fb2" --verbose 

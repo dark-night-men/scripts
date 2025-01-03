@@ -277,7 +277,7 @@ find /home/zerg/export/DiskStation/video2/queue_books \
 }
 
 #find DIR in WSL among ZTORRENT exclude CART
-findw_zd_ec ()
+findw_zd ()
 {
     echo $1
 
@@ -292,6 +292,21 @@ findw_zd_ec ()
         -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) -print
 }
 
+#find WSL among ZTORRENT exclude CART
+findw_z ()
+{
+    echo $1
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!ZTORRENT/ \
+        /mnt/d/\!D_VIDEO/\!ZTORRENT/ \
+        /mnt/e/\!E_VIDEO/\!ZTORRENT/ \
+        /mnt/f/\!F_VIDEO/\!Z_TORRENT/ \
+        -ipath '*/\!CART_DIR/*' \
+        -prune -o \
+        \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) -print
+}
 
 #find DIR in WSL among !heap 
 findw_hd ()
@@ -302,6 +317,18 @@ findw_hd ()
         \
     find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
         -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)
+}
+
+#find DIR in WSL among !heap. Using -print0 in find for zero-separated lines.
+findw_hd0 ()
+{
+    printf '%s\0' $1
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
+        -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)\
+        -print0
 }
 
 #find FILE or DIR in WSL among !heap 
@@ -496,6 +523,15 @@ alias im="( touch /tmp/im_alias_start.log;  psd2jpg; png2jpg;  redjpg; rsimg; to
 alias rmlnk="find -regextype egrep  -iregex '.*\([2-9]\)\.lnk' -print -delete"
 alias rmlnkqb="find -type f -name '*!qB*ярлык.lnk' -print -delete"
 
+#~/tmp/tts.sh BEGIN
+##!/bin/bash
+
+#cat > /tmp/buffer.txt
+
+#edge-playback  --voice ru-RU-SvetlanaNeural -f /tmp/buffer.txt
+## edge-playback  --voice ru-RU-SvetlanaNeural --text "$1"
+#~/tmp/tts.sh END
+
 tts_edge ()
 {
     if [[ -z "$1" ]] ; then
@@ -505,4 +541,34 @@ tts_edge ()
 
     # cat "$1"   | parallel  -j 1 --pipe  --max-args 3  ~/tmp/tts.sh
     yes "$(<$1)" | cat -s   | parallel  -j 1 --pipe  --max-args 3  ~/tmp/tts.sh
+}
+
+alias fd="fd --color auto"
+
+mv_insta_pics ()
+{
+
+    env LC_ALL=en_US.utf8  time --format=' elapsed time %E \n' find /mnt/c/Users/serge/Downloads -type f -regextype egrep -iregex  '.*[[:alnum:]_.]+_[_0-9]{38,}\.(mp4|jpeg|jpg|webp|heic)' -exec   mv -v -t /mnt/e/IDownload/tmp {} \; |& tee ~/tmp/mv_insta_pics.lo
+
+}
+
+
+#remove qbittorrent files - *.parts *.!qB
+qb_rm ()
+{
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!heap \
+        /mnt/c/Users/serge/Videos/\!ZTORRENT \
+        /mnt/{d,e,f}/\!heap/ \
+        /mnt/d/\!D_VIDEO/ \
+        /mnt/e/\!E_VIDEO/ \
+        /mnt/f/\!F_VIDEO/ \
+        \( -iname '*.parts' -o -iname '*.!qB'  \) \
+        -delete \
+        -print
+
+
+    # find /mnt/c/Users/serge/Videos/{\!heap,\!ZTORRENT}/ /mnt/{d,e,f}/{\!heap/,\!{D,E,F}_VIDEO}/ \
 }
