@@ -338,3 +338,6 @@ edge-playback  --voice ru-RU-SvetlanaNeural -f /tmp/buffer.txt
 cat /tmp/text2.txt   | parallel  -j 1 --pipe  --max-args 3  ~/tmp/tts.sh
 edge-playback  --voice ru-RU-SvetlanaNeural --text $(cat index.xhtml | trafilatura)
 cat index.xhtml | trafilatura > /tmp/text1.txt
+
+#format with  Microsoft style 'in place -i'
+clang-format --style Microsoft -i  main.cpp 
