@@ -147,3 +147,10 @@ set signcolumn=yes, no, auto
 
 "Set name for tab title (by Taboo plugin)
 :TabooRename My Tab Title
+
+"enumerating lines with incremented sequence
+{Visual}g CTRL-A	Add [count] to the number or alphabetic character in
+			the highlighted text. If several lines are
+		        highlighted, each one will be incremented by an
+			additional [count] (so effectively creating a
+			[count] incrementing sequence).
