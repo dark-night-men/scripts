@@ -154,3 +154,28 @@ set signcolumn=yes, no, auto
 		        highlighted, each one will be incremented by an
 			additional [count] (so effectively creating a
 			[count] incrementing sequence).
+
+
+
+"run 'filename' script BEFORE running any vimrc
+vim --cmd ":source <filename>".
+
+
+"run ex command AFTER vimrc and loading first file
+vim  -c "set ff=dos"  -c wq  mine.mak
+
+"help for vim command options
+:h vim-arguments — reference manual for Vim arguments
+
+"help for -V option
+:h -V 
+
+"help for   Commands starting with 'g'
+:h *g*
+
+"show messages WAS shown before (and hided ap present) 
+:messages
+
+"misterious normal mode command g<
+g<
+
