@@ -27,8 +27,6 @@ SKIPPED_FILES="$AUTOTMPDIR"/skipped_files.txt
 
 while IFS= read -r -d $'\0'; do
 
-    # STRIPPED_ARG_PATH="${REPLY%_New.*}"
-
     STRIPPED_ARG_PATH="${REPLY%.*}"
     REPLY_EXTENSION="${REPLY##*.}"
 
