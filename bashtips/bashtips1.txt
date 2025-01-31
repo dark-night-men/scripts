@@ -192,6 +192,7 @@ ls -1 | translit -t 'GOST 7.79 RUS' -r | less
 
 #cat manpage
 man -P cat man | less
+man col | col -b | less
 
 #top specific process
 top -p $(pgrep "ffmpeg")
@@ -341,3 +342,9 @@ cat index.xhtml | trafilatura > /tmp/text1.txt
 
 #format with  Microsoft style 'in place -i'
 clang-format --style Microsoft -i  main.cpp 
+
+#sort in place
+sort -o file file
+
+#sort in place with bash brace expancion
+sort -o file{,}
