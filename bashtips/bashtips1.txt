@@ -351,3 +351,6 @@ sort -o file{,}
 
 #several commands with parallel
 findw_hd0 chicken цып | parallel -0 -I % "printf '\n' && du -hs %  && find % -type f"  | less
+
+#convert all image files in current dir to icons, assigning sequential names - 1.ico, 2.ico ...
+ls -v | cat -n | while read n f; do convert "$f"   -define icon:auto-resize=256,64,48,32,16 "$n.ico"; done
