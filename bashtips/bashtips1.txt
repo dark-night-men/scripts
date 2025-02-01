@@ -348,3 +348,6 @@ sort -o file file
 
 #sort in place with bash brace expancion
 sort -o file{,}
+
+#several commands with parallel
+findw_hd0 chicken цып | parallel -0 -I % "printf '\n' && du -hs %  && find % -type f"  | less
