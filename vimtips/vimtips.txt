@@ -185,3 +185,6 @@ g<
 "Omni completion
 <C-X> <C-O>
 <C-X> <C-O>
+
+"Sorting text by column
+:%sort -k2,2 -r -h
