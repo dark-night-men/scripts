@@ -292,6 +292,23 @@ findw_zd ()
         -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) -print
 }
 
+
+#find DIR in WSL among ZTORRENT exclude CART. Using -print0 in find for zero-separated lines.
+findw_zd0 ()
+{
+    printf '%s\0' $1
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!ZTORRENT/ \
+        /mnt/d/\!D_VIDEO/\!ZTORRENT/ \
+        /mnt/e/\!E_VIDEO/\!ZTORRENT/ \
+        /mnt/f/\!F_VIDEO/\!Z_TORRENT/ \
+        -ipath '*/\!CART_DIR/*' \
+        -prune -o \
+        -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) -print0
+}
+
 #find WSL among ZTORRENT exclude CART
 findw_z ()
 {
@@ -548,7 +565,7 @@ alias fd="fd --color auto"
 mv_insta_pics ()
 {
 
-    env LC_ALL=en_US.utf8  time --format=' elapsed time %E \n' find /mnt/c/Users/serge/Downloads -type f -regextype egrep -iregex  '.*[[:alnum:]_.]+_[_0-9]{38,}\.(mp4|jpeg|jpg|webp|heic)' -exec   mv -v -t /mnt/e/IDownload/tmp {} \; |& tee ~/tmp/mv_insta_pics.lo
+    env LC_ALL=en_US.utf8  time --format=' elapsed time %E \n' find /mnt/c/Users/serge/Downloads -type f -regextype egrep -iregex  '.*[[:alnum:]_.]+_[_0-9]{37,}\.(mp4|jpeg|jpg|webp|heic|png)' -exec   mv -v -t /mnt/e/IDownload/tmp {} \; |& tee ~/tmp/mv_insta_pics.log
 
 }
 
