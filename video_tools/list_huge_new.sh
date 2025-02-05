@@ -27,12 +27,12 @@ SKIPPED_FILES="$AUTOTMPDIR"/skipped_files.txt
 
 while IFS= read -r -d $'\0'; do
 
-    STRIPPED_ARG_PATH="${REPLY%.*}"
+    STRIPPED_ARG_PATH=$(printf '%q' "${REPLY%.*}")
     REPLY_EXTENSION="${REPLY##*.}"
 
-    NEW_FILE="$STRIPPED_ARG_PATH"_New\."$REPLY_EXTENSION"
+    NEW_FILES="${STRIPPED_ARG_PATH}"_New\.{mkv,avi,mp4,mpg,flv}
 
-    if ! [ -f "$NEW_FILE" ]; then
+    if ! [ $(eval "ls -1  $NEW_FILES 2>/dev/null"  | wc -l) -gt 0 ]; then
 
         FILE_DURATION_IN_SEC=$( ffprobe -i "$REPLY" -show_entries format=duration -v quiet -of csv="p=0")
 
@@ -47,15 +47,9 @@ while IFS= read -r -d $'\0'; do
     else
 
         du -sh "$REPLY" >> $SKIPPED_FILES
-        du -sh "$NEW_FILE" >> $SKIPPED_FILES
+        eval "du -sh $NEW_FILES 2>/dev/null" >> $SKIPPED_FILES
 
         printf '\n' >> $SKIPPED_FILES
-
-        # ls -lh "$REPLY" | tee $SKIPPED_FILES
-        # ls -lh "$NEW_FILE" | tee $SKIPPED_FILES
-
-        # printf '\n' | tee $SKIPPED_FILES
-
     fi
 
 
