@@ -179,3 +179,9 @@ vim  -c "set ff=dos"  -c wq  mine.mak
 "misterious normal mode command g<
 g<
 
+"check hotkey/shortcut keyboard mapping
+:verbose imap <C-g>
+
+"Omni completion
+<C-X> <C-O>
+<C-X> <C-O>
