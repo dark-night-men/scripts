@@ -54,7 +54,7 @@ while IFS= read -r -d $'\0'; do
 
 
 
-done < <(find "${@-.}" -type f -size +800M -regextype egrep -iregex '.*\.(wmv,mkv|avi|mp4|mpg|flv)' -not -iregex '^.*_New\....$' -print0)
+done < <(find "${@-.}" -type f -size +800M -regextype egrep -iregex '.*\.(wmv|mkv|avi|mp4|mpg|flv)' -not -iregex '^.*_New\....$' -print0)
 
 sort -k2,2 -h -r $TEMPFILE
 
