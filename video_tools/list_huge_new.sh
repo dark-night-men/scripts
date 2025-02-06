@@ -30,7 +30,7 @@ while IFS= read -r -d $'\0'; do
     STRIPPED_ARG_PATH=$(printf '%q' "${REPLY%.*}")
     REPLY_EXTENSION="${REPLY##*.}"
 
-    NEW_FILES="${STRIPPED_ARG_PATH}"_New\.{mkv,avi,mp4,mpg,flv}
+    NEW_FILES="${STRIPPED_ARG_PATH}"_New\.{wmv,mkv,avi,mp4,mpg,flv}
 
     if ! [ $(eval "ls -1  $NEW_FILES 2>/dev/null"  | wc -l) -gt 0 ]; then
 
@@ -54,7 +54,7 @@ while IFS= read -r -d $'\0'; do
 
 
 
-done < <(find "${@-.}" -type f -size +800M -regextype egrep -iregex '.*\.(mkv|avi|mp4|mpg|flv)' -not -iregex '^.*_New\....$' -print0)
+done < <(find "${@-.}" -type f -size +800M -regextype egrep -iregex '.*\.(wmv,mkv|avi|mp4|mpg|flv)' -not -iregex '^.*_New\....$' -print0)
 
 sort -k2,2 -h -r $TEMPFILE
 
