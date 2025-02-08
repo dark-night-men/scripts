@@ -15,6 +15,32 @@ else
     trap 'rm -rfv -- "$AUTOTMPDIR"' EXIT
 fi
 
+EXCLUDED_DIRS=~/tmp/excluded_dirs.txt
+unset EXCLUDED_EXPR
+
+if [ -f $EXCLUDED_DIRS ]; then
+
+    # echo "File $EXCLUDED_DIRS FOUND."
+
+    while IFS=  read -r -d $'\n'; do
+        # echo Line "$REPLY"
+        
+        ESCAPED_NAME=$(printf '%q' "$REPLY")
+
+        #Consider lines with * metachar like lines with glob, then not escaping them.
+        #Replacing \* to *
+        if echo "$REPLY" | grep -q '\*' ; then
+            ESCAPED_NAME=$(echo $ESCAPED_NAME | sed -re 's|\\\*|*|g')
+        fi
+
+        EXCLUDED_EXPR="$EXCLUDED_EXPR -not -path '*/$ESCAPED_NAME/*'"
+        # EXCLUDED_EXPR="$EXCLUDED_EXPR -not -path "*/$ESCAPED_NAME/*"
+    done < "$EXCLUDED_DIRS"
+
+    # echo EXCLUDED_EXPR "$EXCLUDED_EXPR"
+fi
+
+
 
 TEMPFILE="$AUTOTMPDIR"/raw_data.txt
 SKIPPED_FILES="$AUTOTMPDIR"/skipped_files.txt
@@ -24,6 +50,8 @@ SKIPPED_FILES="$AUTOTMPDIR"/skipped_files.txt
 
 #find output example:
 #1330.915044     344M    /mnt/c/Users/serge/Videos/!heap/South Park/16 Sezon/04. Jewpacabra.avi
+
+COMMAND="find ${@-.} -type f -size +800M -regextype egrep -iregex '.*\.(wmv|mkv|avi|mp4|mpg|flv)' -not -iregex '^.*_New\....$' $EXCLUDED_EXPR -print0"
 
 while IFS= read -r -d $'\0'; do
 
@@ -53,8 +81,8 @@ while IFS= read -r -d $'\0'; do
     fi
 
 
+done < <(eval "$COMMAND")
 
-done < <(find "${@-.}" -type f -size +800M -regextype egrep -iregex '.*\.(wmv|mkv|avi|mp4|mpg|flv)' -not -iregex '^.*_New\....$' -print0)
 
 sort -k2,2 -h -r $TEMPFILE
 
