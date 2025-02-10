@@ -360,3 +360,12 @@ str="/some/directory/file"
 if [[ $str == /* ]]; then echo 1; else echo 0; fi
 if [[ ${str:0:1} == "/" ]] ; then echo 1; else echo 0; fi
 if [[ $str =~ ^/ ]]; then echo 1; else echo 0; fi
+
+#increment var in a loop
+while read country _; do
+  if [ "US" = "$country" ]; then
+        USCOUNTER=$(expr $USCOUNTER + 1)
+        echo "US counter $USCOUNTER"
+  fi
+done < "$FILE"
+
