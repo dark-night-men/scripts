@@ -369,3 +369,11 @@ while read country _; do
   fi
 done < "$FILE"
 
+#math commparison
+if (( a > b )); then
+    ...
+fi
+#For POSIX shells that don't support (()), you can use -lt and -gt.
+if [ "$a" -gt "$b" ]; then
+    ...
+fi
