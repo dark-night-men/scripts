@@ -378,3 +378,9 @@ fi
 if [ "$a" -gt "$b" ]; then
     ...
 fi
+
+#Iterate over args.
+for var in "$@"
+do
+    echo "$var"
+done
