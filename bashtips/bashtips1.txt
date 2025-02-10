@@ -79,6 +79,7 @@ wget https://cdn.echo.msk.ru/snd/2019-07-28-netak-1210.mp3 -O НеТак_Хаб�
 find -iname main.cpp -exec wc -c {} \;  | while read -r; do echo "$REPLY"| awk '{print $1}'  | numfmt --to=iec ;   done
 
 
+#Loop through int sequence from 15 to 1 with increment -1.
 for x in $(seq -f "%02g"  15 -1 1); do  grep "S$x" AlwaysSunny.m3u >> AlwaysSunnyR.m3u ; done
 
 #get full path to file
