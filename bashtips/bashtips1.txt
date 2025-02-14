@@ -385,5 +385,13 @@ do
     echo "$var"
 done
 
+#List ctags options
 ctags --list-fields
 ctags --list-kinds
+
+#Redirect find output to file embracing names with quotes
+find . -type f -fprintf cscope.files '"%p"\n'
+
+#Escaping special chars in filenames
+find -exec bash -c 'printf "%s\n" "${@@Q}"' sh {} +
+
