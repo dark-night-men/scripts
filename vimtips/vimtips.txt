@@ -188,3 +188,6 @@ g<
 
 "Sorting text by column
 :%sort -k2,2 -r -h
+
+"Replacemant with review
+g/VIDEO/#|s/VIDEO/=MIDEO=/g|#
