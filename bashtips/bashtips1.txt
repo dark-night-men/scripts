@@ -384,3 +384,6 @@ for var in "$@"
 do
     echo "$var"
 done
+
+ctags --list-fields
+ctags --list-kinds
