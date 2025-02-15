@@ -35,6 +35,7 @@
 
     df = difftool -t vimdiff
     lsf = ls-files
+    lsm = ls-files -m
 
     #list commits with file
     lscm = "!lcm() { git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short --follow -- "$1"; }; lcm"
