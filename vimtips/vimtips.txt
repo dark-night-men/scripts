@@ -191,3 +191,6 @@ g<
 
 "Replacemant with review
 g/VIDEO/#|s/VIDEO/=MIDEO=/g|#
+
+"list of quickfix
+:clist
