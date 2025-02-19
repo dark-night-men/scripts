@@ -402,3 +402,19 @@ declare -A animals=( ["moo"]="cow" ["woof"]="dog")
 # "${!animals[@]}" (notice the !) to expand the keys
 
 for sound in "${!animals[@]}"; do echo "$sound - ${animals[$sound]}"; done
+
+#change string from uppercase to lowercase
+#for BASH 4
+x="HELLO"
+echo $x  # HELLO
+
+y=${x,,}
+echo $y  # hello
+
+z=${y^^}
+echo $z  # HELLO
+
+#for earlier versions
+y="HELLO"
+val=$(echo "$y" | tr '[:upper:]' '[:lower:]')
+string="$val world"
