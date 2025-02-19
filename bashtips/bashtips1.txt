@@ -418,3 +418,6 @@ echo $z  # HELLO
 y="HELLO"
 val=$(echo "$y" | tr '[:upper:]' '[:lower:]')
 string="$val world"
+
+#whether BASH version matching
+if ((BASH_VERSINFO[0] < 4)); then echo "Sorry, you need at least bash-4.0 to run this script." >&2; exit 1; fi
