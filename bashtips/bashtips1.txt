@@ -395,3 +395,10 @@ find . -type f -fprintf cscope.files '"%p"\n'
 #Escaping special chars in filenames
 find -exec bash -c 'printf "%s\n" "${@@Q}"' sh {} +
 
+#map like container
+declare -A animals=( ["moo"]="cow" ["woof"]="dog")
+# animals['key']='value' to set value
+# "${animals[@]}" to expand the values
+# "${!animals[@]}" (notice the !) to expand the keys
+
+for sound in "${!animals[@]}"; do echo "$sound - ${animals[$sound]}"; done
