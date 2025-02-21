@@ -35,7 +35,12 @@
 
     df = difftool -t vimdiff
     lsf = ls-files
-    lsm = ls-files -m
+
+    #list modified files
+    lsmod = ls-files -m
+    
+    #list files for push
+    lspush = diff --stat  origin/master HEAD
 
     #list commits with file
     lscm = "!lcm() { git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short --follow -- "$1"; }; lcm"
