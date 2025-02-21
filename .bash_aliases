@@ -325,6 +325,22 @@ findw_z ()
         \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) -print
 }
 
+#find WSL among ZTORRENT exclude CART. Using -print0 in find for zero-separated lines.
+findw_z0 ()
+{
+    printf '%s\0' $1
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!ZTORRENT/ \
+        /mnt/d/\!D_VIDEO/\!ZTORRENT/ \
+        /mnt/e/\!E_VIDEO/\!ZTORRENT/ \
+        /mnt/f/\!F_VIDEO/\!Z_TORRENT/ \
+        -ipath '*/\!CART_DIR/*' \
+        -prune -o \
+        \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) -print0
+}
+
 #find DIR in WSL among !heap 
 findw_hd ()
 {
