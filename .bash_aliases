@@ -296,7 +296,7 @@ findw_zd ()
 #find DIR in WSL among ZTORRENT exclude CART. Using -print0 in find for zero-separated lines.
 findw_zd0 ()
 {
-    printf '%s\0' $1
+    printf '%s\0' $1 1>&2
 
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
@@ -328,7 +328,7 @@ findw_z ()
 #find WSL among ZTORRENT exclude CART. Using -print0 in find for zero-separated lines.
 findw_z0 ()
 {
-    printf '%s\0' $1
+    printf '%s\0' $1 1>&2
 
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
@@ -484,9 +484,9 @@ sudo /etc/NX/nxserver --restart
 
 alias cdm="cd /mnt/c/Users/serge/Videos"
 alias cdc="cd /mnt/c/Users/serge/Videos"
-alias cdd="cd /mnt/d"
-alias cde="cd /mnt/e"
-alias cdf="cd /mnt/f"
+alias cdd="cd /mnt/d/!heap"
+alias cde="cd /mnt/e/!heap"
+alias cdf="cd /mnt/f/!heap"
 
 alias redjpgold="env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.jp*g' -size +1M -not -name '*ReDuCeD*'  -exec mogrify -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB {} \; -exec rename -v -f 's/(\.jpe?g)$/.ReDuCeD\1/' {} \; -printf '%p %k KB\n' |& tee /tmp/moglog"
 
