@@ -378,6 +378,18 @@ findw_h ()
         \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)
 }
 
+#find FILE or DIR in WSL among !heap. Using -print0 in find for zero-separated lines.
+findw_h0 ()
+{
+    printf '%s\0' $1 1>&2
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
+        \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) \
+        -print0
+}
+
 
 #find in Videos in WSL
 findwv ()
