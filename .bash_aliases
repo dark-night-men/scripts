@@ -377,7 +377,7 @@ findw_v ()
     find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
         -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)\
         -print0 \
-        | parallel -0 -I % "find % -type f -regextype egrep  -iregex '^.*\.(avi|mkv|mp4|mpg)'"
+        | parallel -0 -I % "find % -type f -regextype egrep  -iregex '^.*\.(avi|mkv|mp4|mpg|flv|wmv|ts)'"
 }
 
 #find FILE or DIR in WSL among !heap 
