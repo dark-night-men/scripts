@@ -90,5 +90,5 @@ set -o vi
 #export TERM=xterm
 set +x
 
-eval $(ssh-agent -s)
+# eval $(ssh-agent -s)
 
