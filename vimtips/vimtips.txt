@@ -194,3 +194,6 @@ g/VIDEO/#|s/VIDEO/=MIDEO=/g|#
 
 "list of quickfix
 :clist
+
+"open and split vertically
+vim -O .profile .bashrc
