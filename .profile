@@ -40,6 +40,14 @@ export HISTFILESIZE=20000
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 export HISTTIMEFORMAT='%F %T '
 
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
 
 #export LD_LIBRARY_PATH=/usr/NX/lib:${LD_LIBRARY_PATH}
 #export PATH=/usr/NX/bin:${PATH}
@@ -47,8 +55,9 @@ export HISTTIMEFORMAT='%F %T '
 # export LD_LIBRARY_PATH=/usr/local/Qt/Qt_5.5.0_1/lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
 
 export Qt6_DIR=/usr/lib/qt-6.8.1
-export PATH=/root/.local/bin:~/scripts:${Qt6_DIR}/bin:${PATH}
-export LD_LIBRARY_PATH=${Qt6_DIR}/lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
+export LLVM_C=/usr/local/llvm_custom_01
+export PATH=/root/.local/bin:$LLVM_C/bin:~/scripts:${Qt6_DIR}/bin:${PATH}
+export LD_LIBRARY_PATH=$LLVM_C/lib/:${Qt6_DIR}/lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
 
 export DISPLAY=:0
 
