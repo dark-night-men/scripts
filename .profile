@@ -35,16 +35,30 @@ export HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-export HISTSIZE=5000
-export HISTFILESIZE=20000
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+export HISTSIZE=50000
+export HISTFILESIZE=1000000
+# export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+export PROMPT_COMMAND="history -a;  history -r; $PROMPT_COMMAND"
 export HISTTIMEFORMAT='%F %T '
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
 
 
 #export LD_LIBRARY_PATH=/usr/NX/lib:${LD_LIBRARY_PATH}
 #export PATH=/usr/NX/bin:${PATH}
-export PATH=/root/.local/bin:~/scripts:/usr/lib/x86_64-linux-gnu/qt5/bin:/usr/local/Qt/Qt_5.5.0_1/bin:${PATH}
-export LD_LIBRARY_PATH=/usr/local/Qt/Qt_5.5.0_1/lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
+# export PATH=/root/.local/bin:~/scripts:/usr/lib/x86_64-linux-gnu/qt5/bin:/usr/local/Qt/Qt_5.5.0_1/bin:${PATH}
+# export LD_LIBRARY_PATH=/usr/local/Qt/Qt_5.5.0_1/lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
+
+export Qt6_DIR=/usr/lib/qt-6.8.1
+export LLVM_C=/usr/local/llvm_custom_01
+export PATH=/root/.local/bin:$LLVM_C/bin:~/scripts:${Qt6_DIR}/bin:${PATH}
+export LD_LIBRARY_PATH=$LLVM_C/lib/:${Qt6_DIR}/lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
 
 export DISPLAY=:0
 
@@ -75,3 +89,6 @@ set -o vi
 
 #export TERM=xterm
 set +x
+
+# eval $(ssh-agent -s)
+

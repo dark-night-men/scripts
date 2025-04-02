@@ -10,7 +10,10 @@ alias mk="~/scripts/mk.sh make make"
 alias mku="~/scripts/mk.sh make"
 alias mks="~/scripts/mk.sh"
 alias tmux="TERM=xterm-256color tmux"
+
 alias make="make -j8"
+alias ninja="ninja -j8"
+
 alias d="gdb ./elasticnodes -c ./core -tui"
 
 alias gitgraph="git log --graph --full-history --all --color \
@@ -296,7 +299,7 @@ findw_zd ()
 #find DIR in WSL among ZTORRENT exclude CART. Using -print0 in find for zero-separated lines.
 findw_zd0 ()
 {
-    printf '%s\0' $1
+    printf '%s\0' $1 1>&2
 
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
@@ -328,7 +331,7 @@ findw_z ()
 #find WSL among ZTORRENT exclude CART. Using -print0 in find for zero-separated lines.
 findw_z0 ()
 {
-    printf '%s\0' $1
+    printf '%s\0' $1 1>&2
 
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
@@ -364,6 +367,19 @@ findw_hd0 ()
         -print0
 }
 
+#Find video files inside specified dirs
+findw_v ()
+{
+    printf '%s\0' $1 1>&2
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
+        -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)\
+        -print0 \
+        | parallel -0 -I % "find % -type f -regextype egrep  -iregex '^.*\.(avi|mkv|mp4|mpg|flv|wmv|ts)'"
+}
+
 #find FILE or DIR in WSL among !heap 
 findw_h ()
 {
@@ -373,6 +389,18 @@ findw_h ()
         \
     find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
         \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)
+}
+
+#find FILE or DIR in WSL among !heap. Using -print0 in find for zero-separated lines.
+findw_h0 ()
+{
+    printf '%s\0' $1 1>&2
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
+        \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) \
+        -print0
 }
 
 
@@ -484,9 +512,9 @@ sudo /etc/NX/nxserver --restart
 
 alias cdm="cd /mnt/c/Users/serge/Videos"
 alias cdc="cd /mnt/c/Users/serge/Videos"
-alias cdd="cd /mnt/d"
-alias cde="cd /mnt/e"
-alias cdf="cd /mnt/f"
+alias cdd="cd /mnt/d/!heap"
+alias cde="cd /mnt/e/!heap"
+alias cdf="cd /mnt/f/!heap"
 
 alias redjpgold="env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.jp*g' -size +1M -not -name '*ReDuCeD*'  -exec mogrify -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB {} \; -exec rename -v -f 's/(\.jpe?g)$/.ReDuCeD\1/' {} \; -printf '%p %k KB\n' |& tee /tmp/moglog"
 
@@ -609,3 +637,7 @@ qb_rm ()
 
     # find /mnt/c/Users/serge/Videos/{\!heap,\!ZTORRENT}/ /mnt/{d,e,f}/{\!heap/,\!{D,E,F}_VIDEO}/ \
 }
+
+alias para="parallel"
+
+alias rg="rg --hidden --glob '!.git'"

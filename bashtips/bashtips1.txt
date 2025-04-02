@@ -421,3 +421,22 @@ string="$val world"
 
 #whether BASH version matching
 if ((BASH_VERSINFO[0] < 4)); then echo "Sorry, you need at least bash-4.0 to run this script." >&2; exit 1; fi
+
+#How to get back unused disk space from Ubuntu on WSL2?
+#Path to disk image
+%USERPROFILE%\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\
+
+wsl --shutdown
+optimize-vhd -Path .\ext4.vhdx -Mode full
+
+wsl --shutdown
+diskpart
+# open window Diskpart
+select vdisk file="C:\WSL-Distros\…\ext4.vhdx"
+attach vdisk readonly
+compact vdisk
+detach vdisk
+exit
+
+wsl --version
+
