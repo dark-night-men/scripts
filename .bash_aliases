@@ -367,7 +367,7 @@ findw_hd0 ()
         -print0
 }
 
-#find DIR in WSL among !heap. 
+#Find video files inside specified dirs
 findw_v ()
 {
     printf '%s\0' $1 1>&2
