@@ -367,6 +367,19 @@ findw_hd0 ()
         -print0
 }
 
+#find DIR in WSL among !heap. 
+findw_v ()
+{
+    printf '%s\0' $1 1>&2
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
+        -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)\
+        -print0 \
+        | parallel -0 -I % "find % -type f -regextype egrep  -iregex '^.*\.(avi|mkv|mp4|mpg)'"
+}
+
 #find FILE or DIR in WSL among !heap 
 findw_h ()
 {
@@ -624,3 +637,7 @@ qb_rm ()
 
     # find /mnt/c/Users/serge/Videos/{\!heap,\!ZTORRENT}/ /mnt/{d,e,f}/{\!heap/,\!{D,E,F}_VIDEO}/ \
 }
+
+alias para="parallel"
+
+alias rg="rg --hidden --glob '!.git'"
