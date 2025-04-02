@@ -71,7 +71,7 @@ findxd ()
 
 findxd0 ()
 {
-    printf '%s\0' $1
+    printf '%s\0' $1 1>&2
 
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
@@ -135,7 +135,7 @@ findxm ()
 
 findxm0 ()
 {
-    printf '%s\0' $1
+    printf '%s\0' $1 1>&2
 
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
