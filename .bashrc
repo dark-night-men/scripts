@@ -37,10 +37,33 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
+
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
+    # \h
+    # The hostname, up to the first ‘.’.
+
+    # \j
+    # The number of jobs currently managed by the shell.
+
+    # \!
+    # The history number of this command.
+
+    # \#
+	# The command number of this command.
+
+    # \w
+    # The value of the PWD shell variable ($PWD), with $HOME abbreviated with a tilde (uses the $PROMPT_DIRTRIM variable).
+
+    # \$
+    # If the effective uid is 0, #, otherwise $.
+
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\j\[\033[100;91m\]L${SHLVL}\[\033[00m\]<\!>\#\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    # PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:L${SHLVL}J\j<\!>C\#:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
