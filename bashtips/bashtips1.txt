@@ -440,3 +440,5 @@ exit
 
 wsl --version
 
+#find and unzip archives to same name dirs
+find -type f -iname '*.zip' -exec bash -c ' unzip -d "${0%.*}" "$0" ' {} \;
