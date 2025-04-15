@@ -37,8 +37,8 @@ shopt -s histappend
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 export HISTSIZE=50000
 export HISTFILESIZE=1000000
-# export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-export PROMPT_COMMAND="history -a;  history -r; $PROMPT_COMMAND"
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+# export PROMPT_COMMAND="history -a;  history -r; $PROMPT_COMMAND"
 export HISTTIMEFORMAT='%F %T '
 
 # check the window size after each command and, if necessary,
