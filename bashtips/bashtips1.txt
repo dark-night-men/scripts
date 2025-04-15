@@ -442,3 +442,21 @@ wsl --version
 
 #find and unzip archives to same name dirs
 find -type f -iname '*.zip' -exec bash -c ' unzip -d "${0%.*}" "$0" ' {} \;
+
+#pdf to png
+gs -dBATCH -dNOPAUSE  -sDEVICE=png16m -dGraphicsAlphaBits=4 -dTextAlphaBits=4 -r400 -sOutputFile=output%d.png -f refsem.pdf
+convert output1.png -gravity East -chop 2222x0 o2.png
+
+
+#diff to get only removed lines
+##Show lines that only exist in file a: (i.e. what was deleted from a)
+comm -23 a b
+
+##Show lines that only exist in file b: (i.e. what was added to b)
+comm -13 a b
+
+##Show lines that only exist in one file or the other: (but not both)
+comm -3 a b | sed 's/^\t//'
+
+##Files should be sorted
+comm -12 <(sort a) <(sort b)
