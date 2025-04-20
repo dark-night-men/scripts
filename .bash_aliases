@@ -382,7 +382,7 @@ findw_hd0 ()
 }
 
 #Find video files inside specified dirs
-findw_v ()
+findw_vd ()
 {
     printf '%s\0' $1 1>&2
 
@@ -393,6 +393,49 @@ findw_v ()
         -print0 \
         | parallel -0 -I % "find % -type f -regextype egrep  -iregex '^.*\.(avi|mkv|mp4|mpg|flv|wmv|ts)'"
 }
+
+#Find video files 
+findw_v ()
+{
+    printf '%s\n' $1 1>&2
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
+    -regextype egrep  -iregex "^.*($1${2:+|$2}${3:+|$3}${4:+|$4}).*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"
+    # -type f -regextype egrep  -iregex "^.*($1)\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"
+}
+
+#Find video files with ALL specified words in name
+findw_va ()
+{
+    printf '%s\n' $1 1>&2
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
+    -regextype egrep\
+    -iregex "^.*$1.*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"\
+    ${2:+ -iregex "^.*$2.*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"} \
+    ${3:+ -iregex "^.*$3.*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"} \
+    ${4:+ -iregex "^.*$4.*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"} 
+}
+
+#Find video files or dirs strictly with only specified name
+findw_vs ()
+{
+    printf '%s\n' $1 1>&2
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
+    -regextype egrep\
+    \( \
+    \( -type f -iregex ".*/$1\.(avi|mkv|mp4|mpg|flv|wmv|ts)$" \) \
+    -or \( -type d -iregex ".*/${1}$" \) \
+        \)
+}
+
 
 #find FILE or DIR in WSL among !heap 
 findw_h ()
