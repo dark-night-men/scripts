@@ -136,6 +136,7 @@ export GDK_DPI_SCALE=1.5
 
 export HTML_TIDY=~/tmp/html_tidy_config.txt
 
+#FNM - Fast Node Manager - installed by coc plugin for vim
 # fnm
 FNM_PATH="/home/zerg/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
