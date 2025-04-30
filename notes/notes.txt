@@ -1,0 +1,4 @@
+
+diagramscene
+    connect(backgroundButtonGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked),
+            this, &MainWindow::backgroundButtonGroupClicked);
