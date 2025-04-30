@@ -291,6 +291,11 @@ realpath
 
 # List all available fonts on Linux using the CLI
 fc-list
+" List fonts supporting Hindi language
+fc-list :lang=hi
+
+# Rebuild font cache
+fc-cache -f -v
 
 #avoid leading dots in find
 find *
