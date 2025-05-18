@@ -60,7 +60,8 @@ if [ "$color_prompt" = yes ]; then
     # \$
     # If the effective uid is 0, #, otherwise $.
 
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\j\[\033[100;91m\]L${SHLVL}\[\033[00m\]<\!>\#\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[38;5;11m\]\j\[\033[100;91m\]L${SHLVL}\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
 else
     # PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:L${SHLVL}J\j<\!>C\#:\w\$ '
@@ -134,3 +135,18 @@ export GDK_DPI_SCALE=1.5
 # export QT_SCALE_FACTOR=1.5
 
 export HTML_TIDY=~/tmp/html_tidy_config.txt
+
+#FNM - Fast Node Manager - installed by coc plugin for vim
+# fnm
+FNM_PATH="/home/zerg/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
+
+# fnm
+FNM_PATH="/home/zerg/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi

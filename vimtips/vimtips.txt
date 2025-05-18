@@ -197,3 +197,13 @@ g/VIDEO/#|s/VIDEO/=MIDEO=/g|#
 
 "open and split vertically
 vim -O .profile .bashrc
+
+"export as html 
+:TOhtml|wqa
+
+"coc inlay hints
+"coc language annotations
+:h coc-inlayHint
+
+"redirect command output to buffer
+:enew|pu=execute('scriptnames')
