@@ -207,3 +207,11 @@ vim -O .profile .bashrc
 
 "redirect command output to buffer
 :enew|pu=execute('scriptnames')
+
+"coc tips"
+
+
+"To test your color setup, a file has been included in the Vim distribution.
+"To use it, execute this command: >
+:runtime syntax/colortest.vim
+
