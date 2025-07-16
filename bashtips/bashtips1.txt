@@ -465,3 +465,81 @@ comm -3 a b | sed 's/^\t//'
 
 ##Files should be sorted
 comm -12 <(sort a) <(sort b)
+
+#ripgrep maxdepth
+rg -d 
+rg --max-depth
+
+#use tab as delimiter with sort
+cat /tmp/log | sort -t$'\t' -k2,2
+
+#bash history shortcuts BEGIN
+#Last argument
+!$
+
+#2nd argument
+!:2 
+
+tar -cvf afolder afolder.tar
+ tar: failed to open
+
+$ !:0 !:1 !:3 !:2
+ tar -cvf afolder.tar afolder
+
+#all arguments
+!:1-$
+
+#all arguments except 2nd
+!-2:$
+
+
+ls /wmp
+ls: cannot access '/wmp': No such file or directory
+
+^wmp^tmp^
+ls /tmp
+
+
+#1st argument of the most recent command in your bash history.
+!:^	
+
+#Nth argument 
+!:N	
+
+#last argument 
+!:$	
+
+#all arguments
+!:*	
+
+:h	Removes the trailing path from a command. Useful for getting a path without a filename.
+:t	Removes the leading path from a command. Useful for getting a filename without a path
+:r	Removes an extension from a filename.
+:p	Prints a command without running it.
+:s	Enables string substitution comparable to the sed command.
+
+tar -cvf system.tar /etc/system
+ tar: /etc/system: Cannot stat: No such file or directory
+ tar: Error exit delayed from previous errors.
+
+cd !$:h
+ cd /etc
+
+#first arg of current line
+!#:1
+
+cp /path/to/some/file !#:1.bak
+ cp /path/to/some/file /path/to/some/file.bak
+
+#search and replace
+!!:gs
+
+echo my f key doef not work
+ my f key doef not work
+
+!!:gs/f /s /
+ echo my s key does not work
+  my s key does not work
+
+#bash history shortcuts END
+
