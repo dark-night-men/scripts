@@ -357,21 +357,24 @@ findw_z0 ()
         \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) -print0
 }
 
+alias fw_d="findw_hd"
 #find DIR in WSL among !heap 
 findw_hd ()
 {
-    echo $1
+    printf '%s\n' $1 1>&2
 
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
     find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
-        -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)
+        -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) -exec du -h {} \; \
+        | sort -t$'\t' -k2,2 
 }
 
+alias fw_d0="findw_hd0"
 #find DIR in WSL among !heap. Using -print0 in find for zero-separated lines.
 findw_hd0 ()
 {
-    printf '%s\0' $1 1>&2
+    printf '%s\n' $1 1>&2
 
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
@@ -380,20 +383,23 @@ findw_hd0 ()
         -print0
 }
 
+alias fw_vd="findw_vd"
 #Find video files inside specified dirs
 findw_vd ()
 {
-    printf '%s\0' $1 1>&2
+    printf '%s\n' $1 1>&2
 
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
     find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
         -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)\
         -print0 \
-        | parallel -0 -I % "find % -type f -regextype egrep  -iregex '^.*\.(avi|mkv|mp4|mpg|flv|wmv|ts)'"
+        | parallel -0 -I % "find % -type f -regextype egrep  -iregex '^.*\.(avi|mkv|mp4|mpg|flv|wmv|ts)' -exec du -h {} \;" \
+        | sort -t$'\t' -k2,2 
 }
 
 #Find video files 
+alias fw_v=findw_v
 findw_v ()
 {
     printf '%s\n' $1 1>&2
