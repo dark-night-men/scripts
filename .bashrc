@@ -16,6 +16,7 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
+export TERM="xterm-256color"
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
@@ -37,6 +38,7 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+export DISPLAY=localhost:10.0
 # https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
 
 if [ "$color_prompt" = yes ]; then
@@ -60,7 +62,8 @@ if [ "$color_prompt" = yes ]; then
     # \$
     # If the effective uid is 0, #, otherwise $.
 
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[38;5;11m\]\j\[\033[100;91m\]L${SHLVL}\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[38;5;11m\]\j\[\033[100;91m\]L${SHLVL}\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[38;5;11m\]\j\[\033[100;91m\]L${SHLVL}\[\033[00m\]'"'"'${DISPLAY}'"'"'\[\033[01;34m\]\w\[\033[00m\]\$ '
 
 else
     # PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
@@ -150,3 +153,4 @@ if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
   eval "`fnm env`"
 fi
+
