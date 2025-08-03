@@ -5,4 +5,7 @@ GTAGS
 cscope.in.out
 cscope.out
 cscope.po.out
+cscope.files
 tags
+ctags.files
+scope_starting_points*
