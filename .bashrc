@@ -154,3 +154,5 @@ if [ -d "$FNM_PATH" ]; then
   eval "`fnm env`"
 fi
 
+# GRC_ALIASES=true
+# [[ -s "/etc/profile.d/grc.sh" ]] && source /etc/profile.d/grc.sh
