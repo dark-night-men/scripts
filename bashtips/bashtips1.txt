@@ -244,7 +244,7 @@ grep -wFf A B
 #filter out color codes for piping
 sed -e 's/\x1b\[[0-9;]*m//g'
 
-#fix cannot find available desctops in nx
+#fix cannot find available desktops in nx
 sudo /etc/NX/nxserver --eglcapture yes
 sudo systemctl restart display-manager
 sudo /etc/NX/nxserver --restart
@@ -543,3 +543,47 @@ echo my f key doef not work
 
 #bash history shortcuts END
 
+#comment out args in bash BEGIN
+cmd=(
+  tar
+
+  # Extract a named, gzipped file
+    xzf "$file"
+
+  # Ignore the leading directory
+    --strip-components=1
+
+# Optionally print the command in copy-pasteable format
+echo "Executing: "
+printf "%q " "${cmd[@]}"
+echo
+
+# Execute the command:
+"${cmd[@]}" 
+#comment out args in bash END
+
+#ddgr
+BROWSER=w3m ddgr query
+
+my_number=5
+fixed_length=4
+formatted_string=$(printf "%0*d" "$fixed_length" "$my_number")
+echo "Formatted string: $formatted_string"
+
+my_number=123
+fixed_length=5
+formatted_string=$(printf "%0*d" "$fixed_length" "$my_number")
+echo "Formatted string: $formatted_string"
+
+#random string
+head /dev/urandom | tr -dc A-Za-z0-9 | head -c 22
+
+#find
+bfs
+
+convert 2.jpg  -channel RGB -negate -evaluate Multiply 3 -negate  11.jpg
+convert 2.jpg  \( -clone 0 -modulate 80,100,100 \)     \( -clone 0 -colorspace Gray -white-threshold 90% \)     -composite  11.jpg
+
+watch -n 2 df -h
+
+rsync -avzh -n 33.0.0.9:/media/zerg/9016-4EF8/DCIM/Camera/2025-11*.jpg  \!Camera_Snow/ |& tee /tmp/log
