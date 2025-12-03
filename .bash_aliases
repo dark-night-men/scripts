@@ -279,20 +279,29 @@ find /home/zerg/export/DiskStation/video2/queue_books \
     \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
 }
 
+fz_help ()
+{
+    echo alias fz_d="findw_zd"      \#find DIR in WSL among ZTORRENT exclude CART
+    echo alias fz_v=findw_z #find WSL among ZTORRENT exclude CART
+}
+
+alias fz_d=findw_zd
 #find DIR in WSL among ZTORRENT exclude CART
 findw_zd ()
 {
-    echo $1
+    printf '%s\n' $1 1>&2
 
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
     find /mnt/c/Users/serge/Videos/\!ZTORRENT/ \
-        /mnt/d/\!D_VIDEO/\!ZTORRENT/ \
-        /mnt/e/\!E_VIDEO/\!ZTORRENT/ \
-        /mnt/f/\!F_VIDEO/\!Z_TORRENT/ \
+        /mnt/d/\!D_VIDEO/ \
+        /mnt/e/\!E_VIDEO/ \
+        /mnt/f/\!F_VIDEO/ \
         -ipath '*/\!CART_DIR/*' \
         -prune -o \
-        -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) -print
+        -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)\
+        -exec du -h {} \; \
+    | sort -t$'\t' -k2,2 
 }
 
 #find DIR in WSL CART
@@ -325,20 +334,23 @@ findw_zd0 ()
         -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) -print0
 }
 
+alias fz_v=findw_z
 #find WSL among ZTORRENT exclude CART
 findw_z ()
 {
-    echo $1
+    printf '%s\n' $1 1>&2
 
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
     find /mnt/c/Users/serge/Videos/\!ZTORRENT/ \
-        /mnt/d/\!D_VIDEO/\!ZTORRENT/ \
-        /mnt/e/\!E_VIDEO/\!ZTORRENT/ \
-        /mnt/f/\!F_VIDEO/\!Z_TORRENT/ \
+        /mnt/d/\!D_VIDEO/ \
+        /mnt/e/\!E_VIDEO/ \
+        /mnt/f/\!F_VIDEO/ \
         -ipath '*/\!CART_DIR/*' \
         -prune -o \
-        \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) -print
+        -regextype egrep  -iregex "^.*($1${2:+|$2}${3:+|$3}${4:+|$4}).*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"\
+        -exec du -h {} \; \
+    | sort -t$'\t' -k2,2 
 }
 
 #find WSL among ZTORRENT exclude CART. Using -print0 in find for zero-separated lines.
@@ -409,6 +421,14 @@ findw_v ()
     find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
     -regextype egrep  -iregex "^.*($1${2:+|$2}${3:+|$3}${4:+|$4}).*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"
     # -type f -regextype egrep  -iregex "^.*($1)\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"
+}
+
+fw_help ()
+{
+    echo alias fw_d="findw_hd"      \#find DIR in WSL among !heap 
+    echo alias fw_d0="findw_hd0"    \#find DIR in WSL among !heap. Using -print0 in find for zero-separated lines.
+    echo alias fw_vd="findw_vd"     \#Find video files inside specified dirs
+    echo alias fw_v=findw_v         \#Find video files 
 }
 
 #Find video files with ALL specified words in name
@@ -578,17 +598,155 @@ alias cdd="cd /mnt/d/!heap"
 alias cde="cd /mnt/e/!heap"
 alias cdf="cd /mnt/f/!heap"
 
+# alias convert="magick"
+# alias mogrify="magick mogrify"
+
 alias redjpgold="env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.jp*g' -size +1M -not -name '*ReDuCeD*'  -exec mogrify -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB {} \; -exec rename -v -f 's/(\.jpe?g)$/.ReDuCeD\1/' {} \; -printf '%p %k KB\n' |& tee /tmp/moglog"
 
 redjpg ()
 {
     printf '\nredjpg STARTED at %s\n' "$(date)"
 
-    env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.jp*g' -size +1M -not -name '*ReDuCeD*'  -exec mogrify -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace RGB {} \; -exec rename -v -f 's/(\.jpe?g)$/.ReDuCeD\1/' {} \; -printf '%p %k KB\n' |& tee /tmp/moglog
+    env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n'\
+        find -type f -iname '*.jp*g' -size +1M -not -name '*ReDuCeD*'\
+        -exec magick mogrify -sampling-factor 4:2:0 -strip -quality 85 -interlace JPEG -colorspace sRGB {} \;\
+        -exec rename -v -f 's/(\.jpe?g)$/.ReDuCeD\1/' {} \;\
+        -printf '%p %k KB\n'\
+        |& tee /tmp/moglog
 
     printf '\nredjpg FINISHED at %s\n' "$(date)"
 
 }
+
+enhupd ()
+{
+    printf '\nenhupd STARTED at %s\n' "$(date)" 1>&2
+
+    env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n'\
+        find -type f \( -iname '*.jp*g' -o -iname '*.png' \) -not -name '*EnHaNcEd*'\
+        -exec mogrify -enhance -equalize -contrast {} \;\
+        -printf '%p %k KB\n'\
+        -exec rename -v -f 's/(\.[^.]+)$/_EnHaNcEd\1/' {} \;\
+        |& tee /tmp/mogenhlog
+
+    printf '\nenhupd FINISHED at %s\n' "$(date)" 1>&2
+
+}
+
+enhcp ()
+{
+    printf '\nenhcp STARTED at %s\n' "$(date)" 1>&2
+
+    env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n'\
+    find -type f \( -iname '*.jp*g' -o -iname '*.png' \) -not -name '*EnHaNcEd*'\
+        -exec bash -c '
+
+            echo "$0"
+
+            OUTPUT_FILE=${0%.*}_EnHaNcEd.${0##*.}
+
+            echo $OUTPUT_FILE
+
+            magick -enhance -equalize -contrast "$0" "$OUTPUT_FILE"
+        ' {} \; \
+    |& tee /tmp/imag_enh.log
+
+    #convert -enhance -equalize -contrast "$0" "$OUTPUT_FILE"
+
+    printf '\nenhcp FINISHED at %s\n' "$(date)" 1>&2
+
+
+}
+
+im_eqc ()
+{
+    # convert -enhance -equalize -contrast "$1" ${1%.*}_EnhEqCon.${1##*.}
+    convert "$1" -enhance -equalize -contrast ${1%.*}_EnhEqCon.${1##*.}
+    # ~/bin/magick convert -enhance -equalize -contrast "$1" ${1%.*}_EnhEqCon.${1##*.}
+}
+
+im_al ()
+{
+    convert -auto-level "$1" ${1%.*}_al.${1##*.}
+}
+
+im_nr ()
+{
+    convert -normalize "$1" ${1%.*}_nr.${1##*.}
+}
+
+im_ag ()
+{
+    convert -auto-gamma "$1" ${1%.*}_ag.${1##*.}
+}
+
+im_ngn ()
+{
+    STRIPPED_EXT=${1%.*}
+    STRIPPED_TS=${STRIPPED_EXT%_TS202*}
+    GAMMA_VAL=0.5
+
+    convert -negate -gamma $GAMMA_VAL -negate "$1" ${STRIPPED_TS%_ngn*}_ngn${GAMMA_VAL}_TS$(date  +%Y.%m.%d_%H.%M.%S).${1##*.}
+}
+
+im_rgb ()
+{
+    convert "$1" -alpha off -separate -auto-level +append ${1%.*}_rgb.${1##*.}
+}
+
+im_cs ()
+{
+    # convert -alpha off -channel G -separate -contrast-stretch 6%x3% "$1" ${1%.*}_cs.${1##*.}
+    
+    STRIPPED_EXT=${1%.*}
+    STRIPPED_TS=${STRIPPED_EXT%_TS202*}
+    BOTTOM_DARK=90
+    TOP_BRIGHT=0
+    # convert -contrast-stretch 6%x3% "$1" ${STRIPPED_TS%_cs*}_cs_TS$(date  +%Y.%m.%d_%H.%M.%S).${1##*.}
+    # convert -contrast-stretch 20%x0% "$1" ${STRIPPED_TS%_cs*}_cs_TS$(date  +%Y.%m.%d_%H.%M.%S).${1##*.}
+    # convert -contrast-stretch 20%x20% "$1" ${STRIPPED_TS%_cs*}_cs_TS$(date  +%Y.%m.%d_%H.%M.%S).${1##*.}
+    convert -contrast-stretch ${BOTTOM_DARK}%x${TOP_BRIGHT}% "$1" ${STRIPPED_TS%_cs*}_cs${BOTTOM_DARK}x${TOP_BRIGHT}_TS$(date  +%Y.%m.%d_%H.%M.%S).${1##*.}
+}
+
+
+
+im_sg ()
+{
+    STRIPPED_EXT=${1%.*}
+    STRIPPED_TS=${STRIPPED_EXT%_TS202*}
+
+    CONTRAST_VAL=-50
+    MIDPOINT=10
+
+    convert -sigmoidal-contrast ${CONTRAST_VAL}x${MIDPOINT}% "$1" \
+        ${STRIPPED_TS%_sg*}_sg${CONTRAST_VAL}x${MIDPOINT}_TS$(date  +%Y.%m.%d_%H.%M.%S).${1##*.}
+}
+
+im_bc ()
+{
+    STRIPPED_EXT=${1%.*}
+    STRIPPED_TS=${STRIPPED_EXT%_TS202*}
+
+    CONTRAST=-75
+    BRIGHTNESS=0
+
+    convert -brightness-contrast ${BRIGHTNESS}x${CONTRAST} "$1" \
+        ${STRIPPED_TS%_bc*}_bc${BRIGHTNESS}x${CONTRAST}_TS$(date  +%Y.%m.%d_%H.%M.%S).${1##*.}
+}
+
+im_g ()
+{
+    STRIPPED_EXT=${1%.*}
+    STRIPPED_TS=${STRIPPED_EXT%_TS202*}
+
+    #0.8 .. 2.3
+    GAMMA=0.6
+
+    convert -gamma $GAMMA "$1" \
+        ${STRIPPED_TS%_gm*}_gm${GAMMA}_TS$(date  +%Y.%m.%d_%H.%M.%S).${1##*.}
+}
+
+
 
 alias png2jpgold="env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.png' -size +1M -exec mogrify -format jpg {} \; -exec rm -v {} \; |& tee /tmp/png2jpglog"
 
@@ -596,7 +754,7 @@ png2jpg ()
 {
     printf '\npng2jpg STARTED at %s\n' "$(date)"
 
-    env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.png' -size +1M -exec mogrify -format jpg {} \; -exec rm -v {} \; |& tee /tmp/png2jpglog
+    env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n' find -type f -iname '*.png' -size +1M -exec magick mogrify -format jpg {} \; -exec rm -v {} \; |& tee /tmp/png2jpglog
 
     printf 'png2jpg FINISHED at %s\n' "$(date)"
 
@@ -608,7 +766,9 @@ psd2jpg ()
 
     printf '\npsd2jpg STARTED at %s\n' "$(date)"
 
-    find -type f -iname '*.psd' -exec mogrify -verbose -format jpg {} \; -exec rm -v {} \; -exec bash -c ' qqq=$(echo $0 |sed "s/\.psd/-[1-9][0-9]*\.jpg/") ; printf "qqq >%s<\n" "$qqq"; export IFS=$(echo -en "\n\b"); find -type f -regextype egrep -regex "$qqq" -delete -print  ; ' {} \; |& tee /tmp/psd2jpglog 
+    find -type f -iname '*.psd'\
+        -exec magick mogrify -verbose\
+        -format jpg {} \; -exec rm -v {} \; -exec bash -c ' qqq=$(echo $0 |sed "s/\.psd/-[1-9][0-9]*\.jpg/") ; printf "qqq >%s<\n" "$qqq"; export IFS=$(echo -en "\n\b"); find -type f -regextype egrep -regex "$qqq" -delete -print  ; ' {} \; |& tee /tmp/psd2jpglog 
 
     printf 'psd2jpg FINISHED at %s\n' "$(date)"
 
@@ -629,7 +789,7 @@ rsimg ()
 
         printf '\nSize threshold %s' $size_threshold |& tee -a /tmp/resize_image.log
 
-        env LC_ALL=en_US.utf8  time --format=' elapsed time %E \n' find -type f -iname '*.jp*g' -size +${size_threshold}M -not -name '*ReSiZeD*' \( -exec mogrify -verbose -resize 2500x1500\> {} \; -o -exec true \; \) -exec rename -v -f 's/(\.jpe?g)$/.ReSiZeD\1/' {} \; -printf '%p %k KB\n'|& tee -a /tmp/resize_image.log
+        env LC_ALL=en_US.utf8  time --format=' elapsed time %E \n' find -type f -iname '*.jp*g' -size +${size_threshold}M -not -name '*ReSiZeD*' \( -exec magick mogrify -verbose -resize 2500x1500\> {} \; -o -exec true \; \) -exec rename -v -f 's/(\.jpe?g)$/.ReSiZeD\1/' {} \; -printf '%p %k KB\n'|& tee -a /tmp/resize_image.log
     done
     
 
@@ -646,6 +806,10 @@ rsimg ()
 alias info="info --vi"
 
 alias im="( touch /tmp/im_alias_start.log;  psd2jpg; png2jpg;  redjpg; rsimg; touch /tmp/im_alias_stop.log; ) |& tee /tmp/im.log"
+
+alias imupd="( touch /tmp/im_alias_start.log;  psd2jpg; enhupd; png2jpg; redjpg; rsimg; touch /tmp/im_alias_stop.log; ) |& tee /tmp/im.log"
+
+alias imdup="( touch /tmp/im_alias_start.log;  psd2jpg; enhcp; png2jpg; redjpg; rsimg; touch /tmp/im_alias_stop.log; ) |& tee /tmp/im.log"
 
 alias rmlnk="find -regextype egrep  -iregex '.*\([2-9]\)\.lnk' -print -delete"
 alias rmlnkqb="find -type f -name '*!qB*ярлык.lnk' -print -delete"
@@ -703,3 +867,126 @@ qb_rm ()
 alias para="parallel"
 
 alias rg="rg --hidden --glob '!.git'"
+
+ren_sx ()
+{
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find -type f -regextype egrep -iregex '^.*/![^/]+' \
+    -exec rename -v 's|(/!...)(![A-Z]{2,4})+|\1|' {} \+ \
+    |& tee ~/tmp/rename_stripex.log
+}
+
+notify-send() { wsl-notify-send.exe --category $WSL_DISTRO_NAME "${@}"; }
+
+alias ec="ebook-convert"
+
+# alias renp="find -type f  -exec rename -v 's|/([^/]+)$|/!CEA\1|' {} \+ |& tee /tmp/log" 
+
+renpp ()
+{
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find -type f  -exec rename -v "s|/([^/]+)$|/!${1-CEA}\1|" {} \+ |& tee /tmp/log 
+
+    ren_sx
+}
+
+renpn ()
+{
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find -type f -regextype egrep  -not -iregex '^.*/\![^/]+$'  -exec rename -v "s|/([^/]+)$|/!${1-CEA}\1|" {} \+ |& tee /tmp/log 
+
+    ren_sx
+}
+
+mng () {
+    man "$1" | col -b 
+}
+
+gm () {
+    # GAMMA=${2-1.5}
+    GAMMA=${2-4}
+    GAMMA_SUF=$(echo $GAMMA|sed -re 's|\.|o|')
+    OUTPUT_FILE=${1%.*}_GAM${GAMMA_SUF}.${1##*.}
+
+    convert "$1" -gamma $GAMMA ${OUTPUT_FILE}
+    # convert input.png -gamma 1.2,1.0,0.8 output.png
+}
+
+satr () {
+    # convert input.png -modulate <Brightness,Saturation,Hue> output.png
+    # magick input.png -colorspace HSL -modulate 100,150,100 -colorspace RGB output.png
+
+    SATR=${2-150}
+    SATR_SUF=$SATR
+    OUTPUT_FILE=${1%.*}_SAT${SATR_SUF}.${1##*.}
+
+    # convert "$1" -modulate 100,$SATR,100 ${OUTPUT_FILE}
+    # magick "$1" -colorspace HSL -modulate 100,$SATR,100 -colorspace RGB ${OUTPUT_FILE}
+
+    # convert "$1" -colorspace HSL -modulate 100,$SATR,100 -colorspace RGB ${OUTPUT_FILE}
+
+    convert "$1" -colorspace HSL -colorspace RGB ${OUTPUT_FILE}
+
+
+    # convert "$1" -colorspace HSL -channel R -separate $tmp0
+    # convert "$1" -colorspace HSL -channel G -separate $tmp1
+    # convert "$1" -colorspace HSL -channel B -separate $tmp2
+
+    # convert $tmp0 -colorspace HSL \
+    # $tmp0 -compose CopyRed -composite \
+    # \( $tmp1 -evaluate multiply 1.2 \) -compose CopyGreen -composite \
+    # $tmp2 -compose CopyBlue -composite \
+    # -colorspace RGB $outfile
+}
+
+im_cl ()
+{
+    STRIPPED_EXT=${1%.*}
+    STRIPPED_TS=${STRIPPED_EXT%_TS202*}
+
+    CONTRAST=${2-1.2}
+
+    #0.8 .. 2.3
+    # GAMMA=0.6
+
+    # convert -gamma $GAMMA "$1" \
+    #     ${STRIPPED_TS%_gm*}_gm${GAMMA}_TS$(date  +%Y.%m.%d_%H.%M.%S).${1##*.}
+
+    OUTPUT_FILE_PREF=${STRIPPED_TS%_cl*}_cl${CONTRAST}_TS$(date  +%Y.%m.%d_%H.%M.%S)
+
+    cmd=(
+
+        # convert
+        ~/bin/magick
+        "$1"
+        # -clahe 25x25%+128+3
+        -clahe 5x5%+1000+${CONTRAST}
+        # -clahe 5x5%+128+${CONTRAST}
+        ${OUTPUT_FILE_PREF}.${1##*.}
+    )
+
+
+    # echo "Executing: "
+    # printf "%q " "${cmd[@]}"
+    # echo
+
+    printf "%q " "${cmd[@]}" \
+        > ${OUTPUT_FILE_PREF}.txt
+
+    "${cmd[@]}" 
+}
+
+#gm4 cl1.2 1.5 2 2.5 3
+
+tts2mp3 ()
+{
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    edge-tts  --voice ru-RU-SvetlanaNeural -f "$1" --write-media "${2-$1.mp3}"
+}
