@@ -215,3 +215,11 @@ vim -O .profile .bashrc
 "To use it, execute this command: >
 :runtime syntax/colortest.vim
 
+"argadd with find"
+:argadd `find . -name '*.txt'`
+
+:args **/*.js
+
+"check file type for exampl for writing ftplugin
+"to distinguish sh vs bash file
+:set filetype?
