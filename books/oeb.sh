@@ -26,7 +26,11 @@ fi
 echo "arg 1 $1"
 echo "arg 2 $2"
 
-/usr/bin/ebook-convert "$1" "$2" --pretty-print --enable-heuristics --embed-font-family  'Comfortaa'
+/usr/bin/ebook-convert "$1" "$2"\
+    --pretty-print\
+    --enable-heuristics\
+    --embed-font-family  'Comfortaa'\
+    --change-justification left
 
 #set -x
 #/usr/bin/ebook-convert "$1" "$2" --pretty-print --enable-heuristics --embed-font-family  'Monofur NF' --epub-flatten --verbose -d debug
