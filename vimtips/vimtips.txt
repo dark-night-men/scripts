@@ -207,3 +207,19 @@ vim -O .profile .bashrc
 
 "redirect command output to buffer
 :enew|pu=execute('scriptnames')
+
+"coc tips"
+
+
+"To test your color setup, a file has been included in the Vim distribution.
+"To use it, execute this command: >
+:runtime syntax/colortest.vim
+
+"argadd with find"
+:argadd `find . -name '*.txt'`
+
+:args **/*.js
+
+"check file type for exampl for writing ftplugin
+"to distinguish sh vs bash file
+:set filetype?

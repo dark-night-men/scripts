@@ -6,4 +6,9 @@ fi
 
 export IFS=$'\n'
 
-ffmpeg -i "$1" -b:a 128k "${1%.*}"_new.ac3
+#96, 128, 160, 192, 256
+QUALITY=${2-128k}
+SUFFIX=_new.${QUALITY}.ru.ac3
+
+env LC_ALL=en_US.utf8 time --format='%E' \
+    ffmpeg -i "$1" -b:a $QUALITY "${1%.*}${SUFFIX}"

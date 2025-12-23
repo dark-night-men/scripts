@@ -2,3 +2,9 @@
 diagramscene
     connect(backgroundButtonGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked),
             this, &MainWindow::backgroundButtonGroupClicked);
+
+https://en.cppreference.com/w/cpp/utility/as_const
+https://en.cppreference.com/w/cpp/types/add_cv
+
+:helpgrep cppcheck 
+syntastic cppcheck

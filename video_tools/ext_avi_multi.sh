@@ -5,7 +5,7 @@
 
 rm -v /tmp/ffprobe_audio_streams.log
 
-find -type f -regextype egrep -iregex '^.*\.(mkv|avi|mp4|wmv|mpg)$' -print0 | xargs -0  bash -c \
+find -type f -regextype egrep -iregex '^.*\.(mkv|avi|mp4|wmv|mpg|ts)$' -print0 | xargs -0  bash -c \
      ' 
       for arg do
 
@@ -17,7 +17,7 @@ find -type f -regextype egrep -iregex '^.*\.(mkv|avi|mp4|wmv|mpg)$' -print0 | xa
           audio_number=$( grep audio /tmp/ffprobe_audio_streams.log | wc -l);
           # printf "audio_number %s \n" $audio_number;
 
-          for kind in mp3 ac3; do
+          for kind in mp3 ac3 aac; do
 
               audio_kind=$( grep -o -m 1 $kind /tmp/ffprobe_audio_streams.log);
 

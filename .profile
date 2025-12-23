@@ -57,8 +57,21 @@ shopt -s checkwinsize
 
 export Qt6_DIR=/usr/lib/qt-6.8.1
 export LLVM_C=/usr/local/llvm_custom_01
-export PATH=/root/.local/bin:$LLVM_C/bin:~/scripts:${Qt6_DIR}/bin:${PATH}
-export LD_LIBRARY_PATH=$LLVM_C/lib/:${Qt6_DIR}/lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
+
+# /usr/local/lib/x86_64-linux-gnu/libplot.so for https://github.com/annacrombie/plot.git 
+PLOT_LIBS=/usr/local/lib/x86_64-linux-gnu
+
+# /usr/lib64/libMagickCore-7.Q16HDRI.so.10 for imagemagick7
+# /usr/lib64/ImageMagick-7.1.2/modules-Q16HDRI/coders/jpeg.la
+# IM7_LIBS=/usr/lib64:/usr/lib64/ImageMagick-7.1.2/modules-Q16HDRI/coders
+IM7_LIBS=/usr/lib64/ImageMagick-7.1.2:/usr/lib64
+
+# /mnt/c/Users/serge/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code
+MSVC_BIN=/mnt/c/Users/serge/AppData/Local/Programs/Microsoft\ VS\ Code/bin
+
+export PATH=${MSVC_BIN}:/root/.local/bin:$LLVM_C/bin:~/scripts:${Qt6_DIR}/bin:${PATH}
+# export LD_LIBRARY_PATH=$PLOT_LIBS:$LLVM_C/lib/:${Qt6_DIR}/lib:/usr/lib/x86_64-linux-gnu:${IM7_LIBS}:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=${IM7_LIBS}:$PLOT_LIBS:$LLVM_C/lib/:${Qt6_DIR}/lib:/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}
 
 export DISPLAY=:0
 
@@ -91,4 +104,3 @@ set -o vi
 set +x
 
 # eval $(ssh-agent -s)
-
