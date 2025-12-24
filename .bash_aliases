@@ -581,7 +581,7 @@ alias pho='nice -n +40 ~/tmp/tmpscripts/photo_tools/pack_img.sh '
 alias ds='du -ksh * | sort -hr'
 alias ph='find -mindepth 1  -maxdepth 1 -type d -exec nice -n +40 ~/tmp/tmpscripts/photo_tools/pack_img.sh {} \; '
 
-alias t="env LC_ALL=en_US.utf8 time --format='%E'" 
+alias t="env LC_ALL=en_US.utf8 /usr/bin/time --format='%E' " 
 
 alias z="|& tee /tmp/log"
 alias sss="sudo service ssh start"
@@ -624,7 +624,7 @@ enhupd ()
 
     env LC_ALL=en_US.utf8  time --format='\n elapsed time %E \n'\
         find -type f \( -iname '*.jp*g' -o -iname '*.png' \) -not -name '*EnHaNcEd*'\
-        -exec mogrify -enhance -equalize -contrast {} \;\
+        -exec magick mogrify -enhance -equalize -contrast {} \;\
         -printf '%p %k KB\n'\
         -exec rename -v -f 's/(\.[^.]+)$/_EnHaNcEd\1/' {} \;\
         |& tee /tmp/mogenhlog
@@ -864,6 +864,21 @@ qb_rm ()
     # find /mnt/c/Users/serge/Videos/{\!heap,\!ZTORRENT}/ /mnt/{d,e,f}/{\!heap/,\!{D,E,F}_VIDEO}/ \
 }
 
+#remove qbittorrent files - *.parts *.!qB at current dir
+qb_rm_loc ()
+{
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find \( -iname '*.parts' -o -iname '*.!qB'  \) \
+        -delete \
+        -print
+
+
+    # find /mnt/c/Users/serge/Videos/{\!heap,\!ZTORRENT}/ /mnt/{d,e,f}/{\!heap/,\!{D,E,F}_VIDEO}/ \
+}
+
+
 alias para="parallel"
 
 alias rg="rg --hidden --glob '!.git'"
@@ -988,5 +1003,15 @@ tts2mp3 ()
 {
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
-    edge-tts  --voice ru-RU-SvetlanaNeural -f "$1" --write-media "${2-$1.mp3}"
+    edge-tts  --voice ru-RU-SvetlanaNeural -f "$1" --write-media "${2-$1.mp3}" --write-subtitles "${3-$1.sub.txt}"
 }
+
+alias mei=mediainfo
+
+tortxt_upd ()
+{
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+        bfs -maxdepth 1  -type f  -iname '*.torrent'  -not -exec test -f {}.txt \;  -print0\
+        | parallel -0 'printf "%s\n" {} &&  transmission-show {} > {}.txt'
+    }
