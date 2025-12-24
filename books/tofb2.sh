@@ -5,13 +5,26 @@ if ! [[ -f "$1" ]] ; then
     exit 1
 fi
 
-#echo "all $@"
 
 echo "arg 1 $1"
 
-#/usr/local/bin/wkhtmltopdf "$1" "$1.pdf"
 
-#regular flow
-#/usr/bin/ebook-convert "$1" "$1.fb2" --pretty-print --enable-heuristics --embed-font-family  'Monofur NF'
-/usr/bin/ebook-convert "$1" "$1.fb2" --pretty-print --enable-heuristics --embed-font-family  'Comfortaa'
-# /usr/bin/ebook-convert "$1" "$1.fb2" --verbose 
+cmd=(
+env LC_ALL=en_US.utf8 time --format='%E'
+/usr/bin/ebook-convert "$1" "$1.fb2"
+    --pretty-print
+    --enable-heuristics
+    --verbose
+    --change-justification left
+    # --title="$2" --authors="$3"
+    --embed-font-family  'Comfortaa'
+    --minimum-line-height 70 
+    --language ru
+)
+
+echo "Executing: "
+printf "%q " "${cmd[@]}"
+echo
+
+"${cmd[@]}" 
+
