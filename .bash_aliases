@@ -1014,4 +1014,4 @@ tortxt_upd ()
         \
         bfs -maxdepth 1  -type f  -iname '*.torrent'  -not -exec test -f {}.txt \;  -print0\
         | parallel -0 'printf "%s\n" {} &&  transmission-show {} > {}.txt'
-    }
+}
