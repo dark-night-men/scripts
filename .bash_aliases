@@ -62,26 +62,26 @@ lnm ()
 
 findxd ()
 {
-    echo $1
+    printf '%s\n' $1 1>&2
 
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
     find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
-    -maxdepth ${5-99} \
+    -maxdepth ${7-99} \
     \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" -o -path "/home/zerg/export/DiskStation/video2/#recycle" \) -prune -o \
-    \( -type d -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -print
+    \( -type d -not -ipath "*${6-zzzzzzzzzz}*" -not -iname "*${5-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*" \) \) -print
 }
 
 findxd0 ()
 {
-    printf '%s\0' $1
+    printf '%s\n' $1 1>&2
 
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
     find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
-    -maxdepth ${5-99} \
+    -maxdepth ${7-99} \
     \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" -o -path "/home/zerg/export/DiskStation/video2/#recycle" \) -prune -o \
-    \( -type d -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -print0
+    \( -type d -not -ipath "*${6-zzzzzzzzzz}*" -not -iname "*${5-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*" \) \) -print0
 }
 
 
@@ -131,14 +131,15 @@ findxm ()
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
     find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
-    -maxdepth ${5-99} \
+    -maxdepth ${7-99} \
     \( -path "*/*series*/*" -o -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" -o -path "*/#recycle" \) -prune -o \
-    \( -not -ipath "*${4-zzzzzzzzzz}*" -not -iname "*${3-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" \) \) -type f -print
+    \( -type f -o -type d \) \
+    \( -not -ipath "*${6-zzzzzzzzzz}*" -not -iname "*${5-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*" \) \) -print
 }
 
 findxm0 ()
 {
-    printf '%s\0' $1
+    printf '%s\0' $1 1>&2
 
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
