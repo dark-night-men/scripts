@@ -149,8 +149,29 @@ findxad ()
     -maxdepth ${7-99} \
     \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*"  -o -path "*/#recycle" \) -prune -o \
     -type d \
-    \( -not -ipath "*${6-zzzzzzzzzz}*" -not -iname "*${5-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*" \) \) -print
+    \( -not -ipath "*${6-zzzzzzzzzz}*" -not -iname "*${5-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*" \) \) 
+        -exec du -h {} \; \
+    | sort -t$'\t' -k2,2 
 }
+
+#findx audio - music dirs and its content
+findxaa ()
+{
+    echo $1
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /home/zerg/export/DiskStation/music \
+    -maxdepth ${7-99} \
+    \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*"  -o -path "*/#recycle" \) -prune -o \
+    \
+    -type d \
+    \( -not -ipath "*${6-zzzzzzzzzz}*" -not -iname "*${5-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*" \) \) \
+    -print0 \
+    | parallel -0 -I % "find % -type f -regextype egrep  -exec du -h {} \;" \
+        | sort -t$'\t' -k2,2 
+}
+
 
 findxm ()
 {
