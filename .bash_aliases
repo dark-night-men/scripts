@@ -149,7 +149,7 @@ findxad ()
     -maxdepth ${7-99} \
     \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*"  -o -path "*/#recycle" \) -prune -o \
     -type d \
-    \( -not -ipath "*${6-zzzzzzzzzz}*" -not -iname "*${5-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*" \) \) 
+    \( -not -ipath "*${6-zzzzzzzzzz}*" -not -iname "*${5-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*" \) \) \
         -exec du -h {} \; \
     | sort -t$'\t' -k2,2 
 }
