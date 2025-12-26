@@ -5,6 +5,8 @@
 # Using 6 without sign means "equal to 6 days old — so modified between 'now - 6 * 86400' and 'now - 7 * 86400'" (because fractional days are discarded).
 # Using -6 means "less than 6 days old — so modified on or after 'now - 6 * 86400'".
 # Using +6 means "more than 6 days old — so modified on or before 'now - 7 * 86400'" (where the 7 is a little unexpected, perhaps).
+#
+#mtime n*24hours; mmin n mins; 
 find -name "*.o" -mtime -9  -printf "%T+\t%p\n" | sort
 
 find \( -path "*/.git/*" -o -path "*/build/*" \) -prune -o  \( -name "*.cpp" -mtime -10  -printf "%T+\t%p\n" \) | sort
@@ -587,3 +589,40 @@ convert 2.jpg  \( -clone 0 -modulate 80,100,100 \)     \( -clone 0 -colorspace G
 watch -n 2 df -h
 
 rsync -avzh -n 33.0.0.9:/media/zerg/9016-4EF8/DCIM/Camera/2025-11*.jpg  \!Camera_Snow/ |& tee /tmp/log
+
+#split file 1.txt into chunks with 11 lines each
+split -l 11 1.txt
+
+
+#merge audio files
+ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp3
+
+#convert pdf to text trying to keep layout
+pdftotext -eol unix -nopgbrk -htmlmeta -layout file.pdf output.txt
+
+
+#Use "--" to make rm stop parsing command line options, like this:
+rm -- --help
+
+#Key Points for Per-File Redirection:
+#sh -c '...': Invokes a new shell to process the command and its redirection.
+#-I {}: Defines {} as a placeholder that xargs replaces with the current filename for each execution.
+#Quotes: Use double quotes around the placeholder inside the single quotes ("{}") to handle filenames that contain spaces or special characters correctly. 
+
+find . -name '*.scpt' -print0 | xargs -0 -I {} sh -c 'osadecompile "{}" > "{}.txt"'
+
+#create backup with sed
+sed -i.bak 's/suffix$//' filename
+
+#dump torrents to txt if not yet dumped
+bfs -maxdepth 1  -type f  -iname '*.torrent'  -not -exec test -f {}.txt \;  -print0 | parallel -0 'printf "%s\n" {} &&  transmission-show {} > {}.txt'
+
+type
+
+#find duplicate files
+fdupes
+
+#build from source with ability to delete
+sudo apt install checkinstall
+cd ~/vim
+sudo checkinstall
