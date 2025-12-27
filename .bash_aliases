@@ -1019,3 +1019,4 @@ tortxt_upd ()
 
 #audio reduce
 alias au_red="find -iname '*.ac3' -exec ~/scripts/video_tools/audio.sh {} \; |& tee audio_reduce.log"
+alias ext_red="~/scripts/video_tools/dump_all_metadata.sh ; ~/scripts/video_tools/ext_series.sh . ; au_red;"
