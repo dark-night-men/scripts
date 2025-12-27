@@ -1016,3 +1016,6 @@ tortxt_upd ()
         bfs -maxdepth 1  -type f  -iname '*.torrent'  -not -exec test -f {}.txt \;  -print0\
         | parallel -0 'printf "%s\n" {} &&  transmission-show {} > {}.txt'
 }
+
+#audio reduce
+alias au_red="find -iname '*.ac3' -exec ~/scripts/video_tools/audio.sh {} \; |& tee audio_reduce.log"
