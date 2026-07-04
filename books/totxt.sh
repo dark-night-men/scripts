@@ -7,4 +7,4 @@ fi
 
 echo "arg 1 $1"
 
-/usr/bin/ebook-convert "$1" "$1.txt" --pretty-print --enable-heuristics --change-justification left
+/usr/bin/ebook-convert "$1" "$1.txt" --pretty-print --enable-heuristics --change-justification left --language ru
