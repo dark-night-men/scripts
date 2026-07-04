@@ -332,7 +332,8 @@ find /home/zerg/export/DiskStation/video2/queue_books \
 fz_help ()
 {
     echo alias fz_d="findw_zd"      \#find DIR in WSL among ZTORRENT exclude CART
-    echo alias fz_v=findw_z #find WSL among ZTORRENT exclude CART
+    echo alias fz_v=findw_z         \#find WSL among ZTORRENT exclude CART
+    echo alias fz_c=findw_zdc       \#find DIR in WSL CART
 }
 
 alias fz_d=findw_zd
@@ -354,6 +355,7 @@ findw_zd ()
     | sort -t$'\t' -k2,2 
 }
 
+alias fz_c=findw_zdc
 #find DIR in WSL CART
 findw_zdc ()
 {
@@ -938,10 +940,33 @@ ren_sx ()
 
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
-    find -type f -regextype egrep -iregex '^.*/![^/]+' \
-    -exec rename -v 's|(/!...)(![A-Z]{2,4})+|\1|' {} \+ \
+    find -type f -regextype egrep -iregex '^.*/!+[^/]+' \
+    -exec rename  -v 's%(/!+([A-Z]|[0-9]){3,3})(!([A-Z]|[0-9]){3,3})+%\1_%' {} \+ \
+    -exec rename  -v 's%(/[^/_]+)__([^/]+)%\1_\2%' {} \+ \
     |& tee ~/tmp/rename_stripex.log
 }
+
+ren_dsx ()
+{
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find -type f -regextype egrep -iregex '^.*/!!![^/!]+' \
+    -exec rename -v 's|/(!!![^/!]{3,3})([^/!]+)$|/!995_\2|' {} \+ \
+    |& tee ~/tmp/rename_stripex.log
+}
+
+find_ren ()
+{
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find -type f -regextype egrep -iregex '^.*/!![^/!]+' \
+    -exec rename -v 's|/!!...|/!996|' {} \+ \
+    |& tee ~/tmp/rename_stripex.log
+}
+
+
 
 notify-send() { wsl-notify-send.exe --category $WSL_DISTRO_NAME "${@}"; }
 
