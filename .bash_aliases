@@ -10,6 +10,7 @@ alias mk="~/scripts/mk.sh make make"
 alias mku="~/scripts/mk.sh make"
 alias mks="~/scripts/mk.sh"
 alias tmux="TERM=xterm-256color tmux"
+alias tm=tmux
 
 alias make="make -j8"
 alias ninja="ninja -j8"
