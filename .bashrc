@@ -8,25 +8,6 @@ case $- in
       *) return;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -35,6 +16,7 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
+export TERM="xterm-256color"
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
@@ -56,10 +38,36 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+export DISPLAY=localhost:10.0
+# https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
+
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
+    # \h
+    # The hostname, up to the first ‘.’.
+
+    # \j
+    # The number of jobs currently managed by the shell.
+
+    # \!
+    # The history number of this command.
+
+    # \#
+	# The command number of this command.
+
+    # \w
+    # The value of the PWD shell variable ($PWD), with $HOME abbreviated with a tilde (uses the $PROMPT_DIRTRIM variable).
+
+    # \$
+    # If the effective uid is 0, #, otherwise $.
+
+    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[38;5;11m\]\j\[\033[100;91m\]L${SHLVL}\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[38;5;11m\]\j\[\033[100;91m\]L${SHLVL}\[\033[00m\]'"'"'${DISPLAY}'"'"'\[\033[01;34m\]\w\[\033[00m\]\$ '
+
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    # PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:L${SHLVL}J\j:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
@@ -128,3 +136,23 @@ export CSDIR=./
 export GDK_SCALE=1.5
 export GDK_DPI_SCALE=1.5
 # export QT_SCALE_FACTOR=1.5
+
+export HTML_TIDY=~/tmp/html_tidy_config.txt
+
+#FNM - Fast Node Manager - installed by coc plugin for vim
+# fnm
+FNM_PATH="/home/zerg/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
+
+# fnm
+FNM_PATH="/home/zerg/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
+
+# GRC_ALIASES=true
+# [[ -s "/etc/profile.d/grc.sh" ]] && source /etc/profile.d/grc.sh
