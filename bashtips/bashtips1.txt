@@ -643,3 +643,6 @@ tldr xmllint
 
 #get only deepest dir
 basename "$(pwd)"
+
+#sponge #moreutils
+cat test.txt | sponge test.txt
