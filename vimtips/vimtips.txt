@@ -256,3 +256,5 @@ Completion can be done for:
 
 Additionally, |i_CTRL-X_CTRL-Z| stops completion without changing the text.
 
+#font Putty context menu
+Ctrl + Mouse Right Click
