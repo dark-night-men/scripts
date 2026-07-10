@@ -883,7 +883,8 @@ tts_edge ()
     fi
 
     # cat "$1"   | parallel  -j 1 --pipe  --max-args 3  ~/tmp/tts.sh
-    yes "$(<$1)" | cat -s   | parallel  -j 1 --pipe  --max-args 3  ~/tmp/tts.sh
+    env LC_ALL=en_US.utf8 \
+        yes "$(<$1)" | cat -s   | parallel  -j 1 --pipe  --max-args 3  ~/tmp/tts.sh
 }
 
 alias fd="fd --color auto"
