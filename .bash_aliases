@@ -10,6 +10,7 @@ alias mk="~/scripts/mk.sh make make"
 alias mku="~/scripts/mk.sh make"
 alias mks="~/scripts/mk.sh"
 alias tmux="TERM=xterm-256color tmux"
+alias tm=tmux
 
 alias make="make -j8"
 alias ninja="ninja -j8"
@@ -332,7 +333,8 @@ find /home/zerg/export/DiskStation/video2/queue_books \
 fz_help ()
 {
     echo alias fz_d="findw_zd"      \#find DIR in WSL among ZTORRENT exclude CART
-    echo alias fz_v=findw_z #find WSL among ZTORRENT exclude CART
+    echo alias fz_v=findw_z         \#find WSL among ZTORRENT exclude CART
+    echo alias fz_c=findw_zdc       \#find DIR in WSL CART
 }
 
 alias fz_d=findw_zd
@@ -354,6 +356,7 @@ findw_zd ()
     | sort -t$'\t' -k2,2 
 }
 
+alias fz_c=findw_zdc
 #find DIR in WSL CART
 findw_zdc ()
 {
@@ -881,7 +884,8 @@ tts_edge ()
     fi
 
     # cat "$1"   | parallel  -j 1 --pipe  --max-args 3  ~/tmp/tts.sh
-    yes "$(<$1)" | cat -s   | parallel  -j 1 --pipe  --max-args 3  ~/tmp/tts.sh
+    env LC_ALL=en_US.utf8 \
+        yes "$(<$1)" | cat -s   | parallel  -j 1 --pipe  --max-args 3  ~/tmp/tts.sh
 }
 
 alias fd="fd --color auto"
@@ -938,10 +942,33 @@ ren_sx ()
 
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
-    find -type f -regextype egrep -iregex '^.*/![^/]+' \
-    -exec rename -v 's|(/!...)(![A-Z]{2,4})+|\1|' {} \+ \
+    find -type f -regextype egrep -iregex '^.*/!+[^/]+' \
+    -exec rename  -v 's%(/!+([A-Z]|[0-9]){3,3})(!([A-Z]|[0-9]){3,3})+%\1_%' {} \+ \
+    -exec rename  -v 's%(/[^/_]+)__([^/]+)%\1_\2%' {} \+ \
     |& tee ~/tmp/rename_stripex.log
 }
+
+ren_dsx ()
+{
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find -type f -regextype egrep -iregex '^.*/!!![^/!]+' \
+    -exec rename -v 's|/(!!![^/!]{3,3})([^/!]+)$|/!995_\2|' {} \+ \
+    |& tee ~/tmp/rename_stripex.log
+}
+
+find_ren ()
+{
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find -type f -regextype egrep -iregex '^.*/!![^/!]+' \
+    -exec rename -v 's|/!!...|/!996|' {} \+ \
+    |& tee ~/tmp/rename_stripex.log
+}
+
+
 
 notify-send() { wsl-notify-send.exe --category $WSL_DISTRO_NAME "${@}"; }
 
@@ -1065,3 +1092,7 @@ tortxt_upd ()
         bfs -maxdepth 1  -type f  -iname '*.torrent'  -not -exec test -f {}.txt \;  -print0\
         | parallel -0 'printf "%s\n" {} &&  transmission-show {} > {}.txt'
 }
+
+#audio reduce
+alias au_red="find -iname '*.ac3' -exec ~/scripts/video_tools/audio.sh {} \; |& tee audio_reduce.log"
+alias ext_red="~/scripts/video_tools/dump_all_metadata.sh ; ~/scripts/video_tools/ext_series.sh . ; au_red;"

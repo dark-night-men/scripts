@@ -25,6 +25,8 @@ cmd=(
     --change-justification left
     --title="$2" --authors="$3"
     --embed-font-family  'Comfortaa'
+    --language ru
+    --disable-unwrap-lines
     # --extra-css "body { line-height: $LINE_HEIGHT !important; }"
     # --extra-css ${4-""}
     # --minimum-line-height ${5-555} 

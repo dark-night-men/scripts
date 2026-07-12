@@ -233,6 +233,7 @@ for i in `iconv -l`; do iconv -f $i -t utf-8 filename.php > filename.php.$i; don
 #-i input file with urls list
 
 wget -r -l1 -np --convert-links -nH -nd -Pdownload -i list 
+wget -r -l1 -np --convert-links -nH -nd -Pdownload -i list --domains=web.archive.org --execute robots=off "https://archive.org" --adjust-extension 
 
 find -type f -iname '*.html' -print  -exec env LC_ALL=en_US.utf8  iconv --verbose -c  -f CP1251 -t utf-8 {} -o /tmp/lemke_mk/tmp/{} \; |& tee /tmp/log | less
 
@@ -429,6 +430,11 @@ string="$val world"
 #whether BASH version matching
 if ((BASH_VERSINFO[0] < 4)); then echo "Sorry, you need at least bash-4.0 to run this script." >&2; exit 1; fi
 
+ffmpeg -i default.mp4 -metadata title="my title" -codec copy output.mp4 
+
+#console web browser w3m with duck-duck-go ddgr
+env BROWSER=w3m ddgr -n 2
+
 #How to get back unused disk space from Ubuntu on WSL2?
 #Path to disk image
 %USERPROFILE%\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\
@@ -566,6 +572,7 @@ echo
 
 #ddgr
 BROWSER=w3m ddgr query
+BROWSER=w3m ddgr -n2
 
 my_number=5
 fixed_length=4
@@ -620,9 +627,27 @@ bfs -maxdepth 1  -type f  -iname '*.torrent'  -not -exec test -f {}.txt \;  -pri
 type
 
 #find duplicate files
-fdupes
+#-c cache
+#-d delete dupes
+#-N no prompt for delete
+fdupes -c -d -N .
 
 #build from source with ability to delete
 sudo apt install checkinstall
 cd ~/vim
 sudo checkinstall
+
+rmlint
+
+icdiff
+
+tldr htmlq
+tldr xmllint
+
+~/.cargo/bin/htmlq --pretty --filename ./index.html.1.html -o index.2.html
+
+#get only deepest dir
+basename "$(pwd)"
+
+#sponge #moreutils
+cat test.txt | sponge test.txt
