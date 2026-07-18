@@ -258,3 +258,9 @@ Additionally, |i_CTRL-X_CTRL-Z| stops completion without changing the text.
 
 #font Putty context menu
 Ctrl + Mouse Right Click
+
+"sort by 4th column values as numbers(n)
+sort n /^\(\S\+\s\+\)\{3\}\/
+
+" Check file modification date 
+echo strftime("%Y-%m-%d %H:%M:%S", getftime(expand("%")))
