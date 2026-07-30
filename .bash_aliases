@@ -557,7 +557,8 @@ gdb_alias()
 alias d="gdb_alias"
 alias mc1="make clean; make"
 alias mc="pushd build; make clean; make; pushd;"
-alias ta="tmux attach"
+
+alias ta="if ! tmux attach ; then tmux; fi"
 
 alias vim="env LC_ALL=en_US.utf8 vim"
 alias vimp="env LC_ALL=en_US.utf8 CSENABLED=true vim"
