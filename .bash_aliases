@@ -150,7 +150,7 @@ findxad ()
     -maxdepth ${7-99} \
     \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*"  -o -path "*/#recycle" \) -prune -o \
     -type d \
-    \( -not -ipath "*${6-zzzzzzzzzz}*" -not -iname "*${5-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*" \) \) 
+    \( -not -ipath "*${6-zzzzzzzzzz}*" -not -iname "*${5-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*" \) \) \
         -exec du -h {} \; \
     | sort -t$'\t' -k2,2 
 }
@@ -557,7 +557,8 @@ gdb_alias()
 alias d="gdb_alias"
 alias mc1="make clean; make"
 alias mc="pushd build; make clean; make; pushd;"
-alias ta="tmux attach"
+
+alias ta="if ! tmux attach ; then tmux; fi"
 
 alias vim="env LC_ALL=en_US.utf8 vim"
 alias vimp="env LC_ALL=en_US.utf8 CSENABLED=true vim"

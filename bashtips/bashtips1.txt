@@ -652,4 +652,11 @@ basename "$(pwd)"
 #sponge #moreutils
 cat test.txt | sponge test.txt
 
+#YouTube fzf
 ytfzf
+
+#sort 
+#--debug - show chunks of line that Sorting
+#-k6rb,6 - sort 6th column in reverse(r) order and ignore blanks(b) in separator that usually works as prefix for field
+#than sort by 4th and 1st columns
+sort --debug -k6rb,6 -k4b,4 -k1b,1 ships.txt > /tmp/1.txt
