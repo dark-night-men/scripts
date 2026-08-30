@@ -1,4 +1,6 @@
 #!/bin/bash
+# set -euxo pipefail
+# set -exo pipefail
 
 
 export LC_ALL=en_US.utf8
@@ -17,6 +19,8 @@ fi
 
 EXCLUDED_DIRS=~/tmp/excluded_dirs.txt
 unset EXCLUDED_EXPR
+
+shopt -s extglob
 
 if [ -f $EXCLUDED_DIRS ]; then
 
@@ -51,14 +55,14 @@ SKIPPED_FILES="$AUTOTMPDIR"/skipped_files.txt
 #find output example:
 #1330.915044     344M    /mnt/c/Users/serge/Videos/!heap/South Park/16 Sezon/04. Jewpacabra.avi
 
-COMMAND="find ${@-.} -type f -size +800M -regextype egrep -iregex '.*\.(wmv|mkv|avi|mp4|mpg|flv)' -not -iregex '^.*_New\....$' $EXCLUDED_EXPR -print0"
+COMMAND="find ${@-.} -type f -size +800M -regextype egrep -iregex '.*\.(wmv|mkv|avi|mp4|mpg|flv)' -not -iregex '^.*_New([1-9][0-9])?\....$' $EXCLUDED_EXPR -print0"
 
 while IFS= read -r -d $'\0'; do
 
     STRIPPED_ARG_PATH=$(printf '%q' "${REPLY%.*}")
     REPLY_EXTENSION="${REPLY##*.}"
 
-    NEW_FILES="${STRIPPED_ARG_PATH}"_New\.{wmv,mkv,avi,mp4,mpg,flv}
+    NEW_FILES="${STRIPPED_ARG_PATH}_New?([1-9][0-9])\.{wmv,mkv,avi,mp4,mpg,flv}"
 
     if ! [ $(eval "ls -1  $NEW_FILES 2>/dev/null"  | wc -l) -gt 0 ]; then
 
