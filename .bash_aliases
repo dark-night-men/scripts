@@ -332,8 +332,9 @@ find /home/zerg/export/DiskStation/video2/queue_books \
 
 fz_help ()
 {
-    echo alias fz_d="findw_zd"      \#find DIR in WSL among ZTORRENT exclude CART
-    echo alias fz_v=findw_z         \#find WSL among ZTORRENT exclude CART
+    echo alias fz_d=findw_zd        \#find DIR in WSL among ZTORRENT exclude CART
+    echo alias fz_v=findw_z         \#find WSL among ZTORRENT excluding CART
+    echo alias fz_va=findw_za       \#find WSL among ZTORRENT including CART
     echo alias fz_c=findw_zdc       \#find DIR in WSL CART
 }
 
@@ -388,7 +389,7 @@ findw_zd0 ()
 }
 
 alias fz_v=findw_z
-#find WSL among ZTORRENT exclude CART
+#find WSL among ZTORRENT excluding CART
 findw_z ()
 {
     printf '%s\n' $1 1>&2
@@ -405,6 +406,24 @@ findw_z ()
         -exec du -h {} \; \
     | sort -t$'\t' -k2,2 
 }
+
+alias fz_va=findw_za
+#find WSL among ZTORRENT including CART
+findw_za ()
+{
+    printf '%s\n' $1 1>&2
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!ZTORRENT/ \
+        /mnt/d/\!D_VIDEO/ \
+        /mnt/e/\!E_VIDEO/ \
+        /mnt/f/\!F_VIDEO/ \
+        -regextype egrep  -iregex "^.*($1${2:+|$2}${3:+|$3}${4:+|$4}).*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"\
+        -exec du -h {} \; \
+    | sort -t$'\t' -k2,2 
+}
+
 
 #find WSL among ZTORRENT exclude CART. Using -print0 in find for zero-separated lines.
 findw_z0 ()
@@ -557,6 +576,7 @@ gdb_alias()
 alias d="gdb_alias"
 alias mc1="make clean; make"
 alias mc="pushd build; make clean; make; pushd;"
+alias mcb="make clean; bear -- make;"
 
 alias ta="if ! tmux attach ; then tmux; fi"
 
@@ -944,10 +964,11 @@ ren_sx ()
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
     find -type f -regextype egrep -iregex '^.*/!+[^/]+' \
-    -exec rename  -v 's%(/!+([A-Z]|[0-9]){3,3})(!([A-Z]|[0-9]){3,3})+%\1_%' {} \+ \
-    -exec rename  -v 's%(/[^/_]+)__([^/]+)%\1_\2%' {} \+ \
+    -exec rename  -v 's%(/!+[^!/]{3,11})(![^!/]{3,11})*(![^!/]{3,3})%\1%' {} \+ \
+    -exec rename  -v 's%(/[^/_]+)__([^/]+)%\1\2%' {} \+ \
     |& tee ~/tmp/rename_stripex.log
 }
+
 
 ren_dsx ()
 {
