@@ -181,6 +181,7 @@ g<
 
 "check hotkey/shortcut keyboard mapping
 :verbose imap <C-g>
+:verbose nmap ,cf
 
 "Omni completion
 <C-X> <C-O>
@@ -264,3 +265,32 @@ sort n /^\(\S\+\s\+\)\{3\}\/
 
 " Check file modification date 
 echo strftime("%Y-%m-%d %H:%M:%S", getftime(expand("%")))
+
+"Regisetrs tip"
+Types of Registers
+Register	Type	Description / Behavior
+""	Unnamed	Default register. 
+                        Stores the last yanked or deleted text.
+
+"0	Yank	        Stores the most recent yank. Persistent even if you delete text afterward.
+"1 to "9	
+        Numbered	History of line deletions. "1 is newest; old cuts shift down the stack.
+
+"-	Small Delete	Stores any deletion shorter than one full line.
+"ato"z  Named Custom slots. 
+                        Lowercase overwrites; Uppercase ("A to "Z) appends text.
+
+"+ / "*	Clipboard	Connects to the system clipboard for copying/pasting outside Vim.
+"_	Black Hole	Completely discards text. Prevents altering your default registers.
+"/	Search	        Contains the last searched pattern.
+":	Command	        Contains the last executed Ex command.
+".	Last Insert	Contains the last text typed in Insert mode.
+"%	File Name	Contains the path of the current file.
+"="	Expression	Math/string evaluation register. Pressing it prompts for an expression.
+
+"vim as File browser
+:Ex Vex Sex
+
+"For bash,zsh,ksh or dash, add to the config file (.bashrc,.zshrc, ...)
+export MANPAGER="vim +MANPAGER --not-a-term -"
+
