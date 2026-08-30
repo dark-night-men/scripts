@@ -969,7 +969,6 @@ ren_sx ()
     |& tee ~/tmp/rename_stripex.log
 }
 
-
 ren_dsx ()
 {
 
