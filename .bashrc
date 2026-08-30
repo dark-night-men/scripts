@@ -156,3 +156,5 @@ fi
 
 # GRC_ALIASES=true
 # [[ -s "/etc/profile.d/grc.sh" ]] && source /etc/profile.d/grc.sh
+
+export MANPAGER="vim +MANPAGER --not-a-term -"
