@@ -294,3 +294,5 @@ Register	Type	Description / Behavior
 "For bash,zsh,ksh or dash, add to the config file (.bashrc,.zshrc, ...)
 export MANPAGER="vim +MANPAGER --not-a-term -"
 
+"swap windows in vimdiff"
+Ctrl + w,x
