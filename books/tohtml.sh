@@ -10,4 +10,9 @@ echo "arg 1 $1"
 #/usr/bin/txt2html --infile "$1" --outfile "$1.html" 
 
 #/usr/bin/ebook-convert "$1" "$1.htmlz" --pretty-print --enable-heuristics 
-/usr/bin/ebook-convert "$1" "$1.htmlz" --pretty-print --enable-heuristics --embed-font-family  'Monofur NF'
+/usr/bin/ebook-convert "$1" "$1.htmlz" \
+--change-justification left \
+--pretty-print \
+--enable-heuristics \
+--language ru \
+--embed-font-family  'Comfortaa'
