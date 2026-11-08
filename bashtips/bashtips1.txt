@@ -660,3 +660,38 @@ ytfzf
 #-k6rb,6 - sort 6th column in reverse(r) order and ignore blanks(b) in separator that usually works as prefix for field
 #than sort by 4th and 1st columns
 sort --debug -k6rb,6 -k4b,4 -k1b,1 ships.txt > /tmp/1.txt
+
+ffplay -vf eq=gamma=1.5:saturation=1.3 mubr.mkv 
+
+#read filenames from file
+while IFS=  read -r -d $'\n'; do
+    # echo Line "$REPLY"
+    
+    ESCAPED_NAME=$(printf '%q' "$REPLY")
+
+    # eval "file $ESCAPED_NAME"
+    eval "cp -v $ESCAPED_NAME $PWD/data"
+
+done < "$1"
+
+#create zip file from pipe, then check and print data from archive
+date | zip jeff.zip -
+unzip -l jeff.zip
+unzip -p jeff.zip
+
+#filter stderr (to file, for example)
+cat /non-existant 2> >(tee out.log >&2)
+cat /non-existant 2> >(tr o X >&2)
+
+
+#fill array from string
+STR="1,2,3,4,5"
+IFS="," read -r -a numbers <<< "$STR"
+
+for n in "${numbers[@]}"; do
+  echo "$n"
+done
+
+#rm 1st element
+array=("${array[@]:1}") #removed the 1st element
+
