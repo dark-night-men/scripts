@@ -1,3 +1,6 @@
+readonly VIDEO_FILES_EXTENSIONS_CONST_REGEX="(avi|mov|mkv|mp4|mpg|flv|wmv|ts)"
+
+
 alias sudo="env LC_ALL=en_US.utf8 sudo"
 alias src="source"
 alias srca="src ~/.bash_aliases"
@@ -208,7 +211,7 @@ find /home/zerg/export/DiskStation/video2/download /home/zerg/export/DiskStation
     -maxdepth ${5-99} \
     \( -path "*/*series*/*" -o -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" -o -path "/home/zerg/export/DiskStation/video2/#recycle" \) -prune -o \
     \( -regextype egrep  \
-    -iregex "^.*$1.*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$" -type f -print \)
+    -iregex "^.*$1.*\.${VIDEO_FILES_EXTENSIONS_CONST_REGEX}$" -type f -print \)
 }
 
 findxmd ()
@@ -273,18 +276,18 @@ findn2 ()
     echo $1
     printf '\n'
 
-    #find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* -type d \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \( -type f -regextype egrep -regex "^.*\.(avi|mkv|mp4|mpg|flv)$"  -cnewer "$1" -exec stat  -c "%n %y" {} \;  \) -print
+    #find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* -type d \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \( -type f -regextype egrep -regex "^.*\.(avi|mov|mkv|mp4|mpg|flv)$"  -cnewer "$1" -exec stat  -c "%n %y" {} \;  \) -print
 
-    #find "$1" -type d \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \( -type f -regextype egrep -regex "^.*\.(avi|mkv|mp4|mpg|flv)$"  -cnewer "$TimeStampFile" -exec stat  -c "%n %y" {} \;  \) -print
+    #find "$1" -type d \( -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" \) -prune -o \( -type f -regextype egrep -regex "^.*\.(avi|mov|mkv|mp4|mpg|flv)$"  -cnewer "$TimeStampFile" -exec stat  -c "%n %y" {} \;  \) -print
 
-    #find "$@"  \( -type f -regextype egrep -regex "^.*\.(avi|mkv|mp4|mpg|flv)$"  -cnewer "$TimeStampFile" -exec stat  -c "%n %y" {} \;  \) -print
+    #find "$@"  \( -type f -regextype egrep -regex "^.*\.(avi|mov|mkv|mp4|mpg|flv)$"  -cnewer "$TimeStampFile" -exec stat  -c "%n %y" {} \;  \) -print
 
-    #OK#find $1 -type f -regextype egrep -regex "^.*\.(avi|mkv|mp4|mpg|flv)$"  -cnewer "$TimeStampFile" -printf "%T+\t%p\n"
+    #OK#find $1 -type f -regextype egrep -regex "^.*\.(avi|mov|mkv|mp4|mpg|flv)$"  -cnewer "$TimeStampFile" -printf "%T+\t%p\n"
 
     find $1 \
         -type d \( -path "*/.Trash-1000/*" -o -path "*/@eaDir/*" -o -path "/home/zerg/export/DiskStation/video2/#recycle" \) -prune -o \
         \( \
-            -type f -regextype egrep -regex "^.*\.(avi|mkv|mp4|mpg|flv)$" \
+            -type f -regextype egrep -regex "^.*\.(avi|mov|mkv|mp4|mpg|flv)$" \
             -cnewer "$TimeStampFile" \
         \) \
         -printf "%T+\t%p\n" \
@@ -335,7 +338,9 @@ fz_help ()
     echo alias fz_d=findw_zd        \#find DIR in WSL among ZTORRENT exclude CART
     echo alias fz_v=findw_z         \#find WSL among ZTORRENT excluding CART
     echo alias fz_va=findw_za       \#find WSL among ZTORRENT including CART
-    echo alias fz_c=findw_zdc       \#find DIR in WSL CART
+    echo alias fz_c=findw_zcd       \#find DIR in WSL CART
+    echo alias fz_cf=findw_zcf      \#find FILE in WSL CART
+    echo alias fz_cz=findw_zcz      \#find ZIP  in WSL CART
 }
 
 alias fz_d=findw_zd
@@ -357,9 +362,9 @@ findw_zd ()
     | sort -t$'\t' -k2,2 
 }
 
-alias fz_c=findw_zdc
+alias fz_c=findw_zcd
 #find DIR in WSL CART
-findw_zdc ()
+findw_zcd ()
 {
     printf '%s\n' $1 1>&2
 
@@ -369,8 +374,43 @@ findw_zdc ()
         /mnt/d/\!D_VIDEO/\!ZTORRENT/\!MOVCRT_DIR \
         /mnt/e/\!E_VIDEO/\!ZTORRENT/\!CART_DIR \
         /mnt/f/\!F_VIDEO/\!Z_TORRENT/\!F_CART_DIR \
-        -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) -print
+        -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) \
+        -exec du -h {} \; \
+        | sort -t$'\t' -k2,2 
 }
+
+alias fz_cf=findw_zcf
+#find FILE in WSL CART
+findw_zcf ()
+{
+    printf '%s\n' $1 1>&2
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!ZTORRENT/\!CART \
+        /mnt/d/\!D_VIDEO/\!ZTORRENT/\!MOVCRT_DIR \
+        /mnt/e/\!E_VIDEO/\!ZTORRENT/\!CART_DIR \
+        /mnt/f/\!F_VIDEO/\!Z_TORRENT/\!F_CART_DIR \
+        -type f \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \) -print
+}
+
+alias fz_cz=findw_zcz
+#find ZIP file in WSL CART
+findw_zcz ()
+{
+    printf '%s\n' $1 1>&2
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find /mnt/c/Users/serge/Videos/\!ZTORRENT/\!CART \
+        /mnt/d/\!D_VIDEO/\!ZTORRENT/\!MOVCRT_DIR \
+        /mnt/e/\!E_VIDEO/\!ZTORRENT/\!CART_DIR \
+        /mnt/f/\!F_VIDEO/\!Z_TORRENT/\!F_CART_DIR \
+        -type f -name '*.zip' -exec du -h {} \; \
+        | sort -t$'\t' -k2,2 
+}
+
+
 
 #find DIR in WSL among ZTORRENT exclude CART. Using -print0 in find for zero-separated lines.
 findw_zd0 ()
@@ -402,7 +442,7 @@ findw_z ()
         /mnt/f/\!F_VIDEO/ \
         -ipath '*/\!CART_DIR/*' \
         -prune -o \
-        -regextype egrep  -iregex "^.*($1${2:+|$2}${3:+|$3}${4:+|$4}).*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"\
+        -regextype egrep  -iregex "^.*($1${2:+|$2}${3:+|$3}${4:+|$4}).*\.${VIDEO_FILES_EXTENSIONS_CONST_REGEX}$"\
         -exec du -h {} \; \
     | sort -t$'\t' -k2,2 
 }
@@ -419,7 +459,7 @@ findw_za ()
         /mnt/d/\!D_VIDEO/ \
         /mnt/e/\!E_VIDEO/ \
         /mnt/f/\!F_VIDEO/ \
-        -regextype egrep  -iregex "^.*($1${2:+|$2}${3:+|$3}${4:+|$4}).*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"\
+        -regextype egrep  -iregex "^.*($1${2:+|$2}${3:+|$3}${4:+|$4}).*\.${VIDEO_FILES_EXTENSIONS_CONST_REGEX}$"\
         -exec du -h {} \; \
     | sort -t$'\t' -k2,2 
 }
@@ -478,7 +518,7 @@ findw_vd ()
     find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
         -type d \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*"  \)\
         -print0 \
-        | parallel -0 -I % "find % -type f -regextype egrep  -iregex '^.*\.(avi|mkv|mp4|mpg|flv|wmv|ts)' -exec du -h {} \;" \
+        | parallel -0 -I % "find % -type f -regextype egrep  -iregex '^.*\.${VIDEO_FILES_EXTENSIONS_CONST_REGEX}' -exec du -h {} \;" \
         | sort -t$'\t' -k2,2 
 }
 
@@ -491,8 +531,8 @@ findw_v ()
     env LC_ALL=en_US.utf8 time --format='%E' \
         \
     find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
-    -regextype egrep  -iregex "^.*($1${2:+|$2}${3:+|$3}${4:+|$4}).*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"
-    # -type f -regextype egrep  -iregex "^.*($1)\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"
+    -regextype egrep  -iregex "^.*($1${2:+|$2}${3:+|$3}${4:+|$4}).*\.${VIDEO_FILES_EXTENSIONS_CONST_REGEX}$"
+    # -type f -regextype egrep  -iregex "^.*($1)\.${VIDEO_FILES_EXTENSIONS_CONST_REGEX}$"
 }
 
 fw_help ()
@@ -512,10 +552,10 @@ findw_va ()
         \
     find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
     -regextype egrep\
-    -iregex "^.*$1.*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"\
-    ${2:+ -iregex "^.*$2.*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"} \
-    ${3:+ -iregex "^.*$3.*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"} \
-    ${4:+ -iregex "^.*$4.*\.(avi|mkv|mp4|mpg|flv|wmv|ts)$"} 
+    -iregex "^.*$1.*\.${VIDEO_FILES_EXTENSIONS_CONST_REGEX}$"\
+    ${2:+ -iregex "^.*$2.*\.${VIDEO_FILES_EXTENSIONS_CONST_REGEX}$"} \
+    ${3:+ -iregex "^.*$3.*\.${VIDEO_FILES_EXTENSIONS_CONST_REGEX}$"} \
+    ${4:+ -iregex "^.*$4.*\.${VIDEO_FILES_EXTENSIONS_CONST_REGEX}$"} 
 }
 
 #Find video files or dirs strictly with only specified name
@@ -528,7 +568,7 @@ findw_vs ()
     find /mnt/c/Users/serge/Videos/\!heap/ /mnt/{d,e,f}/\!heap/ \
     -regextype egrep\
     \( \
-    \( -type f -iregex ".*/$1\.(avi|mkv|mp4|mpg|flv|wmv|ts)$" \) \
+    \( -type f -iregex ".*/$1\.${VIDEO_FILES_EXTENSIONS_CONST_REGEX}$" \) \
     -or \( -type d -iregex ".*/${1}$" \) \
         \)
 }
@@ -721,7 +761,7 @@ enhcp ()
 
             echo $OUTPUT_FILE
 
-            magick -enhance -equalize -contrast "$0" "$OUTPUT_FILE"
+            magick  "$0" -enhance -equalize -contrast "$OUTPUT_FILE"
         ' {} \; \
     |& tee /tmp/imag_enh.log
 
@@ -969,6 +1009,18 @@ ren_sx ()
     |& tee ~/tmp/rename_stripex.log
 }
 
+ren_sxl ()
+{
+
+    env LC_ALL=en_US.utf8 time --format='%E' \
+        \
+    find "$PWD" -type f -regextype egrep -iregex '^.*/!+[^/]+' \
+    -exec rename  -v 's%(/!+[^!/]{3,11})(![^!/]{3,11})*(![^!/]{3,3})%\1%' {} \+ \
+    -exec rename  -v 's%(/[^/_]+)__([^/]+)%\1\2%' {} \+ \
+    |& tee ~/tmp/rename_stripex.log
+}
+
+
 ren_dsx ()
 {
 
@@ -1117,3 +1169,15 @@ tortxt_upd ()
 #audio reduce
 alias au_red="find -iname '*.ac3' -exec ~/scripts/video_tools/audio.sh {} \; |& tee audio_reduce.log"
 alias ext_red="~/scripts/video_tools/dump_all_metadata.sh ; ~/scripts/video_tools/ext_series.sh . ; au_red;"
+
+#find zip, unzip and delete archive to dir with archive's name, dont overwrite extracted files
+fzudl ()
+{
+    find . -type f -iname '*.zip' -exec bash -c ' unzip -O utf8 -n -d "${0%.*}" "$0" ' {} \; -delete
+}
+
+#find zip and unzip archive to dir with archive's name, dont overwrite extracted files
+fzu ()
+{
+    find . -type f -iname '*.zip' -exec bash -c ' unzip -O utf8 -n -d "${0%.*}" "$0" ' {} \;
+}
