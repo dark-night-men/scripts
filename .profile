@@ -92,7 +92,13 @@ fi
 if [[ -d /usr/local/share/vim/vim91 ]] ; then
     export VIMRUNTIME=/usr/local/share/vim/vim91
 # else
-#     echo /usr/local/share/vim/vim90 does not exist
+#     echo /usr/local/share/vim/vim91 does not exist
+fi
+
+if [[ -d /usr/local/share/vim/vim92 ]] ; then
+    export VIMRUNTIME=/usr/local/share/vim/vim92
+# else
+#     echo /usr/local/share/vim/vim92 does not exist
 fi
 
 export VISUAL=vim  #Ctrl-x Ctrl-e edit cmd line in vim
