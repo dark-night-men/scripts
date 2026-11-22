@@ -55,31 +55,35 @@ SKIPPED_FILES="$AUTOTMPDIR"/skipped_files.txt
 #find output example:
 #1330.915044     344M    /mnt/c/Users/serge/Videos/!heap/South Park/16 Sezon/04. Jewpacabra.avi
 
-COMMAND="find ${@-.} -type f -size +800M -regextype egrep -iregex '.*\.(wmv|mkv|avi|mp4|mpg|flv)' -not -iregex '^.*_New([1-9][0-9])?\....$' $EXCLUDED_EXPR -print0"
+COMMAND="find ${@-.} -type f -size +200M -regextype egrep -iregex '.*\.(wmv|mov|mkv|avi|mp4|mpg|flv)' -not \( -iregex '^.*_New([1-9][0-9])?\....$' -o -name '*.scaled.*' -o -name '*.no_scaling.*' -o -name '*.CRF_*' \)  $EXCLUDED_EXPR -print0"
 
 while IFS= read -r -d $'\0'; do
 
     STRIPPED_ARG_PATH=$(printf '%q' "${REPLY%.*}")
     REPLY_EXTENSION="${REPLY##*.}"
 
-    NEW_FILES="${STRIPPED_ARG_PATH}_New?([1-9][0-9])\.{wmv,mkv,avi,mp4,mpg,flv}"
+    NEW_FILES="${STRIPPED_ARG_PATH}_New?([1-9][0-9])\.{wmv,mov,mkv,avi,mp4,mpg,flv} ${STRIPPED_ARG_PATH}.?(scaled|no_scaling|CRF_)*.{wmv,mkv,avi,mp4,mpg,flv}"
+
+
+    FILE_DURATION_IN_SEC=$( ffprobe -i "$REPLY" -show_entries format=duration -v quiet -of csv="p=0")
+
+    FILE_SIZE=$(du -sh "$REPLY"|awk '{print $1}')
+    FILE_SIZE_IN_BYTES=$(echo "$FILE_SIZE"|numfmt --from iec)
+
+    RATIO=$( echo "scale=2; $FILE_SIZE_IN_BYTES*3600/$FILE_DURATION_IN_SEC" | bc | numfmt --to iec )
+    FILE_DURATION_HUMAN_RE=$(date -d@"$FILE_DURATION_IN_SEC" -u +%H:%M:%S)
 
     if ! [ $(eval "ls -1  $NEW_FILES 2>/dev/null"  | wc -l) -gt 0 ]; then
 
-        FILE_DURATION_IN_SEC=$( ffprobe -i "$REPLY" -show_entries format=duration -v quiet -of csv="p=0")
 
-        FILE_SIZE=$(du -sh "$REPLY"|awk '{print $1}')
-        FILE_SIZE_IN_BYTES=$(echo "$FILE_SIZE"|numfmt --from iec)
 
-        RATIO=$( echo "scale=2; $FILE_SIZE_IN_BYTES*3600/$FILE_DURATION_IN_SEC" | bc | numfmt --to iec )
-        FILE_DURATION_HUMAN_RE=$(date -d@"$FILE_DURATION_IN_SEC" -u +%H:%M:%S)
 
         printf "%s %s %s %s\n" $RATIO $FILE_SIZE $FILE_DURATION_HUMAN_RE "$REPLY" >> $TEMPFILE
 
     else
 
-        du -sh "$REPLY" >> $SKIPPED_FILES
-        eval "du -sh $NEW_FILES 2>/dev/null" >> $SKIPPED_FILES
+        printf "%s %s %s %s\n" $RATIO $FILE_SIZE $FILE_DURATION_HUMAN_RE "$REPLY" >> $SKIPPED_FILES
+        eval "du -sh $NEW_FILES 2>/dev/null" | sed -re 's|\t|          |' -e 's|^|     |' >> $SKIPPED_FILES
 
         printf '\n' >> $SKIPPED_FILES
     fi
