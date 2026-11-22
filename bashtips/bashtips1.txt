@@ -695,3 +695,7 @@ done
 #rm 1st element
 array=("${array[@]:1}") #removed the 1st element
 
+#keep unique lines only and keep lines order
+awk '!seen[$0]++' ins.txt > ins_new.txt
+awk '!seen[$0]++' ins.txt | sponge ins.txt
+h|grep awk | tail >> ~/bashtips/bashtips1.txt 
