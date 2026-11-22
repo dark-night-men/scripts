@@ -185,9 +185,14 @@ findxm ()
         \
     find /home/zerg/export/DiskStation/video2 /home/zerg/export/DiskStation/video*/movies_proxy* \
     -maxdepth ${7-99} \
+    -regextype egrep \
     \( -path "*/*series*/*" -o -path "*/@eaDir/*" -o -path "*/.Trash-1000/*" -o -path "*/queue_books/*" -o -path "*/#recycle" \) -prune -o \
-    \( -type f -o -type d \) \
-    \( -not -ipath "*${6-zzzzzzzzzz}*" -not -iname "*${5-zzzzzzzzzzzzz}*" \( -iname "*$1*" -o -iname "*${2-$1}*" -o -iname "*${3-$1}*" -o -iname "*${4-$1}*" \) \) -print
+    \( -not -ipath "*${6-zzzzzzzzzz}*" -not -iname "*${5-zzzzzzzzzzzzz}*" \) \
+    \( \
+        \( -type f  -iregex "^.*($1${2:+|$2}${3:+|$3}${4:+|$4}).*\.${VIDEO_FILES_EXTENSIONS_CONST_REGEX}$"  \) \
+        -o \( -type d  -iregex "^.*($1${2:+|$2}${3:+|$3}${4:+|$4}).*"  \) \
+    \) \
+    -print
 }
 
 findxm0 ()
